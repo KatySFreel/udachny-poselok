@@ -1,7 +1,8 @@
-:HL["/udachny-poselok/_next/static/chunks/3d3gvoz0lgy4d.css","style"]
+:HL["/udachny-poselok/_next/static/chunks/072x57qxlrf5f.css","style"]
+:HL["/udachny-poselok/_next/static/chunks/1gqt3xsmsne0r.css","style"]
 :HL["/udachny-poselok/fonts/Evolventa-Regular.woff","font",{"crossOrigin":"anonymous","type":"font/woff"}]
 :HL["/udachny-poselok/fonts/manrope-cyrillic-wght-normal.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
 :HL["/udachny-poselok/fonts/playfair-display-cyrillic-400-italic.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
-0:{"b":"0998oe6ojfW0SNv-dy0b-","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"n79_0CVmgKVAAgH7s0WaC","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
