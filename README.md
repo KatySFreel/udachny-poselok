@@ -5,10 +5,10 @@
 Статическая версия для GitHub Pages:
 
 ```sh
-PAGES_PREVIEW=1 NEXT_PUBLIC_FORM_TEST=1 NEXT_PUBLIC_BASE_PATH=/udachny-poselok-preview PREVIEW_URL=https://katysfreel.github.io npm run build
+PAGES_PREVIEW=1 NEXT_PUBLIC_FORM_TEST=1 NEXT_PUBLIC_BASE_PATH=/udachny-poselok PREVIEW_URL=https://katysfreel.github.io npm run build
 ```
 
-Готовые файлы будут в `out/`. Готовые файлы публикуются в корне ветки `main` репозитория `KatySFreel/udachny-poselok-preview` с файлом `.nojekyll`. На статическом предпросмотре формы имитируют отправку, а поисковым роботам передаётся `noindex`.
+Готовые файлы будут в `out/`. Готовые файлы публикуются в корне ветки `gh-pages` репозитория `KatySFreel/udachny-poselok` с файлом `.nojekyll`. На статическом предпросмотре формы имитируют отправку, а поисковым роботам передаётся `noindex`.
 
 Для основного сайта задайте `SITE_URL` с финальным адресом и используйте обычную серверную сборку `npm run build`. Канонический адрес и карта сайта будут строиться из `SITE_URL`. Квиз использует `QUIZ_WEBHOOK_URL`, если переменная задана на сервере. Перед индексацией нужно завершить внутренние страницы и подключить реальную отправку форм.
 
