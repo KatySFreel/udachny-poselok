@@ -90,9 +90,10 @@
 .consent input[aria-invalid="true"] { border-color: var(--rose); }
 .consent input:disabled { opacity: .5; cursor: default; }
 .consent a { text-decoration: none; text-underline-offset: .14em; }
-.consent a:is(:hover, :focus-visible) { text-decoration: underline; }
+.consent a:focus-visible { text-decoration: underline; }
 
-@media (hover: hover) {
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .consent a:hover { text-decoration: underline; }
   .field input:hover:not(:disabled, :focus, [aria-invalid="true"]),
   .consent:hover input:not(:disabled, :checked, [aria-invalid="true"]) {
     border-color: var(--pink-light);
@@ -155,7 +156,10 @@
   color: inherit;
 }
 .close img { width: calc(15.5 * var(--form-unit)); height: auto; }
-.close:hover { background: var(--brown-10); }
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .close:hover { background: var(--brown-10); }
+}
 .close:focus-visible { outline-offset: 0; }
 
 .intro {

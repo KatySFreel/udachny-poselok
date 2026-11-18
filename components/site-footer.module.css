@@ -71,10 +71,18 @@
 
 .address span { display: block; }
 
-.map:is(:hover, :focus-visible) .address {
+.map:focus-visible .address {
   color: var(--brown);
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .map:hover .address {
+    color: var(--brown);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 }
 
 .panel {
@@ -160,10 +168,18 @@
 
 .panel a { text-decoration: none; }
 
-.panel :is(.links, .addressLinks, .legal) a:is(:hover, :focus-visible) {
+.panel :is(.links, .addressLinks, .legal) a:focus-visible {
   color: var(--cream);
   text-decoration: underline;
   text-underline-offset: 0.16em;
+}
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .panel :is(.links, .addressLinks, .legal) a:hover {
+    color: var(--cream);
+    text-decoration: underline;
+    text-underline-offset: 0.16em;
+  }
 }
 
 .socials {
@@ -182,7 +198,11 @@
   transition: background-color var(--hover-duration) ease;
 }
 
-.socials a:is(:hover, :focus-visible) { background: var(--pink); }
+.socials a:focus-visible { background: var(--pink); }
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .socials a:hover { background: var(--pink); }
+}
 .socials a > img { width: 100%; height: auto; }
 
 .rutube {

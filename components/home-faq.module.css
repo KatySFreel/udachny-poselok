@@ -74,8 +74,16 @@
 .item[open] .icon::before { opacity: 0; }
 .item[open] .icon::after { opacity: 1; }
 
-.summary:is(:hover, :focus-visible) .question { color: var(--brown); }
-.summary:is(:hover, :focus-visible) .icon { background: var(--red); color: var(--cream); }
+.summary:focus-visible .question { color: var(--brown); }
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .summary:hover .question { color: var(--brown); }
+}
+.summary:focus-visible .icon { background: var(--red); color: var(--cream); }
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .summary:hover .icon { background: var(--red); color: var(--cream); }
+}
 
 .answer {
   min-block-size: 0;

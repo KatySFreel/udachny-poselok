@@ -1,11 +1,3 @@
-@font-face {
-  font-family: Evolventa;
-  src: url("../public/fonts/Evolventa-Regular.woff") format("woff");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
 :root {
   --cream: #fffaee;
   --pink-light: #fff3ea;
@@ -57,29 +49,36 @@
     dialog[open]::backdrop { opacity: 0; }
   }
 
-  .hero__background { overflow: hidden; }
-  .hero__background img { animation: home-cover-enter 1250ms ease-out both; }
+  .hero:not([data-hero-ready]) :is(.hero__background img, .hero__content > *) {
+    animation: home-cover-wait 1ms step-end 4s backwards;
+  }
 
-  .hero__content > *,
+  .hero[data-hero-ready="true"] .hero__background img { animation: home-cover-enter 1050ms ease-out both; }
+
+  .hero[data-hero-ready="true"] .hero__content > *,
   .home [data-motion="entering"] {
     animation: home-enter 850ms cubic-bezier(0.25, 0.75, 0.25, 1) backwards;
   }
 
-  .hero__content > h1 { animation-delay: 130ms; }
-  .hero__content > p { animation-delay: 280ms; }
-  .hero__content > .hero__actions { animation-delay: 430ms; }
+  .hero[data-hero-ready="true"] .hero__content > h1 { animation-delay: 130ms; }
+  .hero[data-hero-ready="true"] .hero__content > p { animation-delay: 280ms; }
+  .hero[data-hero-ready="true"] .hero__content > .hero__actions { animation-delay: 430ms; }
 
   .home [data-motion="waiting"]:not(:target, :focus-within) {
     opacity: 0;
     translate: 0 28px;
   }
 
-  .hero__content > :focus-within,
+  .hero .hero__content > :focus-within,
   .home [data-motion]:is(:target, :focus-within) { animation: none; }
 }
 
 @media (width >= 1024px) and (prefers-reduced-motion: no-preference) {
-  .hero__offers:not(:focus-within) {
+  .hero:not([data-hero-ready]) .hero__offers:not(:focus-within) {
+    animation: home-cover-wait 1ms step-end 4s backwards;
+  }
+
+  .hero[data-hero-ready="true"] .hero__offers:not(:focus-within) {
     animation: home-enter 850ms cubic-bezier(0.25, 0.75, 0.25, 1) 360ms backwards;
   }
 }
@@ -90,8 +89,13 @@
 }
 
 @keyframes home-cover-enter {
-  from { opacity: .65; scale: 1.045; }
+  from { opacity: 0; scale: 1.025; }
   to { opacity: 1; scale: 1; }
+}
+
+@keyframes home-cover-wait {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -204,8 +208,10 @@ summary::-webkit-details-marker { display: none; }
 
 .header-phone { transition: text-decoration-color var(--hover-duration) ease, color var(--header-theme-duration) ease; }
 
-.nav-list a:hover,
-.header-phone:hover { text-decoration-color: currentColor; }
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .nav-list a:hover,
+  .header-phone:hover { text-decoration-color: currentColor; }
+}
 
 .nav-group { position: relative; }
 
@@ -259,10 +265,21 @@ summary::-webkit-details-marker { display: none; }
   transition: background-color var(--hover-duration) ease;
 }
 
-.header-consultation:hover,
-.mobile-menu__panel > button:hover { background: var(--red); }
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .header-consultation:hover,
+  .mobile-menu__panel > button:hover { background: var(--red); }
+}
 
 .mobile-menu { display: none; }
+.mobile-menu__close {
+  display: none;
+  width: 18px;
+  height: 18px;
+  background: var(--cream);
+  mask: url("../public/icons/quiz/close.svg") center / contain no-repeat;
+}
+.mobile-menu[open] > summary img { display: none; }
+.mobile-menu[open] > summary .mobile-menu__close { display: block; }
 
 .hero { position: relative; }
 
@@ -281,7 +298,8 @@ summary::-webkit-details-marker { display: none; }
   position: absolute;
   z-index: -1;
   inset: 0;
-  background-color: #574032;
+  overflow: hidden;
+  background: #574032 var(--hero-poster) center / cover no-repeat;
 }
 
 .hero__background img {
@@ -345,7 +363,9 @@ summary::-webkit-details-marker { display: none; }
   --action-icon-bg: var(--cream);
 }
 
-.action--primary:not(:disabled):hover { background: var(--rose); }
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .action--primary:not(:disabled):hover { background: var(--rose); }
+}
 .action--primary:disabled { background: var(--pink); }
 .action--primary:disabled .action__icon img { content: url("../public/icons/arrow-primary-disabled.svg"); }
 
@@ -356,8 +376,11 @@ summary::-webkit-details-marker { display: none; }
 }
 
 .action--light.action--with-arrow { color: var(--red); }
-.action--light:not(:disabled):hover { color: var(--red); }
-.action--light.action--with-arrow:not(:disabled):hover { background: var(--pink-light); }
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .action--light:not(:disabled):hover { color: var(--red); }
+  .action--light.action--with-arrow:not(:disabled):hover { background: var(--pink-light); }
+}
 .action--light:disabled {
   color: var(--brown-25);
   --action-icon-bg: var(--brown-10);
@@ -454,10 +477,18 @@ summary::-webkit-details-marker { display: none; }
     text-underline-offset var(--hover-duration) ease;
 }
 
-.offer-card:is(:hover, :focus-visible) .offer-card__link {
+.offer-card:focus-visible .offer-card__link {
   color: inherit;
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
+}
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .offer-card:hover .offer-card__link {
+    color: inherit;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
 }
 
 .form-field {
@@ -567,7 +598,7 @@ summary::-webkit-details-marker { display: none; }
     inset: calc(-1 * var(--submenu-gap)) 0 100%;
   }
 
-  .header-nav .nav-group:is(:hover, :has(> button:focus-visible), :has(.nav-group__links :focus))
+  .header-nav .nav-group:is(:has(> button:focus-visible), :has(.nav-group__links :focus))
     > .nav-group__links {
     visibility: visible;
     opacity: 1;
@@ -575,8 +606,23 @@ summary::-webkit-details-marker { display: none; }
     transition-delay: 0s;
   }
 
-  .header-nav .nav-group:is(:hover, :has(> button:focus-visible), :has(.nav-group__links :focus))
+  @media (width >= 768px) and (hover: hover) and (pointer: fine) {
+    .header-nav .nav-group:hover
+        > .nav-group__links {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      transition-delay: 0s;
+    }
+  }
+
+  .header-nav .nav-group:is(:has(> button:focus-visible), :has(.nav-group__links :focus))
     > .nav-group__trigger::after { transform: translateY(1px) rotate(225deg); }
+
+  @media (width >= 768px) and (hover: hover) and (pointer: fine) {
+    .header-nav .nav-group:hover
+        > .nav-group__trigger::after { transform: translateY(1px) rotate(225deg); }
+  }
 
   .hero__screen {
     min-height: clamp(640px, 100svh, 1280px);
@@ -653,8 +699,13 @@ summary::-webkit-details-marker { display: none; }
     transform: none;
   }
 
-  .header-nav .nav-group:is(:hover, :has(> button:focus-visible), :has(.nav-group__links :focus))
+  .header-nav .nav-group:is(:has(> button:focus-visible), :has(.nav-group__links :focus))
     > .nav-group__trigger::after { transform: rotate(180deg); }
+
+  @media (width >= 768px) and (hover: hover) and (pointer: fine) {
+    .header-nav .nav-group:hover
+        > .nav-group__trigger::after { transform: rotate(180deg); }
+  }
 
   .header-phone__number { display: none; }
 
@@ -678,7 +729,7 @@ summary::-webkit-details-marker { display: none; }
   .hero__offers .offer-card__photo--installment img { object-fit: fill; }
 }
 
-@media (min-width: 1024px) and (hover: none) {
+@media (min-width: 1024px) and ((hover: none) or (pointer: coarse)) {
   .header-nav .nav-group:focus-within > .nav-group__links {
     visibility: visible;
     opacity: 1;
@@ -799,7 +850,7 @@ summary::-webkit-details-marker { display: none; }
   .offer-card h2 { font-size: 16px; }
   .offer-card h2 span { display: inline; }
   .offer-card__link { color: var(--brown); font-size: 14px; }
-  .offer-card:is(:hover, :focus-visible) .offer-card__link { color: var(--red); }
+  .offer-card:focus-visible .offer-card__link { color: var(--red); }
 }
 
 @media (max-width: 366px) {

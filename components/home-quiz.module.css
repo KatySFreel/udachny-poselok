@@ -145,7 +145,7 @@
 .option input[type="radio"]:checked { background-image: url("../public/icons/quiz/circle-checked.svg"); background-size: 83%; }
 .option:focus-within { color: var(--brown); }
 
-@media (hover: hover) {
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
   .option:hover input[type="checkbox"]:not(:disabled, :checked) { background-image: url("../public/icons/quiz/square-hover.svg"); }
   .option:hover input[type="radio"]:not(:disabled, :checked) { background-image: url("../public/icons/quiz/circle-hover.svg"); }
 }
@@ -159,7 +159,9 @@
   background-color: var(--brown);
 }
 
-.next :global(.action:not(:disabled):hover) { background-color: var(--brown-muted); }
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .next :global(.action:not(:disabled):hover) { background-color: var(--brown-muted); }
+}
 .next :global(.action:disabled) { background-color: var(--brown-25); }
 .next :global(.action:not(:disabled) .action__icon img) { content: url("../public/icons/settlement-catalog-arrow.svg"); }
 

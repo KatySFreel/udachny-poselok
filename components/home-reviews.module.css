@@ -47,15 +47,18 @@
 }
 
 .controls button:first-child::before { transform: rotate(225deg); }
-.controls button:last-child:hover { background: var(--rose); }
-.controls button:first-child:hover { background: var(--pink-light); }
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .controls button:last-child:hover { background: var(--rose); }
+  .controls button:first-child:hover { background: var(--pink-light); }
+}
 
 .viewport {
   margin-block: var(--review-spacing);
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   scroll-padding-inline: var(--content-inset);
-  scroll-snap-type: x proximity;
+  scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
 
@@ -101,6 +104,7 @@
   font-size: var(--review-font-size);
   line-height: 1.2;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .featured {
@@ -174,13 +178,32 @@
 
 .rating strong { color: var(--red); }
 
+.autoplay {
+  min-height: 24px;
+  padding: 0 8px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .autoplay { display: none; }
+}
+
 .footer a {
   font-size: calc(20 * var(--section-unit));
   text-underline-offset: 2px;
   transition: color var(--hover-duration) ease;
 }
 
-.footer a:is(:hover, :focus-visible) { color: var(--red); }
+.footer a:focus-visible { color: var(--red); }
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .footer a:hover { color: var(--red); }
+}
 
 @media (width >= 1024px) {
   .heading em { display: inline; }

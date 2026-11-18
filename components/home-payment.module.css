@@ -57,14 +57,28 @@
   text-wrap: pretty;
 }
 
-.card:is(:hover, :focus-visible) .arrow {
+.card:focus-visible .arrow {
   background-color: var(--red);
   color: var(--cream);
 }
 
-.card:is(:hover, :focus-visible) h3 {
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .card:hover .arrow {
+    background-color: var(--red);
+    color: var(--cream);
+  }
+}
+
+.card:focus-visible h3 {
   opacity: 1;
   text-decoration-color: currentColor;
+}
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .card:hover h3 {
+    opacity: 1;
+    text-decoration-color: currentColor;
+  }
 }
 
 @media (width > 1280px) {

@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { canonicalUrl, indexable, metadataBase } from "../lib/site-metadata";
 import { sitePath } from "../lib/site-path";
-import "@fontsource-variable/manrope";
-import "@fontsource/playfair-display/cyrillic-400-italic.css";
-import "@fontsource/playfair-display/latin-400-italic.css";
+import { SiteFonts } from "../components/site-fonts";
+import "./hero-poster.css";
 import "./globals.css";
 
 const pageTitle = "Удачный посёлок — дома и участки в Ленинградской области";
@@ -35,6 +34,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ru">
+      <head>
+        <SiteFonts />
+        <noscript>
+          <style>{".hero .hero__background img, .hero .hero__content > *, .hero .hero__offers { animation: none !important; }"}</style>
+        </noscript>
+      </head>
       <body>{children}</body>
     </html>
   );

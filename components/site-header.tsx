@@ -78,6 +78,7 @@ export function SiteHeader({ coverId }: { coverId: string }) {
           <details className="mobile-menu">
             <summary aria-label="Меню">
               <img src={sitePath("/icons/menu.svg")} alt="" width={20.6667} height={18} />
+              <span className="mobile-menu__close" aria-hidden="true" />
             </summary>
             <div className="mobile-menu__panel">
               <Navigation label="Мобильная навигация" mobile />

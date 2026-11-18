@@ -1,7 +1,7 @@
 "use client";
 
 import { siteSrcSet, sitePath } from "../lib/site-path";
-import { useLayoutEffect, useRef, type KeyboardEvent } from "react";
+import { useLayoutEffect, useRef, useState, type KeyboardEvent } from "react";
 import { reviews, reviewsSource } from "../content/reviews";
 import shared from "./settlements.module.css";
 import styles from "./home-reviews.module.css";
@@ -43,6 +43,8 @@ export function HomeReviews() {
   const carousel = useRef<HTMLDivElement>(null);
   const viewport = useRef<HTMLDivElement>(null);
   const move = useRef<(direction: number) => void>(() => {});
+  const changeAutoplay = useRef<(paused: boolean) => void>(() => {});
+  const [paused, setPaused] = useState(false);
 
   useLayoutEffect(() => {
     if (!viewport.current || !carousel.current) return;
@@ -52,9 +54,12 @@ export function HomeReviews() {
     if (!row) return;
     const [before, original] = Array.from(row.children) as HTMLElement[];
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const canHover = window.matchMedia("(width >= 768px) and (hover: hover) and (pointer: fine)");
     let cycle = 0;
     let inView = false;
     let touching = false;
+    let hovered = false;
+    let pausedByUser = false;
     let target: number | undefined;
     let autoplayTimer: number;
     let settleTimer: number;
@@ -79,9 +84,9 @@ export function HomeReviews() {
 
     function schedule() {
       window.clearTimeout(autoplayTimer);
-      if (!inView || motion.matches || document.hidden) return;
+      if (!inView || pausedByUser || hovered || touching || motion.matches || document.hidden) return;
       autoplayTimer = window.setTimeout(() => {
-        if (!touching && !slider.matches(":hover") && !slider.querySelector(":focus-visible")) {
+        if (!slider.querySelector(":focus-visible")) {
           advance(1);
         } else {
           schedule();
@@ -107,6 +112,7 @@ export function HomeReviews() {
     function onTouchStart() {
       target = undefined;
       touching = true;
+      schedule();
     }
 
     function onTouchEnd() {
@@ -114,7 +120,22 @@ export function HomeReviews() {
       schedule();
     }
 
+    function onPointerMove(event: PointerEvent) {
+      if (hovered || !canHover.matches || event.pointerType !== "mouse") return;
+      hovered = true;
+      schedule();
+    }
+
+    function onPointerLeave() {
+      hovered = false;
+      schedule();
+    }
+
     move.current = advance;
+    changeAutoplay.current = (value) => {
+      pausedByUser = value;
+      schedule();
+    };
     measure();
     const resize = new ResizeObserver(measure);
     resize.observe(row);
@@ -127,13 +148,15 @@ export function HomeReviews() {
     rail.addEventListener("touchstart", onTouchStart, { passive: true });
     rail.addEventListener("touchend", onTouchEnd);
     rail.addEventListener("touchcancel", onTouchEnd);
-    slider.addEventListener("mouseleave", schedule);
+    rail.addEventListener("pointermove", onPointerMove);
+    rail.addEventListener("pointerleave", onPointerLeave);
     slider.addEventListener("focusout", schedule);
     document.addEventListener("visibilitychange", schedule);
     motion.addEventListener("change", schedule);
 
     return () => {
       move.current = () => {};
+      changeAutoplay.current = () => {};
       window.clearTimeout(autoplayTimer);
       window.clearTimeout(settleTimer);
       resize.disconnect();
@@ -142,7 +165,8 @@ export function HomeReviews() {
       rail.removeEventListener("touchstart", onTouchStart);
       rail.removeEventListener("touchend", onTouchEnd);
       rail.removeEventListener("touchcancel", onTouchEnd);
-      slider.removeEventListener("mouseleave", schedule);
+      rail.removeEventListener("pointermove", onPointerMove);
+      rail.removeEventListener("pointerleave", onPointerLeave);
       slider.removeEventListener("focusout", schedule);
       document.removeEventListener("visibilitychange", schedule);
       motion.removeEventListener("change", schedule);
@@ -184,6 +208,10 @@ export function HomeReviews() {
           <strong>{reviewsSource.rating}</strong> <span>из 5 на Яндекс Картах</span>
         </p>
         <a href={reviewsSource.href}>Читать все отзывы</a>
+        <button type="button" className={styles.autoplay} onClick={() => {
+          setPaused(!paused);
+          changeAutoplay.current(!paused);
+        }}>{paused ? "Возобновить автопрокрутку" : "Приостановить автопрокрутку"}</button>
       </div>
     </section>
   );

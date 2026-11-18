@@ -145,9 +145,16 @@
   .grid .catalog { min-height: 0; }
   .catalogSlot { margin-block-start: 16px; }
 
-  .grid .catalog:is(:hover, :focus-visible) :global(.action) {
+  .grid .catalog:focus-visible :global(.action) {
     background: var(--rose);
     color: var(--cream);
+  }
+
+  @media (width >= 768px) and (hover: hover) and (pointer: fine) {
+    .grid .catalog:hover :global(.action) {
+      background: var(--rose);
+      color: var(--cream);
+    }
   }
 
   .readyAction :global(.action) {

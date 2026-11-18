@@ -74,7 +74,9 @@
   transition: color var(--hover-duration) ease, background-color var(--hover-duration) ease;
 }
 
-.chip:not([aria-pressed="true"]):not(:disabled):hover { color: var(--rose); }
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .chip:not([aria-pressed="true"]):not(:disabled):hover { color: var(--rose); }
+}
 
 .chip[aria-pressed="true"] {
   background: var(--red);
@@ -247,15 +249,33 @@
 
 .priceRow p { transition: opacity var(--hover-duration) ease; }
 
-.card:is(:hover, :focus-visible) .cardTitle {
+.card:focus-visible .cardTitle {
   opacity: 1;
   text-decoration-color: currentColor;
 }
 
-.card:is(:hover, :focus-visible) .priceRow p { opacity: 1; }
-.card:is(:hover, :focus-visible) .arrow {
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .card:hover .cardTitle {
+    opacity: 1;
+    text-decoration-color: currentColor;
+  }
+}
+
+.card:focus-visible .priceRow p { opacity: 1; }
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .card:hover .priceRow p { opacity: 1; }
+}
+.card:focus-visible .arrow {
   background: var(--red);
   color: var(--cream);
+}
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .card:hover .arrow {
+    background: var(--red);
+    color: var(--cream);
+  }
 }
 
 @media (width > 1280px) {

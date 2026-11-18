@@ -58,10 +58,18 @@
   font-size: calc(24 * var(--section-unit));
 }
 
-.catalogCard:is(:hover, :focus-visible) :global(.action) {
+.catalogCard:focus-visible :global(.action) {
   background: var(--pink-light);
   color: var(--red);
   --action-icon-bg: var(--cream);
+}
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .catalogCard:hover :global(.action) {
+    background: var(--pink-light);
+    color: var(--red);
+    --action-icon-bg: var(--cream);
+  }
 }
 
 @media (width < 1024px) {
@@ -91,8 +99,15 @@
     font-size: 14px;
   }
 
-  .catalogCard:is(:hover, :focus-visible) :global(.action) {
+  .catalogCard:focus-visible :global(.action) {
     background: var(--rose);
     color: var(--cream);
+  }
+
+  @media (width >= 768px) and (hover: hover) and (pointer: fine) {
+    .catalogCard:hover :global(.action) {
+      background: var(--rose);
+      color: var(--cream);
+    }
   }
 }

@@ -124,11 +124,21 @@
   transition: text-decoration-color var(--hover-duration) ease;
 }
 
-.more:is(:hover, :focus-visible) {
+.more:focus-visible {
   --action-icon-bg: var(--cream);
 }
 
-.more:is(:hover, :focus-visible) .moreLabel { text-decoration-color: currentColor; }
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .more:hover {
+    --action-icon-bg: var(--cream);
+  }
+}
+
+.more:focus-visible .moreLabel { text-decoration-color: currentColor; }
+
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .more:hover .moreLabel { text-decoration-color: currentColor; }
+}
 
 @media (1024px <= width <= 1280px) {
   .panel {
