@@ -42,7 +42,10 @@ export default function SettlementCatalogPage() {
       <SiteHeader coverId={coverId} />
       <main id="settlements-main">
         <section className={`shell ${styles.cover}`} id={coverId} data-cover-motion aria-labelledby="settlements-title">
-          <img src={sitePath(cover)} srcSet={coverSources} sizes="(max-width: 1023px) calc(100vw - 40px), (max-width: 1920px) 96vw, 1840px" alt="" fetchPriority="high" />
+          <picture>
+            <source media="(max-width: 767px)" srcSet={sitePath("/images/settlements/catalog-cover-1024.webp")} />
+            <img src={sitePath(cover)} srcSet={coverSources} sizes="(max-width: 1023px) calc(100vw - 40px), (max-width: 1920px) 96vw, 1840px" alt="" fetchPriority="high" />
+          </picture>
           <h1 id="settlements-title">Коттеджные <em>посёлки</em></h1>
         </section>
         <section className={settlementStyles.section} data-catalog aria-labelledby="settlements-for-sale">

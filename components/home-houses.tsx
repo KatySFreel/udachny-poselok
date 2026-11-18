@@ -17,7 +17,7 @@ export function HomeHouses() {
             {houseProjects.map(house => <li key={house.slug}><HouseCard house={house} /></li>)}
             <li className={styles.catalogSlot}>
               <CatalogCard
-                href={sitePath("/doma")}
+                href="/doma"
                 label="Смотреть все проекты домов"
                 title="Посмотреть все проекты домов"
                 imageDirectory="/images/houses"

@@ -73,15 +73,17 @@ function SettlementGallery({ settlement }: { settlement: CompletedSettlement }) 
           onScrollEnd={() => { target.current = null; }}
         >
           {photos.map((number, index) => (
-            <img
-              key={number}
-              src={sitePath(`${photoDirectory}/${settlement.slug}-${number}.webp`)}
-              alt={`Посёлок ${settlement.name}, фото ${number}`}
-              aria-hidden={index !== active || undefined}
-              decoding="async"
-              draggable={false}
-              data-settlement={settlement.slug}
-            />
+            <picture key={number} data-settlement={settlement.slug}>
+              <source media="(max-width: 767px)" srcSet={sitePath(`${photoDirectory}/${settlement.slug}-${number}-768.webp`)} />
+              <img
+                src={sitePath(`${photoDirectory}/${settlement.slug}-${number}.webp`)}
+                alt={`Посёлок ${settlement.name}, фото ${number}`}
+                aria-hidden={index !== active || undefined}
+                fetchPriority={index === 0 ? "high" : "low"}
+                decoding="async"
+                draggable={false}
+              />
+            </picture>
           ))}
         </div>
         <p className={styles.sold}>Все участки проданы</p>

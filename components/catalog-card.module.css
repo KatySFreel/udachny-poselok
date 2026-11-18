@@ -90,7 +90,7 @@
   .catalogIntro,
   .catalogCard :global(.action__icon) { display: none; }
 
-  .catalogCard :global(.action) {
+  .catalogCard :global(.action.action--with-arrow) {
     justify-content: center;
     min-height: 49px;
     padding: 16px 25px;
@@ -99,7 +99,7 @@
     font-size: 14px;
   }
 
-  .catalogCard:focus-visible :global(.action) {
+  .catalogCard:focus-visible :global(.action.action--with-arrow) {
     background: var(--rose);
     color: var(--cream);
   }

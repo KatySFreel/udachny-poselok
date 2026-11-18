@@ -49,13 +49,13 @@
     dialog[open]::backdrop { opacity: 0; }
   }
 
-  .hero:not([data-hero-ready]) :is(.hero__background img, .hero__content > *),
-  [data-cover-motion]:not([data-hero-ready]) > :is(img, h1:not(:target)) {
+  .hero:not([data-hero-ready]) .hero__content > *,
+  [data-cover-motion]:not([data-hero-ready]) > h1:not(:target) {
     animation: home-cover-wait 1ms step-end 4s backwards;
   }
 
   .hero[data-hero-ready="true"] .hero__background img,
-  [data-cover-motion][data-hero-ready="true"] > img { animation: home-cover-enter 1050ms ease-out both; }
+  [data-cover-motion][data-hero-ready="true"] > picture img { animation: home-cover-enter 1050ms ease-out both; }
 
   .hero[data-hero-ready="true"] .hero__content > *,
   [data-cover-motion][data-hero-ready="true"] > h1,
@@ -94,8 +94,8 @@
 }
 
 @keyframes home-cover-enter {
-  from { opacity: 0; scale: 1.025; }
-  to { opacity: 1; scale: 1; }
+  from { scale: 1.025; }
+  to { scale: 1; }
 }
 
 @keyframes home-cover-wait {

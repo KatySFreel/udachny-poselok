@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 function prepareHero(main: HTMLElement) {
   const hero = main.querySelector<HTMLElement>(".hero, [data-cover-motion]");
-  const image = hero?.querySelector<HTMLImageElement>(".hero__background img, :scope > img");
+  const image = hero?.querySelector<HTMLImageElement>(".hero__background img, :scope > picture img");
   const title = hero?.querySelector<HTMLElement>("h1");
   const emphasis = title?.querySelector("em");
   if (!hero || !image || !title || !emphasis) return;

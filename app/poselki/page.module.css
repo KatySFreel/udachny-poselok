@@ -19,6 +19,7 @@
   text-align: center;
 }
 
+.cover picture,
 .cover img,
 .cover::after {
   position: absolute;

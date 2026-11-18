@@ -44,7 +44,7 @@ export function HomeBlog() {
         }))}
         catalog={(
           <CatalogCard
-            href={sitePath("/blog")}
+            href="/blog"
             label="Смотреть все публикации"
             title="Посмотрите, что ещё мы подготовили для вас"
             imageDirectory={imageDirectory}

@@ -5,26 +5,53 @@
   --field-gap: 12px;
   --field-height: calc(73 * var(--section-unit));
   --field-inset: calc(32 * var(--section-unit));
+  --action-unit: var(--section-unit);
+  --inline-form-columns: repeat(2, minmax(0, 1fr));
 
   padding-block-end: var(--section-spacing);
 }
 
+.frame {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius);
+  background: var(--brown);
+}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 63% center;
+}
+
 .panel {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
   gap: var(--panel-padding);
   padding: var(--panel-padding);
   border-radius: var(--radius);
   background: var(--pink-light);
 }
 
-.photo { display: none; }
 .mobileDescriptionBreak { display: none; }
 
 .intro {
   display: grid;
+  justify-items: center;
   gap: var(--intro-gap);
+  text-align: center;
 }
 
 .intro h2 {
@@ -40,42 +67,26 @@
 }
 
 .intro p {
-  max-width: 542px;
+  max-width: 648px;
   color: var(--brown-muted);
   font-size: calc(24 * var(--section-unit));
   line-height: 1.2;
 }
 
-@media (width > 1280px) {
+@media (width > 1500px) {
   .frame {
-    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    padding: 12px;
     min-height: calc(695 * var(--section-unit));
-    border-radius: var(--radius);
-    background: var(--brown);
   }
 
-  .photo {
-    display: block;
-    border-radius: var(--radius);
-    background: var(--brown) url("../public/images/excursion-family.webp") right 94% / max(106.59%, calc(675 * var(--section-unit))) auto no-repeat;
-  }
-
-  .panel {
-    grid-template-columns: minmax(0, 1fr);
-    align-content: center;
-  }
-
-  .intro { text-align: center; }
-  .intro p { max-width: 648px; margin-inline: auto; }
+  .photo img { object-position: right 94%; }
 }
 
 @media (width < 1024px) {
   .section { padding-block-end: 126px; }
-  .panel { grid-template-columns: minmax(0, 1fr); }
-  .intro { justify-items: center; text-align: center; }
+  .frame { grid-template-columns: minmax(0, 1fr); }
+  .photo { height: 212px; }
+  .photo img { object-position: center 66%; }
 }
 
 @media (width < 768px) {
@@ -86,63 +97,15 @@
     --field-gap: 8px;
     --field-height: 44px;
     --field-inset: 24px;
+    --inline-form-columns: minmax(0, 1fr);
 
     padding-block-end: 100px;
   }
 
+  .photo { height: auto; aspect-ratio: 311 / 213; }
+  .photo img { object-position: center 92%; }
   .panel { gap: 32px; padding: 24px 16px; }
   .intro p { font-size: 14px; }
   .descriptionBreak { display: none; }
   .mobileDescriptionBreak { display: initial; }
-}
-
-.section[data-catalog] .frame {
-  display: grid;
-  gap: 12px;
-  padding: 12px;
-  border-radius: var(--radius);
-  background: var(--brown);
-}
-
-.section[data-catalog] .photo {
-  display: block;
-  border-radius: var(--radius);
-  background: var(--brown) url("../public/images/excursion-family.webp") center 66% / cover no-repeat;
-}
-
-.section[data-catalog] .panel {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-content: center;
-}
-
-.section[data-catalog] .intro { text-align: center; }
-.section[data-catalog] .intro p { margin-inline: auto; }
-
-@media (768px <= width) {
-  .section[data-catalog] { --inline-form-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (1024px <= width <= 1500px) {
-  .section[data-catalog] .frame { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
-  .section[data-catalog] .photo { background-position: 63% center; }
-}
-
-@media (width > 1500px) {
-  .section[data-catalog] .photo {
-    background-position: right 94%;
-    background-size: max(106.59%, calc(675 * var(--section-unit))) auto;
-  }
-}
-
-@media (768px <= width < 1024px) {
-  .section[data-catalog] .photo { height: 212px; }
-}
-
-@media (width < 768px) {
-  .section[data-catalog] .frame { padding: 0; background: transparent; }
-  .section[data-catalog] .photo {
-    aspect-ratio: 311 / 213;
-    background-position: center 92%;
-  }
 }
