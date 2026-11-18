@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { canonicalUrl, indexable, metadataBase } from "../lib/site-metadata";
 import { sitePath } from "../lib/site-path";
+import { FormSimulation } from "../components/form-simulation";
 import { SiteFonts } from "../components/site-fonts";
 import "./hero-poster.css";
 import "./globals.css";
@@ -37,10 +38,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <SiteFonts />
         <noscript>
-          <style>{".hero .hero__background img, .hero .hero__content > *, .hero .hero__offers { animation: none !important; }"}</style>
+          <style>{".hero .hero__background img, .hero .hero__content > *, .hero .hero__offers, [data-cover-motion] > :is(img, h1) { animation: none !important; }"}</style>
         </noscript>
       </head>
-      <body>{children}</body>
+      <body>
+        <FormSimulation>{children}</FormSimulation>
+      </body>
     </html>
   );
 }

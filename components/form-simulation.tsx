@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useState, type ReactNode } from "react";
 import styles from "./contact-form.module.css";
 
 type Outcome = "success" | "error";
@@ -12,27 +12,18 @@ export const submissionError = "Не удалось отправить заяв�
 
 export function FormSimulation({ children }: { children: ReactNode }) {
   const [outcome, setOutcome] = useState<Outcome>("success");
-  const [isLocalPreview, setIsLocalPreview] = useState(false);
-  const canTest = isLocalPreview || process.env.NODE_ENV === "development" || process.env.NEXT_PUBLIC_FORM_TEST === "1";
-
-  useEffect(() => {
-    setIsLocalPreview(["127.0.0.1", "localhost", "[::1]"].includes(window.location.hostname));
-  }, []);
-
   return (
-    <FormTest.Provider value={{ outcome, enabled: canTest }}>
+    <FormTest.Provider value={{ outcome, enabled: true }}>
       {children}
-      {canTest && (
-        <button
-          className={styles.testMode}
-          type="button"
-          aria-label="Имитировать ошибку отправки"
-          aria-pressed={outcome === "error"}
-          onClick={() => setOutcome((current) => current === "success" ? "error" : "success")}
-        >
-          Тест форм: {outcome === "success" ? "успех" : "ошибка"}
-        </button>
-      )}
+      <button
+        className={styles.testMode}
+        type="button"
+        aria-label="Имитировать ошибку отправки"
+        aria-pressed={outcome === "error"}
+        onClick={() => setOutcome((current) => current === "success" ? "error" : "success")}
+      >
+        Тест форм: {outcome === "success" ? "успех" : "ошибка"}
+      </button>
     </FormTest.Provider>
   );
 }

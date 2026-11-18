@@ -3,6 +3,7 @@
 .fields, .inputs { gap: var(--field-gap, 12px); }
 .fields { min-inline-size: 0; margin: 0; padding: 0; border: 0; }
 .form[data-layout="dialog"] .inputs { grid-template-columns: minmax(0, 374fr) minmax(0, 420fr); }
+.form[data-layout="inline"] .inputs { grid-template-columns: var(--inline-form-columns, minmax(0, 1fr)); }
 
 .field, .consentField {
   position: relative;
@@ -38,25 +39,43 @@
   transition: border-color var(--hover-duration) ease;
 }
 
-.phone input {
+.phone :global(.form-field) {
   --flag-size: calc(18 * var(--form-unit, 1px));
+  position: relative;
+}
+
+.phone :global(.form-field)::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: var(--field-inset, 32px);
+  inset-block-start: 50%;
+  width: var(--flag-size);
+  height: var(--flag-size);
+  translate: 0 -50%;
+  background: url("../public/icons/phone-flag-ru.svg") center / contain no-repeat;
+  pointer-events: none;
+}
+
+.phone input {
   padding-inline-start: calc(var(--field-inset, 32px) + var(--flag-size) + var(--phone-gap, .8em));
-  background: var(--cream) url("../public/icons/phone-flag-ru.svg") left var(--field-inset, 32px) center / var(--flag-size) no-repeat;
 }
 
 .field input::placeholder { color: var(--brown-muted); opacity: 1; }
 .field input:focus { outline: none; border-color: var(--brown-25); }
-.field input:focus-visible {
-  outline: 2px solid var(--brown-muted);
-  outline-offset: 2px;
-}
+.field input:focus-visible { border-color: var(--brown-muted); }
 .field input[aria-invalid="true"] { border-color: var(--rose); }
+.field input[aria-invalid="true"]:focus-visible { outline: 1px solid var(--rose); outline-offset: -2px; }
 .field input:disabled {
   color: var(--brown-25);
   opacity: 1;
   -webkit-text-fill-color: var(--brown-25);
 }
 .field input:disabled::placeholder { color: var(--brown-25); }
+
+@media (forced-colors: active) {
+  .field input:focus-visible,
+  .field input[aria-invalid="true"]:focus-visible { outline: 1px solid Highlight; outline-offset: 1px; }
+}
 
 .consent {
   display: flex;
@@ -105,6 +124,11 @@
   color: var(--red);
   font-size: calc(20 * var(--form-unit, var(--section-unit)));
   line-height: 1.2;
+}
+
+.successMessage {
+  color: var(--brown);
+  font-size: calc(20 * var(--section-unit));
 }
 
 .form :global(.action), .success :global(.action) { width: 100%; }
@@ -160,7 +184,7 @@
 @media (width >= 768px) and (hover: hover) and (pointer: fine) {
   .close:hover { background: var(--brown-10); }
 }
-.close:focus-visible { outline-offset: 0; }
+.close:focus-visible { background: var(--brown-10); }
 
 .intro {
   display: grid;
@@ -198,9 +222,10 @@
   font-size: 14px;
 }
 .testMode[aria-pressed="true"] { background: var(--pink); }
+.testMode:focus-visible { border-color: var(--brown); }
 
 @media (width > 1280px) {
-  .form[data-layout="inline"] .inputs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .form[data-layout="inline"] .inputs { grid-template-columns: var(--inline-form-columns, repeat(2, minmax(0, 1fr))); }
   .form[data-layout="inline"] .fields {
     align-content: start;
     min-height: calc(145 * var(--section-unit));
@@ -221,6 +246,13 @@
 
   .dialog:not(.success) { width: min(480px, calc(100% - 32px)); }
   .form[data-layout="dialog"] .inputs { grid-template-columns: minmax(0, 1fr); }
+  .form[data-layout="inline"] .fields { gap: 12px; }
+  .form[data-layout="inline"] :is(.field, .consentField) { padding-block-start: 0; }
+  .form[data-layout="inline"] .fieldError {
+    position: static;
+    margin-block-end: 4px;
+  }
+  .form[data-layout="inline"] .consent { gap: 16px; padding-inline-start: 4px; }
   .dialog .consent { gap: 12px; padding-inline-start: 0; }
   .intro { margin-block-end: 24px; }
   .intro h2 { font-size: clamp(22px, 6vw, 28px); }
@@ -235,6 +267,7 @@
     font-size: 14px;
   }
   .success :global(.action) { padding-inline: 12px; }
+  .form[data-layout="inline"] :global(.action) { padding-inline-start: 16px; }
   .form :global(.action__icon) { width: 72px; height: 36px; }
   .form :global(.action__icon) img { width: 20px; height: 20px; }
 }

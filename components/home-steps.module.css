@@ -42,8 +42,8 @@
 }
 
 .viewport:focus-visible {
-  outline: 2px solid var(--brown);
-  outline-offset: -2px;
+  outline: 1px solid var(--brown-muted);
+  outline-offset: -1px;
 }
 
 .stage[data-pinned="true"] .viewport {

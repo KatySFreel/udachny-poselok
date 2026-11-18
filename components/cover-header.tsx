@@ -11,11 +11,13 @@ export function CoverHeader({ coverId, children }: { coverId: string; children: 
     const header = headerRef.current;
     if (!cover || !header) return;
 
+    const page = header.parentElement;
     const lightPanels = Array.from(document.querySelectorAll('[data-header-theme="light"]'));
     let frame: number | null = null;
 
     const updateTheme = () => {
       frame = null;
+      page?.toggleAttribute("data-header-scrolled", window.scrollY >= 10);
       const headerBounds = header.getBoundingClientRect();
       const headerCenter = headerBounds.top + headerBounds.height / 2;
       const isOverLightHeaderPanel = lightPanels.some((panel) => {
@@ -29,9 +31,8 @@ export function CoverHeader({ coverId, children }: { coverId: string; children: 
       if (frame === null) frame = window.requestAnimationFrame(updateTheme);
     };
 
-    const home = header.closest<HTMLElement>(".home");
     const updateHeaderOffset = () => {
-      home?.style.setProperty("--site-header-bottom", `${Math.ceil(header.getBoundingClientRect().bottom)}px`);
+      page?.style.setProperty("--site-header-height", `${Math.ceil(header.getBoundingClientRect().height)}px`);
     };
     const resize = new ResizeObserver(() => {
       updateHeaderOffset();
@@ -44,7 +45,8 @@ export function CoverHeader({ coverId, children }: { coverId: string; children: 
 
     return () => {
       resize.disconnect();
-      home?.style.removeProperty("--site-header-bottom");
+      page?.removeAttribute("data-header-scrolled");
+      page?.style.removeProperty("--site-header-height");
       window.removeEventListener("scroll", scheduleUpdate);
       if (frame !== null) window.cancelAnimationFrame(frame);
     };

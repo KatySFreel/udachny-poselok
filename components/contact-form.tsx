@@ -12,14 +12,16 @@ export function ContactForm({
   submitLabel,
   layout = "dialog",
   onSuccess,
+  successMessage,
 }: {
   submitLabel: string;
   layout?: "dialog" | "inline";
-  onSuccess: () => void;
+  onSuccess?: () => void;
+  successMessage?: string;
 }) {
   const { outcome } = useContext(FormTest);
   const { validate, clearField, errorProps, fieldError } = useContactValidation();
-  const [status, setStatus] = useState<"ready" | "pending" | "error">("ready");
+  const [status, setStatus] = useState<"ready" | "pending" | "error" | "success">("ready");
   const formRef = useRef<HTMLFormElement>(null);
   const pending = status === "pending";
 
@@ -40,14 +42,14 @@ export function ContactForm({
       setStatus("error");
       return;
     }
-    setStatus("ready");
+    setStatus("success");
     form.reset();
-    onSuccess();
+    onSuccess?.();
   }
 
   function edit(event: FormEvent<HTMLFormElement>) {
     clearField((event.target as HTMLInputElement).name);
-    if (status === "error") setStatus("ready");
+    if (status === "error" || status === "success") setStatus("ready");
   }
 
   return (
@@ -55,24 +57,25 @@ export function ContactForm({
       <fieldset disabled={pending} aria-busy={pending} className={styles.fields}>
         <div className={styles.inputs}>
           <div className={styles.field}>
-            <TextField label="Имя" name="name" autoComplete="name" placeholder="Введите ваше имя" maxLength={120} required {...errorProps("name")} />
             {fieldError("name")}
+            <TextField label="Имя" name="name" autoComplete="name" placeholder="Введите ваше имя" maxLength={120} required {...errorProps("name")} />
           </div>
           <div className={`${styles.field} ${styles.phone}`}>
-            <PhoneField label="Телефон" name="phone" required {...errorProps("phone")} />
             {fieldError("phone")}
+            <PhoneField label="Телефон" name="phone" required {...errorProps("phone")} />
           </div>
         </div>
         <div className={styles.consentField}>
+          {fieldError("consent")}
           <label className={styles.consent}>
             <input type="checkbox" name="consent" required {...errorProps("consent")} />
             <span>Я даю согласие на обработку персональных данных и подтверждаю, что ознакомлен(а) с <a href={site.dataConsentHref} target="_blank" rel="noreferrer">Политикой обработки персональных данных</a></span>
           </label>
-          {fieldError("consent")}
         </div>
       </fieldset>
       {status === "error" && <p className={styles.error} role="alert">{submissionError}</p>}
       <ActionButton type="submit" arrow disabled={pending}>{pending ? "Отправляем…" : submitLabel}</ActionButton>
+      {status === "success" && successMessage && <p className={styles.successMessage} role="status">{successMessage}</p>}
       <noscript><p>Чтобы оставить заявку, позвоните <a href={site.phoneHref}>{site.phone}</a>.</p></noscript>
     </form>
   );

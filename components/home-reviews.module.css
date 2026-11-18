@@ -47,6 +47,7 @@
 }
 
 .controls button:first-child::before { transform: rotate(225deg); }
+.controls button:first-child:focus-visible { background: var(--pink-light); }
 
 @media (width >= 768px) and (hover: hover) and (pointer: fine) {
   .controls button:last-child:hover { background: var(--rose); }
@@ -60,11 +61,6 @@
   scroll-padding-inline: var(--content-inset);
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-}
-
-.viewport:focus-visible {
-  outline: 2px solid var(--brown);
-  outline-offset: -2px;
 }
 
 .row,
@@ -177,21 +173,6 @@
 }
 
 .rating strong { color: var(--red); }
-
-.autoplay {
-  min-height: 24px;
-  padding: 0 8px;
-  border: 0;
-  background: none;
-  color: inherit;
-  font-size: 14px;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .autoplay { display: none; }
-}
 
 .footer a {
   font-size: calc(20 * var(--section-unit));

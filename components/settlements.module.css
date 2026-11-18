@@ -43,6 +43,15 @@
   font-weight: 400;
 }
 
+.catalogHeading {
+  margin-block-start: 0;
+}
+
+.catalogHeading em {
+  display: inline;
+  color: var(--red);
+}
+
 .filters {
   display: flex;
   gap: 12px;
@@ -89,8 +98,9 @@
 }
 
 .chip:focus-visible {
-  outline-color: var(--brown);
-  outline-offset: 2px;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
 .resultStatus {
@@ -249,13 +259,27 @@
 
 .priceRow p { transition: opacity var(--hover-duration) ease; }
 
-.card:focus-visible .cardTitle {
+.completedCard .priceRow { margin-top: calc(12 * var(--section-layout-unit)); }
+.completedCard { position: relative; }
+
+.cardTrigger {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+}
+
+.card:focus-visible .cardTitle,
+.completedCard:has(.cardTrigger:focus-visible) .cardTitle {
   opacity: 1;
   text-decoration-color: currentColor;
 }
 
 @media (width >= 768px) and (hover: hover) and (pointer: fine) {
-  .card:hover .cardTitle {
+  :is(a.card, .completedCard:has(.cardTrigger)):hover .cardTitle {
     opacity: 1;
     text-decoration-color: currentColor;
   }
@@ -264,15 +288,16 @@
 .card:focus-visible .priceRow p { opacity: 1; }
 
 @media (width >= 768px) and (hover: hover) and (pointer: fine) {
-  .card:hover .priceRow p { opacity: 1; }
+  a.card:hover .priceRow p { opacity: 1; }
 }
-.card:focus-visible .arrow {
+.card:focus-visible .arrow,
+.completedCard:has(.cardTrigger:focus-visible) .arrow {
   background: var(--red);
   color: var(--cream);
 }
 
 @media (width >= 768px) and (hover: hover) and (pointer: fine) {
-  .card:hover .arrow {
+  :is(a.card, .completedCard:has(.cardTrigger)):hover .arrow {
     background: var(--red);
     color: var(--cream);
   }
@@ -295,6 +320,19 @@
   .photoBox { aspect-ratio: 440 / 600; }
 
   .tags li { padding: 12px 24px; }
+}
+
+@media (768px <= width < 1024px) {
+  .filters[data-wrap-on-tablet] {
+    flex-wrap: wrap;
+    max-width: 545px;
+    padding-inline: 12px;
+    overflow: visible;
+  }
+
+  .section[data-catalog] .adaptiveTag { max-width: 250px; }
+  .section[data-catalog] .fullLabel { display: inline; }
+  .section[data-catalog] .shortLabel { display: none; }
 }
 
 @media (width < 768px) {

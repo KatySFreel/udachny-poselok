@@ -1,4 +1,3 @@
-import { sitePath } from "../lib/site-path";
 import { settlements } from "../content/settlements";
 import { CatalogCard } from "./catalog-card";
 import { SettlementCard } from "./settlement-card";
@@ -22,7 +21,7 @@ export function HomeSettlements() {
         }))}
         catalogCard={
           <CatalogCard
-            href={sitePath("/poselki")}
+            href="/poselki"
             label="Смотреть все посёлки"
             title="Узнайте больше о посёлках"
             imageDirectory="/images/settlements"

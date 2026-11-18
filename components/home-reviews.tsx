@@ -1,7 +1,7 @@
 "use client";
 
 import { siteSrcSet, sitePath } from "../lib/site-path";
-import { useLayoutEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useLayoutEffect, useRef, type KeyboardEvent } from "react";
 import { reviews, reviewsSource } from "../content/reviews";
 import shared from "./settlements.module.css";
 import styles from "./home-reviews.module.css";
@@ -43,8 +43,6 @@ export function HomeReviews() {
   const carousel = useRef<HTMLDivElement>(null);
   const viewport = useRef<HTMLDivElement>(null);
   const move = useRef<(direction: number) => void>(() => {});
-  const changeAutoplay = useRef<(paused: boolean) => void>(() => {});
-  const [paused, setPaused] = useState(false);
 
   useLayoutEffect(() => {
     if (!viewport.current || !carousel.current) return;
@@ -59,7 +57,6 @@ export function HomeReviews() {
     let inView = false;
     let touching = false;
     let hovered = false;
-    let pausedByUser = false;
     let target: number | undefined;
     let autoplayTimer: number;
     let settleTimer: number;
@@ -84,7 +81,7 @@ export function HomeReviews() {
 
     function schedule() {
       window.clearTimeout(autoplayTimer);
-      if (!inView || pausedByUser || hovered || touching || motion.matches || document.hidden) return;
+      if (!inView || hovered || touching || motion.matches || document.hidden) return;
       autoplayTimer = window.setTimeout(() => {
         if (!slider.querySelector(":focus-visible")) {
           advance(1);
@@ -132,10 +129,6 @@ export function HomeReviews() {
     }
 
     move.current = advance;
-    changeAutoplay.current = (value) => {
-      pausedByUser = value;
-      schedule();
-    };
     measure();
     const resize = new ResizeObserver(measure);
     resize.observe(row);
@@ -156,7 +149,6 @@ export function HomeReviews() {
 
     return () => {
       move.current = () => {};
-      changeAutoplay.current = () => {};
       window.clearTimeout(autoplayTimer);
       window.clearTimeout(settleTimer);
       resize.disconnect();
@@ -190,9 +182,9 @@ export function HomeReviews() {
       <div ref={carousel}>
         <div className={styles.controls} role="group" aria-label="Навигация по отзывам">
           <button type="button" aria-controls="home-reviews-viewport" aria-label="Предыдущий отзыв" onClick={() => move.current(-1)} />
-          <button type="button" aria-controls="home-reviews-viewport" aria-label="Следующий отзыв" onClick={() => move.current(1)} />
+          <button type="button" className="carousel-arrow" aria-controls="home-reviews-viewport" aria-label="Следующий отзыв" onClick={() => move.current(1)} />
         </div>
-        <div ref={viewport} id="home-reviews-viewport" className={styles.viewport} role="group" aria-label="Отзывы покупателей" tabIndex={0} onKeyDown={onKeyDown}>
+        <div ref={viewport} id="home-reviews-viewport" className={`carousel-viewport ${styles.viewport}`} role="group" aria-label="Отзывы покупателей" tabIndex={0} onKeyDown={onKeyDown}>
           <div className={styles.row}>
             {["before", "original", "after"].map((copy) => (
               <ul key={copy} className={styles.slides} aria-hidden={copy !== "original" || undefined}>
@@ -208,10 +200,6 @@ export function HomeReviews() {
           <strong>{reviewsSource.rating}</strong> <span>из 5 на Яндекс Картах</span>
         </p>
         <a href={reviewsSource.href}>Читать все отзывы</a>
-        <button type="button" className={styles.autoplay} onClick={() => {
-          setPaused(!paused);
-          changeAutoplay.current(!paused);
-        }}>{paused ? "Возобновить автопрокрутку" : "Приостановить автопрокрутку"}</button>
       </div>
     </section>
   );

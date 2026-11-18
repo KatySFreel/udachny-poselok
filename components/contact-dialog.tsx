@@ -8,7 +8,7 @@ import { AnimatedDialog } from "./animated-dialog";
 import { ContactForm } from "./contact-form";
 import styles from "./contact-form.module.css";
 
-function CloseButton() {
+export function DialogCloseButton() {
   return (
     <form method="dialog">
       <button className={styles.close} type="submit" aria-label="Закрыть" autoFocus>
@@ -27,7 +27,7 @@ export function RequestSuccess({ ref }: { ref: RefObject<HTMLDialogElement | nul
       className={`${styles.dialog} ${styles.success}`}
       aria-labelledby={title}
     >
-      <CloseButton />
+      <DialogCloseButton />
       <div className={styles.intro}>
         <img src={sitePath("/icons/quiz/verified.svg")} alt="" width={28.927} height={31.8209} />
         <h2 id={title}>Спасибо!</h2>
@@ -45,7 +45,7 @@ export function ConsultationDialog() {
   return (
     <>
       <AnimatedDialog data-contact-dialog id={consultationId} ref={dialog} className={styles.dialog} aria-labelledby="consultation-title" onClose={() => reset((version) => version + 1)}>
-        <CloseButton />
+        <DialogCloseButton />
         <div className={styles.intro}>
           <h2 id="consultation-title">{consultationTitle}</h2>
           <p>Оставьте имя и телефон. Мы перезвоним и ответим на вопросы о покупке участка, готового дома или строительстве.</p>

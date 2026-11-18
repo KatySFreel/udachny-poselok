@@ -10,9 +10,13 @@ type FilterId = (typeof filters)[number]["id"];
 export function SettlementFilterGrid({
   cards,
   catalogCard,
+  wrapOnTablet = false,
+  resultsId = "home-settlement-results",
 }: {
   cards: readonly { id: string; districtId: string; content: ReactNode }[];
-  catalogCard: ReactNode;
+  catalogCard?: ReactNode;
+  wrapOnTablet?: boolean;
+  resultsId?: string;
 }) {
   const [selected, setSelected] = useState<FilterId>("all");
   const visibleCards = selected === "all"
@@ -21,14 +25,14 @@ export function SettlementFilterGrid({
 
   return (
     <>
-      <div className={`${styles.filters} ${styles.scrollFilters}`} role="group" aria-label="Фильтр посёлков по району">
+      <div className={`${styles.filters} ${styles.scrollFilters}`} data-wrap-on-tablet={wrapOnTablet || undefined} role="group" aria-label="Фильтр посёлков по району">
         {filters.map(({ id, label }) => (
           <button
             className={styles.chip}
             key={id}
             type="button"
             aria-pressed={selected === id}
-            aria-controls="home-settlement-results"
+            aria-controls={resultsId}
             disabled={id !== "all" && !cards.some(({ districtId }) => districtId === id)}
             onClick={() => setSelected(id)}
           >
@@ -37,9 +41,9 @@ export function SettlementFilterGrid({
         ))}
       </div>
       <p className={styles.resultStatus} aria-live="polite">Найдено посёлков: {visibleCards.length}</p>
-      <ul className={`shell ${styles.grid}`} id="home-settlement-results">
+      <ul className={`shell ${styles.grid}`} id={resultsId}>
         {visibleCards.map(({ id, content }) => <li key={id}>{content}</li>)}
-        <li className={styles.catalog}>{catalogCard}</li>
+        {catalogCard && <li className={styles.catalog}>{catalogCard}</li>}
       </ul>
     </>
   );

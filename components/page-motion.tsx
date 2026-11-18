@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 
 function prepareHero(main: HTMLElement) {
-  const hero = main.querySelector<HTMLElement>(".hero");
-  const image = hero?.querySelector<HTMLImageElement>(".hero__background img");
+  const hero = main.querySelector<HTMLElement>(".hero, [data-cover-motion]");
+  const image = hero?.querySelector<HTMLImageElement>(".hero__background img, :scope > img");
   const title = hero?.querySelector<HTMLElement>("h1");
   const emphasis = title?.querySelector("em");
   if (!hero || !image || !title || !emphasis) return;
@@ -30,9 +30,9 @@ function prepareHero(main: HTMLElement) {
   };
 }
 
-export function HomeMotion() {
+export function PageMotion({ mainId }: { mainId: string }) {
   useEffect(() => {
-    const main = document.getElementById("home-main");
+    const main = document.getElementById(mainId);
     if (!main) return;
     const stopHero = prepareHero(main);
 
@@ -45,7 +45,7 @@ export function HomeMotion() {
     }, { rootMargin: "0px 0px -72px" });
 
     const elements = new Set<Element>(main.querySelectorAll("[data-reveal]"));
-    for (const section of main.querySelectorAll(":scope > section:not(.hero)")) {
+    for (const section of main.querySelectorAll(":scope > section:not(.hero, [data-cover-motion])")) {
       const headingId = section.getAttribute("aria-labelledby");
       const heading = headingId && document.getElementById(headingId);
       if (heading) elements.add(heading);
@@ -63,7 +63,7 @@ export function HomeMotion() {
       observer.disconnect();
       elements.forEach((element) => element.removeAttribute("data-motion"));
     };
-  }, []);
+  }, [mainId]);
 
   return null;
 }

@@ -34,11 +34,6 @@
   letter-spacing: -0.02em;
 }
 
-.summary:focus-visible {
-  outline: 2px solid var(--brown);
-  outline-offset: 3px;
-}
-
 .number { color: var(--red); font-weight: 200; }
 
 .question {

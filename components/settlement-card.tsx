@@ -1,5 +1,5 @@
 import { sitePath, siteSrcSet } from "../lib/site-path";
-import type { Settlement } from "../content/settlements";
+import type { CompletedSettlement, Settlement } from "../content/settlements";
 import styles from "./settlements.module.css";
 
 const priceFormatter = new Intl.NumberFormat("ru-RU");
@@ -9,18 +9,29 @@ function photoSources(src: string, width: number) {
   return `${src.replace(".webp", "-480.webp")} 480w, ${src} ${width}w`;
 }
 
-export function SettlementCard({ settlement }: { settlement: Settlement }) {
-  const { slug, name, location, price, highlights, widePhoto, photoWidth = 880 } = settlement;
-  const photo = `/images/settlements/${slug}.webp`;
+export function SettlementCard({
+  settlement,
+  onOpen,
+}: {
+  settlement: Settlement | CompletedSettlement;
+  onOpen?: () => void;
+}) {
+  const { slug, name, location } = settlement;
+  const listing = "price" in settlement ? settlement : undefined;
+  const { widePhoto, photoWidth = 880 } = listing ?? {};
+  const photo = listing
+    ? `/images/settlements/${slug}.webp`
+    : `/images/settlements/completed/${slug}.webp`;
+  const highlights = "year" in settlement ? [`${settlement.year} год`] : settlement.highlights;
 
-  return (
-    <a className={styles.card} href={sitePath(`/poselki/${slug}`)} aria-labelledby={`settlement-${slug}`}>
+  const content = (
+    <>
       <div className={styles.photoBox}>
         <picture className={styles.photo}>
           {widePhoto && (
             <source media="(width > 1280px)" srcSet={siteSrcSet(photoSources(widePhoto, 880))} sizes={photoSizes} />
           )}
-          <img src={sitePath(photo)} srcSet={siteSrcSet(photoSources(photo, photoWidth))} sizes={photoSizes} alt={`Коттеджный посёлок «${name}»`} loading="lazy" decoding="async" />
+          <img src={sitePath(photo)} srcSet={siteSrcSet(photoSources(photo, photoWidth))} sizes={photoSizes} alt={name} loading="lazy" decoding="async" />
         </picture>
         <ul className={styles.tags}>
           {highlights.map((highlight) => typeof highlight === "string" ? (
@@ -40,10 +51,29 @@ export function SettlementCard({ settlement }: { settlement: Settlement }) {
         </p>
         <h3 className={styles.cardTitle} id={`settlement-${slug}`}>{name}</h3>
         <div className={styles.priceRow}>
-          <p>От {priceFormatter.format(price)} ₽</p>
+          {listing && <p>От {priceFormatter.format(listing.price)} ₽</p>}
           <span className={styles.arrow} aria-hidden="true" />
         </div>
       </div>
+    </>
+  );
+
+  return listing ? (
+    <a className={styles.card} href={sitePath(`/poselki/${slug}`)} aria-labelledby={`settlement-${slug}`}>
+      {content}
     </a>
+  ) : (
+    <article className={`${styles.card} ${styles.completedCard}`} aria-labelledby={`settlement-${slug}`}>
+      {content}
+      {onOpen && (
+        <button
+          className={styles.cardTrigger}
+          type="button"
+          aria-labelledby={`settlement-${slug}`}
+          aria-haspopup="dialog"
+          onClick={onOpen}
+        />
+      )}
+    </article>
   );
 }

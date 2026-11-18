@@ -144,6 +144,7 @@
 .option input[type="radio"] { border-radius: 50%; background-image: url("../public/icons/quiz/circle-empty.svg"); background-size: 88%; }
 .option input[type="radio"]:checked { background-image: url("../public/icons/quiz/circle-checked.svg"); background-size: 83%; }
 .option:focus-within { color: var(--brown); }
+.option:has(input:focus-visible) span { text-decoration: underline; text-underline-offset: 3px; }
 
 @media (width >= 768px) and (hover: hover) and (pointer: fine) {
   .option:hover input[type="checkbox"]:not(:disabled, :checked) { background-image: url("../public/icons/quiz/square-hover.svg"); }
@@ -158,6 +159,8 @@
   width: 100%;
   background-color: var(--brown);
 }
+
+.next :global(.action:focus-visible) { background-color: var(--brown-muted); }
 
 @media (width >= 768px) and (hover: hover) and (pointer: fine) {
   .next :global(.action:not(:disabled):hover) { background-color: var(--brown-muted); }
@@ -238,6 +241,8 @@
   border: 0;
   background: transparent;
 }
+
+.close:focus-visible { border-radius: 6px; background: var(--brown-10); }
 
 .success { display: grid; justify-items: center; gap: 12px; text-align: center; font-size: var(--quiz-text-size); }
 

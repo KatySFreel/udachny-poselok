@@ -20,6 +20,7 @@
 }
 
 .photo { display: none; }
+.mobileDescriptionBreak { display: none; }
 
 .intro {
   display: grid;
@@ -91,8 +92,57 @@
 
   .panel { gap: 32px; padding: 24px 16px; }
   .intro p { font-size: 14px; }
+  .descriptionBreak { display: none; }
+  .mobileDescriptionBreak { display: initial; }
 }
 
-@media (width < 400px) {
-  .descriptionBreak { display: none; }
+.section[data-catalog] .frame {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius);
+  background: var(--brown);
+}
+
+.section[data-catalog] .photo {
+  display: block;
+  border-radius: var(--radius);
+  background: var(--brown) url("../public/images/excursion-family.webp") center 66% / cover no-repeat;
+}
+
+.section[data-catalog] .panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+}
+
+.section[data-catalog] .intro { text-align: center; }
+.section[data-catalog] .intro p { margin-inline: auto; }
+
+@media (768px <= width) {
+  .section[data-catalog] { --inline-form-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (1024px <= width <= 1500px) {
+  .section[data-catalog] .frame { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .section[data-catalog] .photo { background-position: 63% center; }
+}
+
+@media (width > 1500px) {
+  .section[data-catalog] .photo {
+    background-position: right 94%;
+    background-size: max(106.59%, calc(675 * var(--section-unit))) auto;
+  }
+}
+
+@media (768px <= width < 1024px) {
+  .section[data-catalog] .photo { height: 212px; }
+}
+
+@media (width < 768px) {
+  .section[data-catalog] .frame { padding: 0; background: transparent; }
+  .section[data-catalog] .photo {
+    aspect-ratio: 311 / 213;
+    background-position: center 92%;
+  }
 }

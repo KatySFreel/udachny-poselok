@@ -1,9 +1,9 @@
 import { sitePath } from "../lib/site-path";
 import styles from "./home-settlements-map.module.css";
 
-export function HomeSettlementsMap() {
+export function HomeSettlementsMap({ catalog = false }: { catalog?: boolean }) {
   return (
-    <section className={`shell ${styles.section}`} aria-labelledby="home-settlements-map-title">
+    <section className={`shell ${styles.section}`} data-catalog={catalog || undefined} aria-labelledby="home-settlements-map-title">
       <h2 className={styles.heading} id="home-settlements-map-title">
         Все&nbsp;посёлки <em>на&nbsp;одной карте</em>
       </h2>
