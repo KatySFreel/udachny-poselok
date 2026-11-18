@@ -1,5 +1,5 @@
-:HL["/udachny-poselok/_next/static/chunks/072x57qxlrf5f.css","style"]
-:HL["/udachny-poselok/_next/static/chunks/1gqt3xsmsne0r.css","style"]
+:HL["/udachny-poselok/_next/static/chunks/09piywcfg_c0j.css","style"]
+:HL["/udachny-poselok/_next/static/chunks/0mi3m4_mqknyg.css","style"]
 :HL["/udachny-poselok/fonts/Evolventa-Regular.woff","font",{"crossOrigin":"anonymous","type":"font/woff"}]
 :HL["/udachny-poselok/fonts/manrope-cyrillic-wght-normal.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
 :HL["/udachny-poselok/fonts/playfair-display-cyrillic-400-italic.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
@@ -7,11 +7,10 @@
 :HL["/udachny-poselok/icons/logo-wordmark.svg","image"]
 :HL["/udachny-poselok/icons/header-phone.svg","image"]
 :HL["/udachny-poselok/icons/menu.svg","image"]
-:HL["/udachny-poselok/images/settlements/catalog-cover.webp","image",{"imageSrcSet":"/udachny-poselok/images/settlements/catalog-cover-1024.webp 1024w, /udachny-poselok/images/settlements/catalog-cover.webp 2400w","imageSizes":"(max-width: 1023px) calc(100vw - 40px), (max-width: 1920px) 96vw, 1840px","fetchPriority":"high"}]
 :HL["/udachny-poselok/icons/settlement-location.svg","image"]
 :HL["/udachny-poselok/icons/footer/location.svg","image"]
 :HL["/udachny-poselok/icons/footer/rutube-art.svg","image"]
 :HL["/udachny-poselok/icons/footer/vk.svg","image"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"poselki","h":96,"c":"$Q2"}]]
-0:{"b":"n79_0CVmgKVAAgH7s0WaC","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"ujgZz__4oKEOObpYyFUYx","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
