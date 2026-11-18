@@ -1,0 +1,186 @@
+.section {
+  padding-block-end: var(--section-spacing);
+}
+
+.panel {
+  --media-width: calc(50% - 20px);
+  --about-body-unit: var(--section-unit);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--media-width) minmax(0, 1fr);
+  grid-template-areas:
+    "intro intro intro"
+    "office team more"
+    "description description description";
+  align-items: center;
+  gap: calc(32 * var(--section-layout-unit)) 20px;
+  padding-block: calc(64 * var(--section-layout-unit));
+  border-radius: var(--radius);
+  background: var(--brown) url("../public/images/about/pattern-desktop.webp") left top / cover;
+  color: var(--cream);
+}
+
+.intro {
+  grid-area: intro;
+  justify-self: center;
+  width: min(calc(100% - 64px), 1175px);
+  text-align: center;
+}
+
+.section .label {
+  justify-content: center;
+  min-width: calc(208 * var(--section-layout-unit));
+  border-color: rgb(255 250 238 / 60%);
+  color: rgb(255 243 234 / 80%);
+}
+
+.intro h2 {
+  margin: calc(32 * var(--section-layout-unit)) auto 0;
+  font: 500 var(--section-heading-size) / 1 var(--heading-font);
+  scroll-margin-top: 110px;
+}
+
+.intro em {
+  display: block;
+  color: #e6a7a5;
+  font-family: var(--accent-font);
+  font-weight: 400;
+}
+
+.team,
+.office {
+  display: block;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+.team {
+  grid-area: team;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 670 / 400;
+}
+
+.office {
+  grid-area: office;
+  justify-self: end;
+  width: min(100%, calc(200 * var(--section-layout-unit)));
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: fill;
+}
+
+.description {
+  grid-area: description;
+  justify-self: center;
+  width: min(31.25em, calc(100% - 64px));
+  color: rgb(255 250 238 / 60%);
+  font-size: calc(24 * var(--about-body-unit));
+  line-height: 1.2;
+  text-align: center;
+}
+
+.more {
+  grid-area: more;
+  display: grid;
+  justify-self: start;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--pink);
+  font-size: calc(24 * var(--section-layout-unit));
+  line-height: 1.2;
+  text-decoration: none;
+  --action-icon-bg: var(--pink);
+}
+
+.seal,
+.moreContent { grid-area: 1 / 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .seal { animation: rotate-seal 28s linear infinite; }
+}
+
+@keyframes rotate-seal {
+  to { transform: rotate(1turn); }
+}
+
+@media (min-width: 1024px) {
+  .seal img {
+    width: calc(255.41 * var(--section-layout-unit));
+    height: auto;
+  }
+}
+
+.moreContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.moreLabel {
+  text-decoration: underline 2px transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--hover-duration) ease;
+}
+
+.more:is(:hover, :focus-visible) {
+  --action-icon-bg: var(--cream);
+}
+
+.more:is(:hover, :focus-visible) .moreLabel { text-decoration-color: currentColor; }
+
+@media (1024px <= width <= 1280px) {
+  .panel {
+    --about-body-unit: var(--section-layout-unit);
+  }
+
+  .intro h2 { max-width: 16.32em; }
+}
+
+@media (width > 1280px) {
+  .panel {
+    --media-width: calc(50% - 10px);
+    background-image: url("../public/images/about/pattern-wide.webp");
+  }
+
+  .intro { width: calc(100% - 100px); }
+  .intro h2 { font-size: min(var(--section-heading-size), 3.75vw); }
+  .team { aspect-ratio: 910 / 400; }
+}
+
+@media (width < 1024px) {
+  .panel {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "intro" "team" "description" "more";
+    padding: 64px 29px 45px;
+    background-image: url("../public/images/about/pattern-tablet.webp");
+  }
+
+  .intro { width: min(100%, 655px); }
+  .team { justify-self: center; max-width: 670px; height: clamp(285px, 52.083vw, 400px); aspect-ratio: auto; }
+  .office { display: none; }
+  .description { width: min(100%, 662px); }
+  .more { justify-self: center; }
+}
+
+@media (width < 768px) {
+  .section { padding-block-end: 100px; }
+
+  .panel {
+    padding: 24px 12px 32px;
+    background-image: url("../public/images/about/pattern-mobile.webp");
+  }
+
+  .section .label { min-width: 111px; }
+  .intro h2 { margin-top: 24px; }
+  .team { height: auto; aspect-ratio: 311 / 186; }
+  .description, .more { font-size: 14px; }
+  .moreContent { gap: 8px; }
+
+  .more :global(.action__icon) {
+    width: 72px;
+    height: 36px;
+  }
+
+}

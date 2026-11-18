@@ -1,0 +1,181 @@
+.section {
+  --photo-size: clamp(310px, calc(60vw - 552px), 600px);
+  --photo-inset: clamp(7px, calc(1.0417vw - 8px), 12px);
+  --center-gap: clamp(155px, calc(70.2083vw - 828px), 520px);
+
+  padding-block: var(--section-spacing);
+}
+
+.heading {
+  max-width: 1011px;
+  margin-inline: auto;
+  color: var(--brown);
+  font: 500 var(--section-heading-size) / 1 var(--heading-font);
+  text-align: center;
+}
+
+.heading em {
+  display: block;
+  color: var(--red);
+  font-family: var(--accent-font);
+  font-weight: 400;
+}
+
+.description {
+  max-width: calc(648 * var(--section-unit));
+  margin: calc(32 * var(--section-unit)) auto 0;
+  color: var(--brown-muted);
+  font-size: calc(24 * var(--section-unit));
+  line-height: 1.2;
+  text-align: center;
+}
+
+.composition {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--center-gap) minmax(0, 1fr);
+  align-items: center;
+  margin-top: calc(64 * var(--section-unit));
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.fact {
+  min-height: calc(300 * var(--section-unit));
+  padding: calc(24 * var(--section-unit));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: var(--radius);
+  background: var(--pink-light);
+}
+
+.facts:last-child .fact {
+  align-items: end;
+  text-align: right;
+}
+
+.value {
+  color: var(--red);
+  font: 600 calc(48 * var(--section-unit)) / 1.1 var(--heading-font);
+}
+
+.value span { display: block; }
+
+.label {
+  color: var(--brown-muted);
+  font-size: calc(24 * var(--section-unit));
+  line-height: 1.2;
+}
+
+.facts:last-child .fact:first-child .label { max-width: 241px; }
+
+.photo {
+  position: relative;
+  z-index: 1;
+  justify-self: center;
+  width: var(--photo-size);
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+.ring,
+.family {
+  position: absolute;
+  display: block;
+}
+
+.ring { inset: 0; }
+.family { inset: var(--photo-inset); }
+
+.photo img {
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 1024px) {
+  .facts:first-child .fact:last-child .label {
+    --photo-overhang: max(0px, calc((var(--photo-size) - var(--center-gap)) / 2));
+    max-width: calc(100% - var(--photo-overhang));
+  }
+}
+
+@media (width < 1024px) {
+  .section {
+    --photo-size: min(374px, 50vw);
+    --photo-inset: 7px;
+    --photo-overlap: calc(var(--photo-size) * 0.23262);
+
+    padding-block: 80px 150px;
+  }
+
+  .composition {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .photo {
+    align-self: center;
+    margin-block: calc(-1 * var(--photo-overlap));
+  }
+
+  .facts { gap: 10px; }
+  .facts:last-child .fact:first-child { align-items: start; text-align: left; }
+  .facts .fact:last-child { align-items: end; text-align: right; }
+  .facts:first-child .fact:first-child .label { max-width: calc(224 * var(--section-unit)); }
+  .facts:first-child .fact:last-child .label { max-width: calc(232 * var(--section-unit)); }
+  .facts:last-child .fact:last-child .label { max-width: calc(311 * var(--section-unit)); }
+}
+
+@media (width < 768px) {
+  .section {
+    --photo-size: min(100%, 374px);
+    --photo-inset: 6px;
+    --photo-overlap: 88px;
+
+    padding-block: 40px 100px;
+  }
+
+  .heading em { display: inline; }
+
+  .description {
+    margin-top: 12px;
+    font-size: 14px;
+  }
+
+  .composition { margin-top: 48px; }
+
+  .facts {
+    grid-template-columns: 1fr;
+    align-self: center;
+    width: min(270px, 100%);
+    gap: 8px;
+  }
+
+  .facts .fact,
+  .facts .fact:last-child,
+  .facts:last-child .fact:first-child {
+    min-height: 0;
+    padding: 24px 12px;
+    justify-content: start;
+    align-items: center;
+    text-align: center;
+  }
+
+  .facts:first-child .fact:last-child { padding-bottom: 102px; }
+  .facts:last-child .fact:first-child { padding-top: 102px; }
+
+  .value { font-size: 24px; }
+  .value span { display: inline; }
+
+  .label { font-size: 14px; }
+  .facts:first-child .fact:first-child .label { max-width: none; }
+  .facts:last-child .fact:last-child .label { max-width: 222px; }
+}

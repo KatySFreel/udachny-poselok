@@ -1,0 +1,98 @@
+.catalogCard {
+  position: relative;
+  height: var(--card-photo-height);
+  overflow: hidden;
+  border-radius: var(--radius);
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: calc(20 * var(--section-layout-unit));
+  padding: calc(24 * var(--section-layout-unit));
+  background: var(--brown);
+  color: var(--cream);
+  text-decoration: none;
+}
+
+.catalogPattern {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.catalogPattern img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.catalogIntro {
+  display: flex;
+  flex-direction: column;
+  gap: calc(32 * var(--section-layout-unit));
+}
+
+.catalogIntro p {
+  max-width: var(--catalog-title-width, 12ch);
+  font: 600 calc(32 * var(--section-unit)) / 1.25 var(--heading-font);
+  letter-spacing: -0.02em;
+}
+
+.catalogPhotos {
+  display: flex;
+  align-items: center;
+}
+
+.catalogPhotos img {
+  width: calc(72 * var(--section-unit));
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.catalogPhotos img + img { margin-inline-start: calc(-21 * var(--section-unit)); }
+
+.catalogCard :global(.action) {
+  width: 100%;
+  color: var(--brown);
+  font-size: calc(24 * var(--section-unit));
+}
+
+.catalogCard:is(:hover, :focus-visible) :global(.action) {
+  background: var(--pink-light);
+  color: var(--red);
+  --action-icon-bg: var(--cream);
+}
+
+@media (width < 1024px) {
+  .catalogCard { aspect-ratio: 440 / 600; }
+  .catalogCard :global(.action) { padding-left: 20px; }
+}
+
+@media (width < 768px) {
+  .catalogCard {
+    display: block;
+    aspect-ratio: auto;
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+  }
+
+  .catalogPattern,
+  .catalogIntro,
+  .catalogCard :global(.action__icon) { display: none; }
+
+  .catalogCard :global(.action) {
+    justify-content: center;
+    min-height: 49px;
+    padding: 16px 25px;
+    background: var(--red);
+    color: var(--cream);
+    font-size: 14px;
+  }
+
+  .catalogCard:is(:hover, :focus-visible) :global(.action) {
+    background: var(--rose);
+    color: var(--cream);
+  }
+}

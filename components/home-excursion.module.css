@@ -1,0 +1,98 @@
+.section {
+  --panel-padding: calc(64 * var(--section-unit));
+  --intro-gap: calc(32 * var(--section-unit));
+  --form-gap: calc(32 * var(--section-unit));
+  --field-gap: 12px;
+  --field-height: calc(73 * var(--section-unit));
+  --field-inset: calc(32 * var(--section-unit));
+
+  padding-block-end: var(--section-spacing);
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--panel-padding);
+  padding: var(--panel-padding);
+  border-radius: var(--radius);
+  background: var(--pink-light);
+}
+
+.photo { display: none; }
+
+.intro {
+  display: grid;
+  gap: var(--intro-gap);
+}
+
+.intro h2 {
+  scroll-margin-top: 110px;
+  font: 500 var(--section-heading-size) / 1 var(--heading-font);
+}
+
+.intro em {
+  display: block;
+  color: var(--red);
+  font-family: var(--accent-font);
+  font-weight: 400;
+}
+
+.intro p {
+  max-width: 542px;
+  color: var(--brown-muted);
+  font-size: calc(24 * var(--section-unit));
+  line-height: 1.2;
+}
+
+@media (width > 1280px) {
+  .frame {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 12px;
+    min-height: calc(695 * var(--section-unit));
+    border-radius: var(--radius);
+    background: var(--brown);
+  }
+
+  .photo {
+    display: block;
+    border-radius: var(--radius);
+    background: var(--brown) url("../public/images/excursion-family.webp") right 94% / max(106.59%, calc(675 * var(--section-unit))) auto no-repeat;
+  }
+
+  .panel {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+  }
+
+  .intro { text-align: center; }
+  .intro p { max-width: 648px; margin-inline: auto; }
+}
+
+@media (width < 1024px) {
+  .section { padding-block-end: 126px; }
+  .panel { grid-template-columns: minmax(0, 1fr); }
+  .intro { justify-items: center; text-align: center; }
+}
+
+@media (width < 768px) {
+  .section {
+    --section-unit: 0.7px;
+    --intro-gap: 12px;
+    --form-gap: 24px;
+    --field-gap: 8px;
+    --field-height: 44px;
+    --field-inset: 24px;
+
+    padding-block-end: 100px;
+  }
+
+  .panel { gap: 32px; padding: 24px 16px; }
+  .intro p { font-size: 14px; }
+}
+
+@media (width < 400px) {
+  .descriptionBreak { display: none; }
+}
