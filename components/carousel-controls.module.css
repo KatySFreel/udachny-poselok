@@ -1,0 +1,33 @@
+.controls { display: flex; justify-content: center; gap: 12px; }
+.controls button {
+  display: grid;
+  place-items: center;
+  width: calc(90 * var(--section-layout-unit));
+  min-width: 68px;
+  height: max(44px, calc(45 * var(--section-layout-unit)));
+  padding: 0;
+  border: 0;
+  border-radius: 100px;
+  color: var(--cream);
+  background: var(--red);
+  transition: background-color var(--hover-duration);
+}
+.controls button::before {
+  content: "";
+  width: 24.513px;
+  height: 24.513px;
+  background: currentColor;
+  mask: url("../public/icons/arrow.svg") center / contain no-repeat;
+  transform: rotate(45deg);
+}
+.controls button:first-child { color: var(--red); background: var(--pink); }
+.controls button:first-child::before { transform: rotate(225deg); }
+.controls button:first-child:focus-visible { background: var(--pink-light); }
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .controls button:last-child:hover { background: var(--rose); }
+  .controls button:first-child:hover { background: var(--pink-light); }
+}
+@media (width < 768px) {
+  .controls button { width: 72px; min-width: 0; height: 36px; }
+  .controls button::before { width: 18.3848px; height: 18.3848px; }
+}

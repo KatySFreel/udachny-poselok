@@ -1,13 +1,14 @@
 "use client";
 
 import { siteSrcSet, sitePath } from "../lib/site-path";
-import { useLayoutEffect, useRef, type KeyboardEvent } from "react";
+import { useLoopingCarousel } from "./use-looping-carousel";
+import { CarouselControls } from "./carousel-controls";
 import { reviews, reviewsSource } from "../content/reviews";
 import shared from "./settlements.module.css";
 import styles from "./home-reviews.module.css";
 
 const assets = "/images/reviews";
-const autoplayDelay = 3000;
+const autoplayDelay = 5000;
 
 type Review = (typeof reviews)[number];
 
@@ -40,136 +41,7 @@ function ReviewCard({ id, name, role, quote, featured }: Review) {
 }
 
 export function HomeReviews() {
-  const carousel = useRef<HTMLDivElement>(null);
-  const viewport = useRef<HTMLDivElement>(null);
-  const move = useRef<(direction: number) => void>(() => {});
-
-  useLayoutEffect(() => {
-    if (!viewport.current || !carousel.current) return;
-    const rail = viewport.current;
-    const slider = carousel.current;
-    const row = rail.firstElementChild;
-    if (!row) return;
-    const [before, original] = Array.from(row.children) as HTMLElement[];
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const canHover = window.matchMedia("(width >= 768px) and (hover: hover) and (pointer: fine)");
-    let cycle = 0;
-    let inView = false;
-    let touching = false;
-    let hovered = false;
-    let target: number | undefined;
-    let autoplayTimer: number;
-    let settleTimer: number;
-
-    function measure() {
-      const nextCycle = original.offsetLeft - before.offsetLeft;
-      if (!nextCycle || nextCycle === cycle) return;
-      const index = cycle ? Math.round(rail.scrollLeft * reviews.length / cycle) % reviews.length : 0;
-      cycle = nextCycle;
-      target = undefined;
-      rail.scrollLeft = cycle + cycle * index / reviews.length;
-    }
-
-    function settled() {
-      target = undefined;
-      const left = rail.scrollLeft;
-      // Shift to the equivalent position in the middle copy, with the same cards visible.
-      if (left < cycle - 1 || left >= 2 * cycle - 1) {
-        rail.scrollLeft = left < cycle - 1 ? left + cycle : left - cycle;
-      }
-    }
-
-    function schedule() {
-      window.clearTimeout(autoplayTimer);
-      if (!inView || hovered || touching || motion.matches || document.hidden) return;
-      autoplayTimer = window.setTimeout(() => {
-        if (!slider.querySelector(":focus-visible")) {
-          advance(1);
-        } else {
-          schedule();
-        }
-      }, autoplayDelay);
-    }
-
-    function advance(direction: number) {
-      if (!cycle) return;
-      const step = cycle / reviews.length;
-      const next = (Math.round((target ?? rail.scrollLeft) / step) + direction) * step;
-      target = Math.max(0, Math.min(next, rail.scrollWidth - rail.clientWidth));
-      rail.scrollTo({ left: target, behavior: motion.matches ? "instant" : "smooth" });
-      schedule();
-    }
-
-    function onScroll() {
-      window.clearTimeout(settleTimer);
-      settleTimer = window.setTimeout(settled, 140);
-      if (target === undefined) schedule();
-    }
-
-    function onTouchStart() {
-      target = undefined;
-      touching = true;
-      schedule();
-    }
-
-    function onTouchEnd() {
-      touching = false;
-      schedule();
-    }
-
-    function onPointerMove(event: PointerEvent) {
-      if (hovered || !canHover.matches || event.pointerType !== "mouse") return;
-      hovered = true;
-      schedule();
-    }
-
-    function onPointerLeave() {
-      hovered = false;
-      schedule();
-    }
-
-    move.current = advance;
-    measure();
-    const resize = new ResizeObserver(measure);
-    resize.observe(row);
-    const visibility = new IntersectionObserver(([entry]) => {
-      inView = entry.isIntersecting;
-      schedule();
-    }, { threshold: 0.2 });
-    visibility.observe(rail);
-    rail.addEventListener("scroll", onScroll, { passive: true });
-    rail.addEventListener("touchstart", onTouchStart, { passive: true });
-    rail.addEventListener("touchend", onTouchEnd);
-    rail.addEventListener("touchcancel", onTouchEnd);
-    rail.addEventListener("pointermove", onPointerMove);
-    rail.addEventListener("pointerleave", onPointerLeave);
-    slider.addEventListener("focusout", schedule);
-    document.addEventListener("visibilitychange", schedule);
-    motion.addEventListener("change", schedule);
-
-    return () => {
-      move.current = () => {};
-      window.clearTimeout(autoplayTimer);
-      window.clearTimeout(settleTimer);
-      resize.disconnect();
-      visibility.disconnect();
-      rail.removeEventListener("scroll", onScroll);
-      rail.removeEventListener("touchstart", onTouchStart);
-      rail.removeEventListener("touchend", onTouchEnd);
-      rail.removeEventListener("touchcancel", onTouchEnd);
-      rail.removeEventListener("pointermove", onPointerMove);
-      rail.removeEventListener("pointerleave", onPointerLeave);
-      slider.removeEventListener("focusout", schedule);
-      document.removeEventListener("visibilitychange", schedule);
-      motion.removeEventListener("change", schedule);
-    };
-  }, []);
-
-  function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-    event.preventDefault();
-    move.current(event.key === "ArrowRight" ? 1 : -1);
-  }
+  const { carousel, viewport, move, onKeyDown } = useLoopingCarousel({ count: reviews.length, delay: autoplayDelay, transitionDuration: 600 });
 
   return (
     <section className={styles.section} aria-labelledby="home-reviews-title">
@@ -180,10 +52,9 @@ export function HomeReviews() {
         </h2>
       </div>
       <div ref={carousel}>
-        <div className={styles.controls} role="group" aria-label="Навигация по отзывам">
-          <button type="button" aria-controls="home-reviews-viewport" aria-label="Предыдущий отзыв" onClick={() => move.current(-1)} />
-          <button type="button" className="carousel-arrow" aria-controls="home-reviews-viewport" aria-label="Следующий отзыв" onClick={() => move.current(1)} />
-        </div>
+        <CarouselControls className={styles.controls} viewportId="home-reviews-viewport"
+          label="Навигация по отзывам" previousLabel="Предыдущий отзыв" nextLabel="Следующий отзыв"
+          onPrevious={() => move.current(-1)} onNext={() => move.current(1)} />
         <div ref={viewport} id="home-reviews-viewport" className={`carousel-viewport ${styles.viewport}`} role="group" aria-label="Отзывы покупателей" tabIndex={0} onKeyDown={onKeyDown}>
           <div className={styles.row}>
             {["before", "original", "after"].map((copy) => (
