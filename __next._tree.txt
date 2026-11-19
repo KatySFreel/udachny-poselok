@@ -1,5 +1,5 @@
 :HL["/udachny-poselok/_next/static/chunks/0xz6ofni32kqt.css","style"]
-:HL["/udachny-poselok/_next/static/chunks/0mi3m4_mqknyg.css","style"]
+:HL["/udachny-poselok/_next/static/chunks/2d6avn4n942oa.css","style"]
 :HL["/udachny-poselok/fonts/Evolventa-Regular.woff","font",{"crossOrigin":"anonymous","type":"font/woff"}]
 :HL["/udachny-poselok/fonts/manrope-cyrillic-wght-normal.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
 :HL["/udachny-poselok/fonts/playfair-display-cyrillic-400-italic.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
@@ -25,4 +25,4 @@
 :HL["/udachny-poselok/images/steps/step-3.svg","image"]
 :HL["/udachny-poselok/images/steps/step-4.svg","image"]
 1:[["children",{"s":"__PAGE__","h":160}]]
-0:{"b":"75l3dqn0xhZbP4muh4idd","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"V2WhMUBl7snxxzxmMo3O5","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
