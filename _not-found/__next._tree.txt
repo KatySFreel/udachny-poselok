@@ -5,4 +5,4 @@
 :HL["/udachny-poselok/fonts/playfair-display-cyrillic-400-italic.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":96,"c":"$Q2"}]]
-0:{"b":"AIWx7u9SZKg2TeZuV5Tqa","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"RGMHIrmX_NtsIC7nLDfql","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
