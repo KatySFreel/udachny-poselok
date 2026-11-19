@@ -7,7 +7,7 @@ import shared from "./settlements.module.css";
 import styles from "./home-reviews.module.css";
 
 const assets = "/images/reviews";
-const autoplayDelay = 5000;
+const autoplayDelay = 3000;
 
 type Review = (typeof reviews)[number];
 
