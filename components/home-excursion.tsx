@@ -2,7 +2,7 @@ import { ExcursionForm } from "./excursion-form";
 import { sitePath } from "../lib/site-path";
 import styles from "./home-excursion.module.css";
 
-export function HomeExcursion({ catalog = false }: { catalog?: boolean }) {
+export function HomeExcursion() {
   return (
     <section className={`shell ${styles.section}`} aria-labelledby="home-excursion-title">
       <div className={styles.frame}>
@@ -21,7 +21,7 @@ export function HomeExcursion({ catalog = false }: { catalog?: boolean }) {
               с нашими посёлками.
             </p>
           </div>
-          <ExcursionForm successDisplay={catalog ? "inline" : "dialog"} />
+          <ExcursionForm />
         </div>
       </div>
     </section>

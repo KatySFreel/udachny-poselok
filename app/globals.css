@@ -112,6 +112,8 @@
 
 * { box-sizing: border-box; }
 
+html { scrollbar-gutter: stable; }
+
 body {
   margin: 0;
   background: var(--cream);
@@ -166,7 +168,9 @@ summary::-webkit-details-marker { display: none; }
   --site-header-bottom: calc(var(--site-header-top) + var(--site-header-height, var(--site-header-min-height)));
 }
 
-.cover-header-page[data-header-scrolled] { --site-header-top: calc(0.75 * var(--site-header-start)); }
+@media (width >= 1024px) {
+  .cover-header-page[data-header-scrolled] { --site-header-top: calc(0.75 * var(--site-header-start)); }
+}
 
 .site-header {
   --header-bg: var(--cream);

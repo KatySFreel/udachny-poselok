@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { completedSettlements, type CompletedSettlement } from "../content/settlements";
 import { sitePath } from "../lib/site-path";
 import { AnimatedDialog } from "./animated-dialog";
@@ -18,6 +18,19 @@ function SettlementGallery({ settlement }: { settlement: CompletedSettlement }) 
   const rail = useRef<HTMLDivElement>(null);
   const target = useRef<number | null>(null);
   const mouseStart = useRef<{ x: number; y: number } | null>(null);
+  const [interacting, setInteracting] = useState(false);
+
+  useEffect(() => {
+    if (interacting) return;
+    const timer = window.setInterval(() => {
+      const viewport = rail.current;
+      if (!viewport || document.hidden || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const index = (active + 1) % photos.length;
+      target.current = index;
+      viewport.scrollTo({ left: viewport.clientWidth * index, behavior: "smooth" });
+    }, 3000);
+    return () => window.clearInterval(timer);
+  }, [active, interacting]);
 
   function advance(direction: number) {
     const viewport = rail.current;
@@ -60,8 +73,11 @@ function SettlementGallery({ settlement }: { settlement: CompletedSettlement }) 
           aria-label="Фотографии посёлка"
           tabIndex={0}
           onPointerDown={startMouseSwipe}
+          onPointerDownCapture={() => setInteracting(true)}
+          onPointerUpCapture={() => setInteracting(false)}
+          onPointerCancel={() => setInteracting(false)}
           onPointerUp={finishMouseSwipe}
-          onLostPointerCapture={() => { mouseStart.current = null; }}
+          onLostPointerCapture={() => { mouseStart.current = null; setInteracting(false); }}
           onScroll={(event) => {
             const { scrollLeft, clientWidth } = event.currentTarget;
             if (!clientWidth) return;

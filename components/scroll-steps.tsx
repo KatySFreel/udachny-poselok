@@ -49,13 +49,27 @@ export function ScrollSteps({ children }: { children: ReactNode }) {
     let frame = 0;
     let travel = 0;
     let pinTop = 0;
+    let lastTime = 0;
+    let position = 0;
 
-    const syncScroll = () => {
+    const syncScroll = (time: number) => {
       frame = 0;
       if (travel) {
         const progress = pinTop - stage.getBoundingClientRect().top;
-        viewport.scrollLeft = Math.max(0, Math.min(travel, progress));
+        const target = Math.max(0, Math.min(travel, progress));
+        const distance = target - position;
+        // Ease wheel notches over time, with the same response at any refresh rate.
+        const elapsed = lastTime ? Math.min(time - lastTime, 64) : 16;
+        const finished = Math.abs(distance) < 1;
+        position = finished ? target : position + distance * (1 - Math.exp(-elapsed / 90));
+        viewport.scrollLeft = position;
+        if (!finished) {
+          lastTime = time;
+          frame = window.requestAnimationFrame(syncScroll);
+          return;
+        }
       }
+      lastTime = 0;
     };
 
     const onScroll = () => {
@@ -71,13 +85,20 @@ export function ScrollSteps({ children }: { children: ReactNode }) {
       pinTop = headerClearance + Math.max(0, Math.floor((window.innerHeight - headerClearance - height) / 2));
       const remaining = window.innerHeight - pinTop - height;
       travel = !reducedMotion.matches && remaining >= 0 ? availableTravel : 0;
+      // Keep the last step pinned briefly before the page continues downward.
+      const endPause = travel ? Math.min(120, Math.round(window.innerHeight * 0.12)) : 0;
       stage.dataset.pinned = travel ? "true" : "false";
       stage.style.setProperty("--steps-top", `${pinTop}px`);
-      stage.style.setProperty("--steps-travel", `${travel}px`);
+      stage.style.setProperty("--steps-travel", `${travel + endPause}px`);
       stage.style.setProperty("--steps-clearance", travel ? `${remaining}px` : "0px");
       viewport.tabIndex = travel || !availableTravel ? -1 : 0;
       if (frame) window.cancelAnimationFrame(frame);
-      syncScroll();
+      frame = 0;
+      lastTime = 0;
+      if (travel) {
+        position = Math.max(0, Math.min(travel, pinTop - stage.getBoundingClientRect().top));
+        viewport.scrollLeft = position;
+      }
     };
 
     const resize = new ResizeObserver(measure);
