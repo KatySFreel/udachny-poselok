@@ -26,6 +26,7 @@ export async function submitQuiz(form: FormData, answers: Record<string, string[
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name,
+        email: String(form.get("email") ?? "").trim(),
         phone: `+7${phone.slice(-10)}`,
         consent: true,
         marketingConsent: form.get("marketing") === "on",

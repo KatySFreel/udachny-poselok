@@ -271,3 +271,9 @@
   .form :global(.action__icon) { width: 72px; height: 36px; }
   .form :global(.action__icon) img { width: 20px; height: 20px; }
 }
+
+:global([data-error-layout="flow"]) :is(.field, .consentField) { padding-block-start: 0; }
+:global([data-error-layout="flow"]) .fieldError {
+  position: static;
+  margin-block-start: 8px;
+}

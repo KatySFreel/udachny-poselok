@@ -340,15 +340,6 @@ summary::-webkit-details-marker { display: none; }
 }
 
 .mobile-menu { display: none; }
-.mobile-menu__close {
-  display: none;
-  width: 18px;
-  height: 18px;
-  background: var(--cream);
-  mask: url("../public/icons/quiz/close.svg") center / contain no-repeat;
-}
-.mobile-menu[open] > summary img { display: none; }
-.mobile-menu[open] > summary .mobile-menu__close { display: block; }
 
 .hero { position: relative; }
 
@@ -856,19 +847,45 @@ summary::-webkit-details-marker { display: none; }
 
   .mobile-menu__panel {
     position: absolute;
-    inset: calc(100% + 8px) 0 auto;
-    max-height: calc(100svh - 110px);
+    inset: calc(100% + 12px) 0 auto;
+    max-height: calc(100dvh - var(--site-header-bottom) - 32px);
     overflow: auto;
-    padding: 20px;
-    border-radius: var(--radius);
+    overscroll-behavior: contain;
+    padding: 12px;
+    border-radius: 9px;
     background: var(--header-bg);
-    transition: background-color var(--header-theme-duration) ease;
-    font-size: 18px;
+    color: var(--header-text);
+    transition: background-color var(--header-theme-duration) ease, color var(--header-theme-duration) ease;
+    font-size: 14px;
+    line-height: 17px;
   }
 
-  .mobile-menu__panel .nav-list { display: grid; gap: 12px; }
-  .mobile-menu__panel .nav-group__links { position: static; padding: 12px 0 0 16px; }
-  .mobile-menu__panel > button { margin-top: 18px; }
+  .mobile-menu__panel .nav-list { display: grid; align-items: stretch; gap: 12px; }
+  .mobile-menu__panel .nav-list > li:not(:last-child) {
+    padding-bottom: 12px;
+    background: url("../public/icons/mobile-menu/divider.svg") left bottom / 100% 1px no-repeat;
+  }
+  .mobile-menu__panel .nav-list a { display: inline-block; }
+  .mobile-menu__panel .nav-group__trigger { width: fit-content; gap: 8px; }
+  .mobile-menu__panel .nav-group__trigger::after {
+    width: 16px;
+    height: 16px;
+    border: 0;
+    background: currentColor;
+    mask: url("../public/icons/mobile-menu/down.svg") center / 8.17px 4.17px no-repeat;
+    transform: none;
+  }
+  .mobile-menu__panel .nav-group[open] > .nav-group__trigger::after {
+    mask-image: url("../public/icons/mobile-menu/up.svg");
+    transform: none;
+  }
+  .mobile-menu__panel .nav-group__links {
+    position: static;
+    gap: 8px;
+    padding: 8px 24px 0;
+    background: none;
+  }
+  .mobile-menu__panel > button { width: 100%; margin-top: 32px; padding: 16px 12px; }
 
   .hero__screen {
     min-height: clamp(720px, 100svh, 1100px);
@@ -918,7 +935,7 @@ summary::-webkit-details-marker { display: none; }
   .header-contact { gap: 12px; }
   .header-phone { font-size: 14px; }
   .mobile-menu > summary { width: 72px; height: 36px; }
-  .mobile-menu > summary img { scale: 0.75; }
+  .mobile-menu > summary img { scale: none; }
 
   .hero__screen { min-height: clamp(600px, 100svh, 900px); }
   .hero h1 { font-size: clamp(28px, 9.0667vw, 46px); }

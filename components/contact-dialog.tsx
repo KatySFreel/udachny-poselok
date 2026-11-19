@@ -18,7 +18,7 @@ export function DialogCloseButton() {
   );
 }
 
-export function RequestSuccess({ ref }: { ref: RefObject<HTMLDialogElement | null> }) {
+export function RequestSuccess({ ref, onClose }: { ref: RefObject<HTMLDialogElement | null>; onClose?: () => void }) {
   const title = useId();
   return (
     <AnimatedDialog
@@ -26,6 +26,7 @@ export function RequestSuccess({ ref }: { ref: RefObject<HTMLDialogElement | nul
       data-contact-dialog
       className={`${styles.dialog} ${styles.success}`}
       aria-labelledby={title}
+      onClose={onClose}
     >
       <DialogCloseButton />
       <div className={styles.intro}>

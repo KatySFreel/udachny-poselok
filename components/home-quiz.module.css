@@ -3,6 +3,7 @@
   --quiz-padding: calc(32 * var(--section-layout-unit));
   --quiz-gap: calc(20 * var(--section-layout-unit));
   --quiz-unit: var(--section-layout-unit);
+  --form-unit: var(--quiz-unit);
   --quiz-panel-height: calc(920 * var(--quiz-unit));
   --quiz-header-clearance: calc(var(--site-header-bottom, 97px) + 12px);
   --quiz-available-height: max(0px, calc(100svh - var(--quiz-header-clearance) - 20px));
@@ -53,8 +54,7 @@
 }
 
 .introTitle,
-.question,
-.success h3 {
+.question {
   margin: 0;
   color: var(--brown-muted);
   font: 600 var(--quiz-title-size) / 1.25 var(--heading-font);
@@ -187,7 +187,7 @@
 .finish h2 {
   margin: 0;
   color: var(--brown);
-  font: 500 var(--section-heading-size) / 1 var(--heading-font);
+  font: 500 var(--section-heading-size) / 1.022 var(--heading-font);
   text-align: center;
   text-wrap: balance;
 }
@@ -200,7 +200,7 @@
 }
 
 .finishContent > p {
-  max-width: 48ch;
+  max-width: calc(750 * var(--quiz-unit));
   margin-inline: auto;
   color: var(--brown-muted);
   font-size: var(--quiz-text-size);
@@ -215,36 +215,10 @@
 }
 
 .inputs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.form > :global(.action) { margin-block-start: calc(24 * var(--quiz-unit)); }
+.phone { grid-column: 1 / -1; }
+.form > :global(.action) { margin-block-start: calc(20 * var(--quiz-unit)); }
 .error { color: var(--brown); }
 .fallback { padding: 12px; color: var(--cream); }
-
-.dialog {
-  width: min(448px, calc(100% - 32px));
-  max-height: calc(100% - 32px);
-  padding: 24px;
-  border: 0;
-  border-radius: var(--radius);
-  background-color: var(--pink-light);
-  color: var(--brown-muted);
-}
-
-.dialog::backdrop { background-color: rgb(0 0 0 / 45%); }
-.dialog form { display: grid; gap: clamp(24px, 6vh, 64px); }
-.close {
-  display: grid;
-  place-items: center;
-  justify-self: end;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-}
-
-.close:focus-visible { border-radius: 6px; background: var(--brown-10); }
-
-.success { display: grid; justify-items: center; gap: 12px; text-align: center; font-size: var(--quiz-text-size); }
 
 @media (1024px <= width <= 1280px) {
   .section { --quiz-panel-height: calc(712 * var(--quiz-unit)); }

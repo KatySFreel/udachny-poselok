@@ -1,12 +1,11 @@
 "use client";
 
-import { sitePath } from "../lib/site-path";
 import { useContext, useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import { submitQuiz } from "@quiz-transport";
 import { quizQuestions } from "../content/quiz";
 import { site } from "../content/site";
 import { ActionButton } from "./action";
-import { AnimatedDialog } from "./animated-dialog";
+import { RequestSuccess } from "./contact-dialog";
 import { PhoneField, TextField } from "./form-field";
 import { FormTest, simulateSubmission, submissionError } from "./form-simulation";
 import { useContactValidation } from "./use-contact-validation";
@@ -14,7 +13,6 @@ import fields from "./contact-form.module.css";
 import styles from "./home-quiz.module.css";
 
 const total = quizQuestions.length;
-const icons = "/icons/quiz";
 
 export function Quiz() {
   const { outcome, enabled } = useContext(FormTest);
@@ -114,13 +112,17 @@ export function Quiz() {
             <div className={styles.finishContent}>
               <h2 id="home-quiz-title" ref={heading} tabIndex={-1}>Получите презентацию посёлков <em>под ваши пожелания</em></h2>
               <p>Оставьте номер телефона, чтобы получить презентацию с расположением посёлков, схемами участков, ценами и условиями покупки</p>
-              <form className={styles.form} method="post" noValidate onSubmit={send} onInput={edit}>
+              <form className={styles.form} data-error-layout="flow" method="post" noValidate onSubmit={send} onInput={edit}>
                 <div className={styles.inputs}>
                   <div className={fields.field}>
                     <TextField label="Имя" name="name" placeholder="Введите ваше имя" autoComplete="name" maxLength={120} required {...errorProps("name")} />
                     {fieldError("name")}
                   </div>
-                  <div className={`${fields.field} ${fields.phone}`}>
+                  <div className={fields.field}>
+                    <TextField label="Email" name="email" type="email" placeholder="Введите ваш email" autoComplete="email" maxLength={254} required {...errorProps("email")} />
+                    {fieldError("email")}
+                  </div>
+                  <div className={`${fields.field} ${fields.phone} ${styles.phone}`}>
                     <PhoneField label="Телефон" name="phone" required {...errorProps("phone")} />
                     {fieldError("phone")}
                   </div>
@@ -128,7 +130,7 @@ export function Quiz() {
                 <div className={fields.consentField}>
                   <label className={fields.consent}>
                     <input type="checkbox" name="consent" required {...errorProps("consent")} />
-                    <span>Я даю согласие на обработку персональных данных и подтверждаю, что ознакомлен(а) с Политикой обработки персональных данных</span>
+                    <span>Я даю согласие на обработку персональных данных и подтверждаю, что ознакомлен(а) с <a href={site.dataConsentHref} target="_blank" rel="noreferrer">Политикой обработки персональных данных</a></span>
                   </label>
                   {fieldError("consent")}
                 </div>
@@ -147,19 +149,7 @@ export function Quiz() {
           </div>
         </div>
       )}
-      <AnimatedDialog className={styles.dialog} ref={success} aria-labelledby="quiz-success-title" onClose={reset}>
-        <form method="dialog">
-          <button className={styles.close} type="submit" aria-label="Закрыть">
-            <img src={sitePath(`${icons}/close.svg`)} alt="" width={15.5} height={15.5} />
-          </button>
-          <div className={styles.success}>
-            <img src={sitePath(`${icons}/verified.svg`)} alt="" width={29} height={32} />
-            <h3 id="quiz-success-title">Спасибо!</h3>
-            <p>Данные успешно отправлены.</p>
-          </div>
-          <ActionButton type="submit">Назад</ActionButton>
-        </form>
-      </AnimatedDialog>
+      <RequestSuccess ref={success} onClose={reset} />
       <noscript><p className={styles.fallback}>Чтобы подобрать участок, позвоните по номеру <a href={site.phoneHref}>{site.phone}</a>.</p></noscript>
     </div>
   );

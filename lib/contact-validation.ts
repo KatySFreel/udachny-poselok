@@ -1,4 +1,4 @@
-export type ContactField = "name" | "phone" | "consent";
+export type ContactField = "name" | "email" | "phone" | "consent";
 export type ContactErrors = Partial<Record<ContactField, string>>;
 
 export function validateContact(data: FormData): ContactErrors {
@@ -7,6 +7,10 @@ export function validateContact(data: FormData): ContactErrors {
   const errors: ContactErrors = {};
 
   if (!name || name.length > 120) errors.name = "Укажите имя";
+  if (data.has("email")) {
+    const email = String(data.get("email") ?? "").trim();
+    if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "Укажите email";
+  }
   if (phone.length > 32 || !/^[+\d\s()–-]+$/.test(phone) || !/^(?:[78])?\d{10}$/.test(phone.replace(/\D/g, ""))) {
     errors.phone = "Укажите номер телефона";
   }

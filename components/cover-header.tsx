@@ -31,6 +31,18 @@ export function CoverHeader({ coverId, children }: { coverId: string; children: 
       if (frame === null) frame = window.requestAnimationFrame(updateTheme);
     };
 
+    const closeMenuOutside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !header.contains(event.target)) {
+        header.querySelector<HTMLDetailsElement>(".mobile-menu")?.removeAttribute("open");
+      }
+    };
+    const closeMenuOnEscape = (event: globalThis.KeyboardEvent) => {
+      const menu = header.querySelector<HTMLDetailsElement>(".mobile-menu[open]");
+      if (event.key !== "Escape" || !menu) return;
+      menu.open = false;
+      menu.querySelector<HTMLElement>(":scope > summary")?.focus();
+    };
+
     const updateHeaderOffset = () => {
       page?.style.setProperty("--site-header-height", `${Math.ceil(header.getBoundingClientRect().height)}px`);
     };
@@ -40,6 +52,8 @@ export function CoverHeader({ coverId, children }: { coverId: string; children: 
     });
     [document.body, cover, header, ...lightPanels].forEach((element) => resize.observe(element));
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    document.addEventListener("pointerdown", closeMenuOutside);
+    document.addEventListener("keydown", closeMenuOnEscape);
     updateHeaderOffset();
     updateTheme();
 
@@ -48,15 +62,16 @@ export function CoverHeader({ coverId, children }: { coverId: string; children: 
       page?.removeAttribute("data-header-scrolled");
       page?.style.removeProperty("--site-header-height");
       window.removeEventListener("scroll", scheduleUpdate);
+      document.removeEventListener("pointerdown", closeMenuOutside);
+      document.removeEventListener("keydown", closeMenuOnEscape);
       if (frame !== null) window.cancelAnimationFrame(frame);
     };
   }, [coverId]);
 
   function closeMenuOnAnchor(event: MouseEvent<HTMLElement>) {
     if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    const link = (event.target as Element).closest<HTMLAnchorElement>(".mobile-menu a[href]");
-    if (!link?.hash || link.origin !== location.origin || link.pathname !== location.pathname || link.search !== location.search) return;
-    const menu = link.closest<HTMLDetailsElement>(".mobile-menu");
+    const action = (event.target as Element).closest(".mobile-menu a[href], .mobile-menu button[command='show-modal']");
+    const menu = action?.closest<HTMLDetailsElement>(".mobile-menu");
     if (menu) menu.open = false;
   }
 
