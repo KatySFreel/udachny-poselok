@@ -126,6 +126,7 @@
   gap: calc(12 * var(--quiz-unit));
   width: fit-content;
   cursor: pointer;
+  transition: opacity var(--hover-duration) ease;
 }
 
 .option input {
@@ -147,8 +148,7 @@
 .option:has(input:focus-visible) span { text-decoration: underline; text-underline-offset: 3px; }
 
 @media (width >= 768px) and (hover: hover) and (pointer: fine) {
-  .option:hover input[type="checkbox"]:not(:disabled, :checked) { background-image: url("../public/icons/quiz/square-hover.svg"); }
-  .option:hover input[type="radio"]:not(:disabled, :checked) { background-image: url("../public/icons/quiz/circle-hover.svg"); }
+  .option:hover { opacity: 0.6; }
 }
 
 .next {

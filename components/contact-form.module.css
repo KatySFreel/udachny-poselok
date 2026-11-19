@@ -86,6 +86,7 @@
   font-size: calc(20 * var(--form-unit, var(--section-unit)));
   line-height: 1.2;
   cursor: pointer;
+  transition: opacity var(--hover-duration) ease;
 }
 
 .consent input {
@@ -112,9 +113,8 @@
 .consent a:focus-visible { text-decoration: underline; }
 
 @media (width >= 768px) and (hover: hover) and (pointer: fine) {
-  .consent a:hover { text-decoration: underline; }
-  .field input:hover:not(:disabled, :focus, [aria-invalid="true"]),
-  .consent:hover input:not(:disabled, :checked, [aria-invalid="true"]) {
+  .consent:hover:has(input:not(:disabled)) { opacity: 0.6; }
+  .field input:hover:not(:disabled, :focus, [aria-invalid="true"]) {
     border-color: var(--pink-light);
   }
 }
