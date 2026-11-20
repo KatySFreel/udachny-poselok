@@ -60,7 +60,7 @@ export function ContactForm({
             {fieldError("name")}
             <TextField label="Имя" name="name" autoComplete="name" placeholder="Введите ваше имя" maxLength={120} required {...errorProps("name")} />
           </div>
-          <div className={`${styles.field} ${styles.phone}`}>
+          <div className={styles.field}>
             {fieldError("phone")}
             <PhoneField label="Телефон" name="phone" required {...errorProps("phone")} />
           </div>

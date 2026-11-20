@@ -35,9 +35,9 @@ function FooterLinks({
 export function SiteFooter() {
   return (
     <footer className={`shell ${styles.footer}`} id="contacts">
-      <a className={styles.map} href={site.office.mapHref}
+      <a className={styles.map} href={site.office.mapHref} target="_blank" rel="noopener noreferrer"
         aria-label={`${site.office.city}, ${site.office.street} — открыть в Яндекс Картах`}>
-        <img className={styles.mapImage} src={sitePath("/images/footer/office-map.webp")} alt="" width={1024} height={702} loading="lazy" />
+        <img className={styles.mapImage} src={sitePath("/images/footer/office-map-styled.webp")} alt="" width={2172} height={724} loading="lazy" decoding="async" />
         <img className={styles.marker} src={sitePath("/icons/logo-symbol.svg")} alt="" width={52} height={60} />
         <div className={styles.mapLabel}>
           <p><img src={sitePath("/icons/footer/location.svg")} alt="" width={14.5833} height={18.7546} />Адрес офиса</p>

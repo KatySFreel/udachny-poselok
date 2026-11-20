@@ -62,7 +62,7 @@ export default function SettlementCatalogPage() {
             }))}
           />
         </section>
-        <HomeSettlementsMap catalog />
+        <HomeSettlementsMap />
         <HomeExcursion />
         <section className={`${settlementStyles.section} ${styles.completed}`} aria-labelledby="completed-settlements">
           <h2 className={`shell ${settlementStyles.heading} ${settlementStyles.catalogHeading}`} id="completed-settlements">

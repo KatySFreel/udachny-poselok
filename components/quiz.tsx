@@ -122,7 +122,7 @@ export function Quiz() {
                     <TextField label="Email" name="email" type="email" placeholder="Введите ваш email" autoComplete="email" maxLength={254} required {...errorProps("email")} />
                     {fieldError("email")}
                   </div>
-                  <div className={`${fields.field} ${fields.phone} ${styles.phone}`}>
+                  <div className={`${fields.field} ${styles.phone}`}>
                     <PhoneField label="Телефон" name="phone" required {...errorProps("phone")} />
                     {fieldError("phone")}
                   </div>

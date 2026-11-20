@@ -1,5 +1,4 @@
 .section {
-  --map-height: clamp(540px, min(calc(740 * var(--section-unit)), 74svh), 700px);
   --map-gap: calc(64 * var(--section-unit));
 
   padding-block-end: var(--section-spacing);
@@ -19,29 +18,198 @@
   font-weight: 400;
 }
 
-.map {
-  width: 100%;
-  height: var(--map-height);
+.board {
+  --board-height: clamp(700px, 46.875vw, 900px);
+  --card-width: min(calc(821 * var(--section-unit)), calc(100cqi - 48px));
+  --pin-left: calc(var(--pin-x) * 100cqi);
+  --card-center: clamp(calc(var(--card-width) / 2 + 24px), var(--pin-left), calc(100cqi - var(--card-width) / 2 - 24px));
+
+  container-type: inline-size;
+  isolation: isolate;
+  position: relative;
+  height: var(--board-height);
   margin-top: var(--map-gap);
+  overflow: hidden;
   border-radius: var(--radius);
-  object-fit: cover;
+  background: #ece3d4;
+}
+
+.viewport {
+  width: 100%;
+  height: 100%;
+  overflow: auto hidden;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brown-muted) transparent;
+}
+
+.stage {
+  position: relative;
+  min-width: calc(var(--board-height) * 1840 / 900);
+  height: 100%;
+  overflow: hidden;
+}
+
+.plane {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Preserve the source image's crop in the 1840 × 900 Figma map. */
+.background { position: absolute; bottom: 0; left: -4.348%; display: block; width: 115.22%; max-width: none; height: auto; user-select: none; }
+
+.marker {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(12 * var(--section-unit));
+  width: max-content;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--brown);
+  transform: translate(-50%, calc(-24 * var(--section-unit)));
+}
+
+.pin {
+  display: grid;
+  place-items: center;
+  width: calc(48 * var(--section-unit));
+  height: calc(48 * var(--section-unit));
+  border: 2px solid var(--cream);
+  border-radius: 50%;
+  background: var(--red);
+  transition: background-color var(--hover-duration) ease, scale var(--hover-duration) ease;
+}
+
+.pin img { width: calc(28 * var(--section-unit)); height: auto; }
+.markerLabel { padding: calc(12 * var(--section-unit)) calc(24 * var(--section-unit)); border-radius: 100px; background: var(--cream); font-size: calc(20 * var(--section-unit)); line-height: 1.2; white-space: nowrap; }
+.marker[aria-expanded="true"] { z-index: 1; }
+.marker[aria-expanded="true"] .pin { background: var(--brown); scale: 1.25; }
+.marker[aria-expanded="true"] .markerLabel { visibility: hidden; }
+.marker:focus-visible { outline: none; }
+.marker:focus-visible .pin { outline: 2px solid var(--brown); outline-offset: 4px; }
+
+.details {
+  position: absolute;
+  z-index: 2;
+  top: calc(var(--board-height) * var(--pin-y) - 60 * var(--section-unit));
+  left: var(--card-center);
+  display: grid;
+  grid-template-columns: calc(280 * var(--section-unit)) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  column-gap: calc(24 * var(--section-unit));
+  width: var(--card-width);
+  min-height: calc(321 * var(--section-unit));
+  padding: calc(24 * var(--section-unit));
+  border-radius: calc(16 * var(--section-unit));
+  background: var(--cream);
+  transform: translate(-50%, -100%);
+}
+
+.details::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: clamp(24px, calc(var(--pin-left) - var(--card-center) + var(--card-width) / 2), calc(100% - 24px));
+  border: calc(17 * var(--section-unit)) solid transparent;
+  border-bottom: 0;
+  border-top-color: var(--cream);
+  transform: translateX(-50%);
+}
+
+.cardPhoto { position: relative; grid-row: 1 / 3; overflow: hidden; border-radius: var(--radius); }
+.cardPhoto img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.summary { min-width: 0; color: var(--brown); text-decoration: none; }
+.summary .location { align-items: flex-start; gap: calc(8 * var(--section-unit)); margin-bottom: calc(12 * var(--section-unit)); color: #b79e9a; }
+.summary .location img { width: calc(13.125 * var(--section-unit)); height: auto; margin-top: 2px; }
+.title { margin-bottom: calc(4 * var(--section-unit)); }
+.summary .priceRow { align-items: center; }
+.summary:hover .title, .summary:focus-visible .title { opacity: 1; text-decoration-color: currentColor; }
+.summary:hover .priceRow p { opacity: 1; }
+.summary:hover .priceRow > span { background: var(--red); color: var(--cream); }
+.routes { align-self: end; padding-top: calc(24 * var(--section-unit)); font-size: calc(20 * var(--section-unit)); line-height: 1.2; }
+.routes > p { margin-bottom: calc(12 * var(--section-unit)); color: #b79e9a; }
+.routeLinks { display: flex; flex-wrap: wrap; gap: calc(12 * var(--section-unit)); }
+.routeLinks a { display: inline-flex; align-items: center; justify-content: center; gap: calc(8 * var(--section-unit)); padding: calc(12 * var(--section-unit)) calc(24 * var(--section-unit)); border-radius: 100px; background: var(--pink-light); text-decoration: none; white-space: nowrap; transition: background-color var(--hover-duration) ease; }
+
+@media (width >= 1280px) { .stage { min-width: 0; } }
+.routeLinks img { width: calc(24 * var(--section-unit)); height: auto; flex: none; }
+.routeLinks a:hover { background: var(--pink); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .marker[data-marker-motion="waiting"]:not(:focus-visible) {
+    opacity: 0;
+  }
+
+  .marker[data-marker-motion="entering"] {
+    animation: map-marker-enter 1000ms cubic-bezier(.25, .75, .25, 1) var(--marker-delay, 0ms) backwards;
+  }
+
+  .marker:focus-visible { opacity: 1; animation: none; }
+
+  .details {
+    animation: map-card-enter 280ms cubic-bezier(.25, .75, .25, 1) backwards;
+  }
+}
+
+@keyframes map-marker-enter {
+  from { opacity: 0; translate: 0 12px; scale: .9; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+@keyframes map-card-enter {
+  from { opacity: 0; translate: 0 8px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .marker:hover .pin { background: var(--brown); }
+}
+
+@media (width < 1280px) {
+  .details { top: 24px; left: 50%; transform: translateX(-50%); }
+  .details::after { display: none; }
 }
 
 @media (768px <= width < 1024px) {
-  .section[data-catalog] .heading em { display: block; }
+  .heading { font-size: var(--section-stacked-heading-size); }
+  .heading em { display: block; }
+  .details { grid-template-columns: 200px minmax(0, 1fr); }
+  .routeLinks { gap: 8px; }
+  .routeLinks a { padding-inline: 16px; }
 }
 
 @media (width < 1024px) {
-  .section {
-    --map-height: 900px;
-  }
+  .board { --board-height: 900px; }
 }
 
 @media (width < 768px) {
   .section {
-    --map-height: 700px;
     --map-gap: 48px;
 
     padding-block-end: 100px;
   }
+
+  .board { --board-height: 700px; }
+  .marker { gap: 8px; transform: translate(-50%, -22px); }
+  .pin { width: 44px; height: 44px; }
+  .pin img { width: 26px; }
+  .markerLabel { padding: 8px 16px; font-size: 14px; }
+  .details { top: 16px; left: 12px; right: 12px; grid-template-columns: 88px minmax(0, 1fr); column-gap: 12px; row-gap: 16px; width: auto; min-height: 0; padding: 16px; border-radius: 12px; transform: none; }
+  .cardPhoto { grid-row: 1; min-height: 132px; }
+  .summary .location { gap: 6px; margin-bottom: 8px; font-size: 12px; }
+  .summary .location img { width: 10px; }
+  .summary .title { font-size: 20px; line-height: 1.2; }
+  .summary .priceRow { flex-wrap: wrap; gap: 8px; }
+  .summary .priceRow p { font-size: 20px; }
+  .summary .priceRow > span { margin-left: auto; width: 48px; height: 32px; }
+  .routes { grid-column: 1 / -1; padding: 0; font-size: 14px; }
+  .routes > p { margin-bottom: 8px; }
+  .routeLinks { gap: 8px; }
+  .routeLinks a { flex: 1; gap: 4px; padding: 8px 6px; font-size: 14px; }
+  .routeLinks img { width: 20px; }
 }

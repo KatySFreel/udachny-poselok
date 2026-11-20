@@ -39,27 +39,6 @@
   transition: border-color var(--hover-duration) ease;
 }
 
-.phone :global(.form-field) {
-  --flag-size: calc(18 * var(--form-unit, 1px));
-  position: relative;
-}
-
-.phone :global(.form-field)::after {
-  content: "";
-  position: absolute;
-  inset-inline-start: var(--field-inset, 32px);
-  inset-block-start: 50%;
-  width: var(--flag-size);
-  height: var(--flag-size);
-  translate: 0 -50%;
-  background: url("../public/icons/phone-flag-ru.svg") center / contain no-repeat;
-  pointer-events: none;
-}
-
-.phone input {
-  padding-inline-start: calc(var(--field-inset, 32px) + var(--flag-size) + var(--phone-gap, .8em));
-}
-
 .field input::placeholder { color: var(--brown-muted); opacity: 1; }
 .field input:focus { outline: none; border-color: var(--brown-25); }
 .field input:focus-visible { border-color: var(--brown-muted); }
@@ -138,7 +117,6 @@
   --action-unit: var(--form-unit);
   --dialog-inset: calc(24 * var(--form-unit));
   --field-inset: calc(32 * var(--form-unit));
-  --phone-gap: calc(44 * var(--form-unit));
   --form-gap: calc(32 * var(--form-unit));
   --field-gap: calc(12 * var(--form-unit));
   width: min(calc(854 * var(--form-unit)), calc(100% - 32px));
@@ -238,7 +216,6 @@
     --dialog-inset: 16px;
     --field-height: 46px;
     --field-inset: 24px;
-    --phone-gap: 12px;
     --form-gap: 24px;
     --field-gap: 8px;
     padding-block-start: clamp(48px, 9vh, 64px);
