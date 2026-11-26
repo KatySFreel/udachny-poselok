@@ -153,22 +153,15 @@ function PlanBoard({
     setFilters((previous) => ({ ...previous, [name]: value }));
     setSelected(null);
   }
-  function openRequest(reservation = false) {
-    if (!reservation) {
-      setSelected(null);
-      setFiltersOpen(false);
-      document.getElementById("settlement-visits")?.scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "instant"
-          : "smooth",
-        block: "start",
-      });
-      return;
-    }
-    const parent = viewport.current?.closest("dialog");
-    parent?.close();
-    const dialog = document.getElementById(`${data.slug}-visit`);
-    if (dialog instanceof HTMLDialogElement) dialog.showModal();
+  function openRequest() {
+    setSelected(null);
+    setFiltersOpen(false);
+    document.getElementById("settlement-visits")?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+      block: "start",
+    });
   }
   return (
     <div className={styles.board} onKeyDown={event => {
@@ -452,23 +445,6 @@ function PlanBoard({
                 onClick={() => openRequest()}
               >
                 Записаться на экскурсию
-              </button>
-              <button
-                type="button"
-                className={styles.textButton}
-                {...leadTrigger(
-                  settlementLeadForm("visit", data.slug, data.name).id,
-                  {
-                    buttonId: "plan-reservation",
-                    buttonLabel: "Узнать условия бронирования",
-                    placement: "plan",
-                    plotId: selected.id,
-                    plotNumber: selected.number,
-                  },
-                )}
-                onClick={() => openRequest(true)}
-              >
-                Узнать условия бронирования
               </button>
             </>
           )}
