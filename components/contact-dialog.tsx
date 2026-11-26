@@ -1,11 +1,13 @@
 "use client";
 
 import { sitePath } from "../lib/site-path";
-import { useId, useRef, useState, type RefObject } from "react";
+import { useEffect, useId, useRef, useState, type RefObject } from "react";
+import { leadForms, type LeadFormDefinition } from "../lib/lead-attribution";
+import { useLeadTracking } from "./lead-tracking";
 import { consultationId, consultationTitle } from "../content/home";
 import { ActionButton } from "./action";
 import { AnimatedDialog } from "./animated-dialog";
-import { ContactForm } from "./contact-form";
+import { ContactForm, type FormChoiceField } from "./contact-form";
 import styles from "./contact-form.module.css";
 
 export function DialogCloseButton() {
@@ -39,25 +41,56 @@ export function RequestSuccess({ ref, onClose }: { ref: RefObject<HTMLDialogElem
   );
 }
 
-export function ConsultationDialog() {
+export function RequestDialog({id,title,description,definition,submitLabel = "Оставить заявку"}: {
+  id: string;
+  title: string;
+  description: string;
+  definition: LeadFormDefinition;
+  submitLabel?: string;
+}) {
   const dialog = useRef<HTMLDialogElement>(null);
   const success = useRef<HTMLDialogElement>(null);
   const [formVersion, reset] = useState(0);
-  return (
-    <>
-      <AnimatedDialog data-contact-dialog id={consultationId} ref={dialog} className={styles.dialog} aria-labelledby="consultation-title" onClose={() => reset((version) => version + 1)}>
-        <DialogCloseButton />
-        <div className={styles.intro}>
-          <h2 id="consultation-title">{consultationTitle}</h2>
-          <p>Оставьте имя и телефон. Мы перезвоним и ответим на вопросы о покупке участка, готового дома или строительстве.</p>
-        </div>
-        <ContactForm key={formVersion} submitLabel="Оставить заявку" onSuccess={() => {
-          if (!dialog.current?.open || dialog.current.dataset.closing) return;
-          dialog.current.close();
-          success.current?.showModal();
-        }} />
-      </AnimatedDialog>
-      <RequestSuccess ref={success} />
-    </>
-  );
+  const tracking = useLeadTracking(definition, submitLabel, true);
+  const titleId = useId();
+  useEffect(() => {
+    const element = dialog.current;
+    if (!element) return;
+    // Observe native command buttons and programmatic openings alike, including
+    // browsers that do not emit a dialog toggle event.
+    const observer = new MutationObserver(() => { if (element.open) tracking.open(); });
+    observer.observe(element, {attributes:true, attributeFilter:['open']});
+    return () => observer.disconnect();
+  }, [tracking.open]);
+  return <>
+    <AnimatedDialog data-contact-dialog id={id} ref={dialog} className={styles.dialog} aria-labelledby={titleId}
+      onClose={() => reset(version => version + 1)}>
+      <DialogCloseButton />
+      <div className={styles.intro}><h2 id={titleId}>{title}</h2><p>{description}</p></div>
+      <ContactForm key={formVersion} definition={definition} submitLabel={submitLabel} onSuccess={() => {
+        if (!dialog.current?.open || dialog.current.dataset.closing) return;
+        dialog.current.close();
+        success.current?.showModal();
+      }} />
+    </AnimatedDialog>
+    <RequestSuccess ref={success} />
+  </>;
+}
+
+export function ConsultationDialog() {
+  return <RequestDialog id={consultationId} definition={leadForms.consultation} title={consultationTitle}
+    description="Оставьте имя и телефон. Мы перезвоним и ответим на вопросы о покупке участка, готового дома или строительстве." />;
+}
+
+export function InlineRequestForm({definition,submitLabel,includeEmail = false,choiceField}: {
+  definition: LeadFormDefinition;
+  submitLabel: string;
+  includeEmail?: boolean;
+  choiceField?: FormChoiceField;
+}) {
+  const success = useRef<HTMLDialogElement>(null);
+  return <>
+    <ContactForm definition={definition} layout="inline" submitLabel={submitLabel} includeEmail={includeEmail} choiceField={choiceField} onSuccess={() => success.current?.showModal()} />
+    <RequestSuccess ref={success} />
+  </>;
 }

@@ -1,6 +1,9 @@
-import { sitePath } from "../lib/site-path";
-import type { CSSProperties } from "react";
-import shared from "./settlements.module.css";
+"use client";
+import { useCmsCopy } from "./cms-provider";
+
+
+import { PaymentCard } from "./payment-card";
+import { SectionHeading } from "./section-heading";
 import styles from "./home-payment.module.css";
 
 const paymentOptions = [
@@ -25,28 +28,23 @@ const paymentOptions = [
 ] as const;
 
 export function HomePayment() {
+  const cms = useCmsCopy();
+  const paymentOptions = cms.data("local.home-payment.paymentOptions", _cmsSource_paymentOptions);
+
   return (
     <section className={`shell ${styles.section}`} aria-labelledby="home-payment-title">
-      <div className={shared.sectionLabel}>Способы покупки</div>
-      <h2 className={`${shared.heading} ${styles.heading}`} id="home-payment-title">
-        Выберите <em>удобный</em>{" "}<span>способ оплаты</span>
-      </h2>
+      <SectionHeading label={cms.text("copy.home-payment.1", "Способы покупки")} id="home-payment-title" headingClassName={styles.heading}>
+        {cms.text("copy.home-payment.2", "Выберите ")}<em>{cms.text("copy.home-payment.3", "удобный")}</em>{" "}<span>{cms.text("copy.home-payment.4", "способ оплаты")}</span>
+      </SectionHeading>
       <ul className={styles.cards}>
-        {paymentOptions.map(({ href, title, description, number }) => (
-          <li className={styles.item} key={href}>
-            <a className={styles.card} href={sitePath(href)} aria-labelledby={`payment-option-${number.id}`}>
-              <span className={`${shared.arrow} ${styles.arrow}`} aria-hidden="true" />
-              <div className={styles.number} style={{ "--number-width": number.width } as CSSProperties}>
-                <img src={sitePath(`/images/payment/${number.id}.svg`)} alt="" width={number.width} height={number.height} />
-              </div>
-              <div className={styles.body}>
-                <h3 className={shared.cardTitle} id={`payment-option-${number.id}`}>{title}</h3>
-                <p>{description}</p>
-              </div>
-            </a>
+        {paymentOptions.map(option => (
+          <li className={styles.item} key={option.href}>
+            <PaymentCard option={option} headingId={`payment-option-${option.number.id}`} />
           </li>
         ))}
       </ul>
     </section>
   );
 }
+
+const _cmsSource_paymentOptions = paymentOptions;

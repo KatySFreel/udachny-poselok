@@ -9,6 +9,8 @@
   --brown-25: #dacecc;
   --brown-10: #f5ece1;
   --radius: 8px;
+  --cover-min-height: 600px;
+  --cover-max-height: 900px;
   --gutter: 40px;
   --content-max-width: 1840px;
   --content-inset: max(var(--gutter), calc((100% - var(--content-max-width)) / 2));
@@ -25,6 +27,10 @@
 
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
+
+  [data-cover-parallax] img {
+    transform: translate3d(0, var(--cover-parallax-y, 0px), 0) scale(var(--cover-parallax-scale, 1));
+  }
 
   dialog[open] {
     opacity: 1;
@@ -50,32 +56,39 @@
   }
 
   .hero:not([data-hero-ready]) .hero__content > *,
-  [data-cover-motion]:not([data-hero-ready]) > h1:not(:target) {
+  [data-cover-motion]:not([data-hero-ready]) > h1:not(:target),
+  [data-cover-motion]:not([data-hero-ready]) [data-cover-part] {
     animation: home-cover-wait 1ms step-end 4s backwards;
   }
 
   .hero[data-hero-ready="true"] .hero__background img,
-  [data-cover-motion][data-hero-ready="true"] > picture img { animation: home-cover-enter 1050ms ease-out both; }
+  [data-cover-motion][data-hero-ready="true"] > picture img,
+  [data-cover-motion][data-hero-ready="true"] [data-cover-image] img { animation: home-cover-enter 1050ms ease-out both; }
 
   .hero[data-hero-ready="true"] .hero__content > *,
   [data-cover-motion][data-hero-ready="true"] > h1,
+  [data-cover-motion][data-hero-ready="true"] [data-cover-part],
   main [data-motion="entering"] {
     animation: home-enter 850ms cubic-bezier(0.25, 0.75, 0.25, 1) backwards;
   }
 
   .hero[data-hero-ready="true"] .hero__content > h1,
-  [data-cover-motion][data-hero-ready="true"] > h1 { animation-delay: 130ms; }
+  [data-cover-motion][data-hero-ready="true"] > h1,
+  [data-cover-motion][data-hero-ready="true"] [data-cover-part="title"] { animation-delay: 130ms; }
   .hero[data-hero-ready="true"] .hero__content > p { animation-delay: 280ms; }
   .hero[data-hero-ready="true"] .hero__content > .hero__actions { animation-delay: 430ms; }
+  [data-cover-motion][data-hero-ready="true"] [data-cover-part="description"] { animation-delay: 280ms; }
+  [data-cover-motion][data-hero-ready="true"] [data-cover-part="actions"] { animation-delay: 430ms; }
 
-  main [data-motion="waiting"]:not(:target, :focus-within) {
+  main [data-motion="waiting"]:not(:target, :has(:focus-visible)) {
     opacity: 0;
     translate: 0 28px;
   }
 
+  [data-cover-motion] [data-cover-part]:is(:target, :focus-within),
   .hero .hero__content > :focus-within,
   [data-cover-motion] > h1:target,
-  main [data-motion]:is(:target, :focus-within) { animation: none; }
+  main [data-motion]:is(:target, :has(:focus-visible)) { animation: none; }
 }
 
 @media (width >= 1024px) and (prefers-reduced-motion: no-preference) {
@@ -593,12 +606,16 @@ summary::-webkit-details-marker { display: none; }
 
 @media (768px <= width < 1024px) {
   :root {
+    --cover-min-height: 720px;
+    --cover-max-height: 1100px;
     --section-stacked-heading-size: max(var(--section-heading-size), calc(72px - (100vw - 768px) * 0.1));
   }
 }
 
 @media (min-width: 1024px) {
   :root {
+    --cover-min-height: 640px;
+    --cover-max-height: 1280px;
     /* One design pixel at the 1920px presentation width. */
     --desktop-unit: min(0.052083333vw, 1px);
     --gutter: calc(40 * var(--desktop-unit));
@@ -704,7 +721,7 @@ summary::-webkit-details-marker { display: none; }
   }
 
   .hero__screen {
-    min-height: clamp(640px, 100svh, 1280px);
+    min-height: clamp(var(--cover-min-height), 100svh, var(--cover-max-height));
     padding: calc(145 * var(--desktop-unit)) 0 var(--gutter);
   }
 
@@ -888,7 +905,7 @@ summary::-webkit-details-marker { display: none; }
   .mobile-menu__panel > button { width: 100%; margin-top: 32px; padding: 16px 12px; }
 
   .hero__screen {
-    min-height: clamp(720px, 100svh, 1100px);
+    min-height: clamp(var(--cover-min-height), 100svh, var(--cover-max-height));
     padding: 120px 0 20px;
   }
 
@@ -937,7 +954,7 @@ summary::-webkit-details-marker { display: none; }
   .mobile-menu > summary { width: 72px; height: 36px; }
   .mobile-menu > summary img { scale: none; }
 
-  .hero__screen { min-height: clamp(600px, 100svh, 900px); }
+  .hero__screen { min-height: clamp(var(--cover-min-height), 100svh, var(--cover-max-height)); }
   .hero h1 { font-size: clamp(28px, 9.0667vw, 46px); }
 
   .hero__last-line { display: block; }

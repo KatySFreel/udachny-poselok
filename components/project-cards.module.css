@@ -1,0 +1,36 @@
+.projectGrid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: calc(20 * var(--section-unit)); }
+.projectCard { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: calc(32 * var(--section-unit)); padding: calc(24 * var(--section-unit)); border-radius: var(--radius); background: var(--pink-light); color: var(--brown); text-decoration: none; }
+.projectInfo { display: flex; flex-direction: column; justify-content: space-between; gap: calc(32 * var(--section-unit)); }
+.projectThumbs { display: flex; }
+.projectThumbs img { width: calc(72 * var(--section-unit)); height: auto; aspect-ratio: 1; border-radius: 50%; object-fit: cover; }
+.projectThumbs img + img { margin-left: calc(-21 * var(--section-unit)); }
+.projectCard h3 { margin: calc(32 * var(--section-unit)) 0 0; font: 500 calc(32 * var(--section-unit))/1.25 var(--heading-font); letter-spacing: -.025em; }
+.projectPhoto { width: 100%; height: auto; aspect-ratio: 415 / 350; border-radius: var(--radius); object-fit: cover; }
+.projectInfo :global(.action) { width: 100%; }
+.projectCard:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  .projectCard:hover :global(.action--primary) { background: var(--rose); }
+  .projectCard:hover :global(.action--light) { color: var(--red); background: var(--pink-light); }
+}
+@media (1024px <= width <= 1280px) {
+  .projectCard { grid-template-columns: minmax(0,1fr) calc(274 * var(--section-unit)); }
+  .projectPhoto { aspect-ratio: 274 / 350; }
+}
+@media (width < 1024px) {
+  .projectGrid { grid-template-columns: minmax(0,1fr); gap: 20px; }
+  .projectCard { grid-template-columns: minmax(0,1fr) 274px; padding: 24px; gap: 32px; }
+  .projectPhoto { aspect-ratio: 274 / 350; }
+}
+@media (width < 768px) {
+  .projectGrid { gap: 24px; }
+  .projectCard { grid-template-columns: minmax(0,1fr); padding: 24px; gap: 16px; }
+  .projectInfo { display: contents; }
+  .projectInfo > div { grid-row: 1; }
+  .projectInfo > :global(.action) { grid-row: 3; }
+  .projectThumbs img { width: 44px; }
+  .projectThumbs img + img { margin-left: -16px; }
+  .projectCard h3 { margin-top: 16px; font-size: 24px; line-height: 1.1; font-weight: 600; }
+  .projectPhoto { grid-row: 2; height: auto; aspect-ratio: 287 / 125; }
+  .projectInfo :global(.action) { gap: 8px; padding-inline-start: 12px; font-size: 14px; }
+  .projectInfo :global(.action__icon) { width: 72px; }
+}

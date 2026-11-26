@@ -1,0 +1,31 @@
+.card {
+  --link-card-title-opacity: .8;
+  --link-card-title-decoration: transparent;
+  --link-card-arrow-background: var(--pink);
+  --link-card-arrow-color: var(--red);
+}
+.card .title {
+  opacity: var(--link-card-title-opacity);
+  text-decoration-line: underline;
+  text-decoration-color: var(--link-card-title-decoration);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: opacity var(--hover-duration) ease, text-decoration-color var(--hover-duration) ease;
+}
+.card .arrow { background-color: var(--link-card-arrow-background); color: var(--link-card-arrow-color); }
+.card:is(:focus-visible, :has([data-card-trigger]:focus-visible)) {
+  --link-card-title-opacity: 1;
+  --link-card-title-decoration: currentColor;
+  --link-card-arrow-background: var(--red);
+  --link-card-arrow-color: var(--cream);
+  text-decoration: none;
+}
+@media (width >= 768px) and (hover: hover) and (pointer: fine) {
+  a.card:hover, .card:has([data-card-trigger]:hover) {
+    --link-card-title-opacity: 1;
+    --link-card-title-decoration: currentColor;
+    --link-card-arrow-background: var(--red);
+    --link-card-arrow-color: var(--cream);
+    text-decoration: none;
+  }
+}

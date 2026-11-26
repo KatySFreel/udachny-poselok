@@ -1,4 +1,4 @@
-type BlogPost = {
+export type BlogPost = {
   slug: string;
   title: string;
   category: "news" | "articles";
@@ -26,3 +26,10 @@ export const blogPosts: readonly BlogPost[] = [
     category: "articles",
   },
 ];
+
+// The supplied listing repeats the third publication in its remaining slots.
+// Keep these slots separate from the three publications featured on the home page.
+export const blogListingPosts = [
+  ...blogPosts,
+  ...Array.from({length: 5}, () => blogPosts[2]),
+].map((post,index) => ({id: `publication-${index + 1}`,post}));

@@ -1,3 +1,5 @@
+import { companyMetrics } from "./company";
+import { formatNumber } from "../lib/format-number";
 export const consultationId = "consultation";
 export const consultationTitle = "Получить консультацию";
 
@@ -41,11 +43,11 @@ export const homeAdvantages = {
   description:
     "Подбираем участки для разных жизненных сценариев и помогаем пройти путь от выбора земли до строительства дома.",
   firstFacts: [
-    { value: ["С 2018", "года"], label: "развиваем коттеджные посёлки" },
-    { value: ["17"], label: "завершённых посёлков" },
+    { value: [`С ${companyMetrics.sinceYear}`, "года"], label: "развиваем коттеджные посёлки" },
+    { value: [String(companyMetrics.completedSettlements)], label: "завершённых посёлков" },
   ],
   secondFacts: [
-    { value: ["1 500+"], label: "довольных собственников" },
+    { value: [`${formatNumber(companyMetrics.landowners)}+`], label: "довольных собственников" },
     { value: ["Участки", "+ дома"], label: "выбор земли и строительство в одной компании" },
   ],
 } as const;

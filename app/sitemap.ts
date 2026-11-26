@@ -5,6 +5,6 @@ export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return indexable && canonicalUrl
-    ? ["/", "/poselki"].map((path) => ({ url: new URL(path, canonicalUrl).href }))
+    ? ["/", "/poselki", "/o-kompanii", "/pokupatelyam/ipoteka", "/pokupatelyam/rassrochka", "/pokupatelyam/zemelnyy-sertifikat", "/poselki/istorii-severa", "/poselki/bereg-tigody", "/poselki/divnyy", "/poselki/severnyy-bereg", "/poselki/zelenyy-les", "/poselki/simo"].map((path) => ({ url: new URL(path, canonicalUrl).href }))
     : [];
 }

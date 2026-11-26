@@ -37,6 +37,8 @@
   text-align: center;
 }
 
+.heading:global(.shell) { margin-inline: var(--content-inset); }
+
 .heading em {
   display: block;
   font-family: var(--accent-font);
@@ -103,14 +105,7 @@
   text-underline-offset: 3px;
 }
 
-.resultStatus {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
+.resultStatus { composes: visuallyHidden from "./accessibility.module.css"; }
 
 .grid {
   display: grid;
@@ -151,6 +146,7 @@
   height: 100%;
   object-fit: cover;
 }
+
 
 .tags {
   container: settlement-tags / inline-size;
@@ -336,6 +332,10 @@
 }
 
 @media (width < 768px) {
+  .compactCards .photoBox { aspect-ratio: 335 / 300; }
+  .compactCards .photo img { object-fit: cover; }
+  .compactCards .location { min-height: 18px; margin-bottom: 4px; }
+
   .section {
     --heading-gap: 24px;
     --grid-gap: 48px;

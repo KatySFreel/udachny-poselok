@@ -2,6 +2,7 @@
   --heading-gap: calc(32 * var(--section-unit));
   --review-spacing: calc(64 * var(--section-unit));
   --review-gap: calc(20 * var(--section-layout-unit));
+  --carousel-gap: var(--review-gap);
   --review-width: calc(625 * var(--section-layout-unit));
   --review-font-size: calc(24 * var(--section-unit));
   --review-name-size: calc(32 * var(--section-unit));
@@ -22,25 +23,6 @@
   scrollbar-width: none;
 }
 
-.row,
-.slides {
-  display: flex;
-  align-items: stretch;
-  gap: var(--review-gap);
-}
-
-.row {
-  position: relative;
-  width: max-content;
-  padding-inline: var(--content-inset);
-}
-
-.slides {
-  flex: none;
-  width: max-content;
-  padding: 0;
-  list-style: none;
-}
 
 .card {
   position: relative;

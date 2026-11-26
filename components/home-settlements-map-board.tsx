@@ -1,27 +1,62 @@
 "use client";
+import { useOutsideDismiss } from "./use-outside-dismiss";
+import { useCmsCopy } from "./cms-provider";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { settlements } from "../content/settlements";
+import { mapRoutes } from "../lib/map-routes";
 import { sitePath } from "../lib/site-path";
-import shared from "./settlements.module.css";
+import { MapMarker } from "./map-marker";
+import { MapSettlementCard } from "./map-settlement-card";
 import styles from "./home-settlements-map.module.css";
 
 // Positions belong to the illustration in Figma, not to a geographic projection.
 const locations = [
-  { slug: "troitskaya-sloboda", x: 31.4, y: 53.2 },
-  { slug: "istorii-severa", x: 19.8, y: 80.5 },
-  { slug: "bereg-tigody", x: 47.6, y: 72.3 },
-  { slug: "divnyy", x: 71.9, y: 59.5 },
+  { id: "troitskaya-sloboda", slug: "troitskaya-sloboda", x: 7.962, y: 9.889 },
+  { id: "istorii-severa", slug: "istorii-severa", x: 16.794, y: 3.556 },
+  // The southern point repeats this name in Figma; keep its identity separate until clarified.
+  { id: "istorii-severa-south", slug: "istorii-severa", x: 23.560, y: 68.778 },
+  { id: "zelenyy-les", slug: "zelenyy-les", x: 63.043, y: 46.333 },
+  { id: "bereg-tigody", slug: "bereg-tigody", x: 57.364, y: 88.222 },
+  { id: "divnyy", slug: "divnyy", x: 35.625, y: 90.222 },
 ].map(point => ({ ...point, settlement: settlements.find(item => item.slug === point.slug)! }));
 
-const money = new Intl.NumberFormat("ru-RU");
 
-export function HomeSettlementsMapBoard() {
-  const [selected, setSelected] = useState<string | null>("divnyy");
+// Official company map: https://udachniyposelok.ru/ (checked 2026-11-22).
+// x/y are an approximate placement on the illustration; routes use exact coordinates.
+const focusedLocations: Record<string, { x: number; y: number; latitude: number; longitude: number }> = {
+  "troitskaya-sloboda": { x: 23.56, y: 65.5, latitude: 59.687813286417885, longitude: 29.406918545286945 },
+};
+
+export function HomeSettlementsMapBoard({ settlementSlug }: { settlementSlug?: string }) {
+  const cms = useCmsCopy();
+
+  const editedSettlements = cms.data("data.settlements", settlements);
+  const points = useMemo(() => {
+    const resolvedLocations = locations.map(point => ({ ...point, settlement: editedSettlements.find(item => item.slug === point.slug)! }));
+    return settlementSlug
+      ? resolvedLocations.filter(point => point.slug === settlementSlug).map(point => ({ ...point, ...focusedLocations[point.slug] }))
+      : resolvedLocations;
+  }, [settlementSlug, editedSettlements]);
+  const [selected, setSelected] = useState<string | null>(settlementSlug ?? "divnyy");
   const [revealedMarkers, setRevealedMarkers] = useState<Set<string>>(() => new Set());
   const viewport = useRef<HTMLDivElement>(null);
   const plane = useRef<HTMLDivElement>(null);
-  const active = locations.find(point => point.slug === selected);
+  const board = useRef<HTMLDivElement>(null);
+  const details = useRef<HTMLElement>(null);
+  const active = points.find(point => point.id === selected);
+  const showDetails = !!active && revealedMarkers.has(active.id);
+
+  useEffect(() => {
+    const element = details.current;
+    if (!element) return;
+    const measure = () => board.current?.style.setProperty("--details-height", `${element.offsetHeight}px`);
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    measure();
+    return () => observer.disconnect();
+  }, [active?.id, showDetails]);
 
   useEffect(() => {
     const markers = plane.current?.querySelectorAll<HTMLButtonElement>("[data-marker]");
@@ -53,25 +88,30 @@ export function HomeSettlementsMapBoard() {
     const element = viewport.current;
     if (!element || !selected) return;
     const center = () => {
-      const position = locations.find(point => point.slug === selected)!;
+      const position = points.find(point => point.id === selected);
+      if (!position) return;
       element.scrollLeft = (plane.current?.clientWidth ?? 0) * position.x / 100 - element.clientWidth / 2;
     };
     const observer = new ResizeObserver(center);
     observer.observe(element);
     center();
     return () => observer.disconnect();
-  }, [selected]);
+  }, [selected, points]);
 
-  const query = active ? encodeURIComponent(`КП ${active.settlement.name.replace(/[«»]/g, "")} Ленинградская область`) : "";
-  const routes = [
-    { label: "Яндекс", icon: "yandex", href: `https://yandex.ru/maps/?rtext=~${query}&rtt=auto` },
-    { label: "Google", icon: "google", href: `https://www.google.com/maps/dir/?api=1&destination=${query}&travelmode=driving` },
-    { label: "2ГИС", icon: "2gis", href: `https://2gis.ru/spb/search/${query}` },
-  ];
+  useOutsideDismiss({
+    enabled: showDetails,
+    refs: [details],
+    onDismiss: () => setSelected(null),
+    ignore: target => !!board.current?.contains(target) && !!target.closest("[data-marker]"),
+  });
+
+  const query = active ? `КП ${active.settlement.name.replace(/[«»]/g, "")} Ленинградская область` : "";
+  const routes = mapRoutes(query,active ? focusedLocations[active.slug] : undefined);
 
   return (
     <div
       className={styles.board}
+      ref={board}
       data-settlements-map
       data-reveal
       onKeyDown={event => {
@@ -80,52 +120,34 @@ export function HomeSettlementsMapBoard() {
           setSelected(null);
         }
       }}
-      onClick={event => {
-        if (!(event.target as HTMLElement).closest("button, article")) setSelected(null);
-      }}
       style={active ? { "--pin-x": active.x / 100, "--pin-y": active.y / 100 } as CSSProperties : undefined}
     >
-      <div className={styles.viewport} ref={viewport} role="region" aria-label="Карта посёлков. На узком экране карту можно прокручивать по горизонтали" tabIndex={0}>
+      <div className={styles.viewport} ref={viewport} role="region" aria-label={`${settlementSlug ? `Карта расположения посёлка ${points[0]?.settlement.name ?? ''}` : cms.text("copy.home-settlements-map-board.1", 'Карта посёлков')}. На узком экране карту можно прокручивать по горизонтали`} tabIndex={0}>
         <div className={styles.stage}>
           <div className={styles.plane} ref={plane}>
-            <img className={styles.background} src={sitePath("/images/settlements-map-background.webp")} alt="Карта Ленинградской области: Санкт-Петербург, Финский залив, Гатчина, Тосно и Луга" width={1672} height={941} loading="lazy" decoding="async" draggable={false} />
-            {locations.map(({ slug, settlement, x, y }) => (
-              <button
-                key={slug}
+            <img className={styles.background} src={sitePath(cms.text("copy.home-settlements-map-board.2", "/images/settlements-map-background.webp"))} alt={cms.text("copy.home-settlements-map-board.3", "Карта Ленинградской области: Санкт-Петербург, Финский залив, Гатчина, Тосно и Луга")} width={1672} height={941} loading="lazy" decoding="async" draggable={false} />
+            {points.map(({ id, settlement, x, y }) => (
+              <MapMarker
+                key={id}
                 type="button"
-                className={styles.marker}
+                label={settlement.name}
                 style={{ left: `${x}%`, top: `${y}%` }}
-                data-marker={slug}
+                data-marker={id}
                 aria-label={`Показать посёлок ${settlement.name}`}
-                aria-expanded={selected === slug && revealedMarkers.has(slug)}
-                aria-controls={selected === slug && revealedMarkers.has(slug) ? "home-map-details" : undefined}
-                onFocus={() => setRevealedMarkers(current => current.has(slug) ? current : new Set([...current, slug]))}
-                onClick={() => setSelected(current => current === slug && revealedMarkers.has(slug) ? null : slug)}
-              >
-                <span className={styles.pin}><img src={sitePath("/icons/settlements-map/home.svg")} width={32} height={32} alt="" draggable={false} /></span>
-                <span className={styles.markerLabel}>{settlement.name}</span>
-              </button>
+                aria-expanded={selected === id && revealedMarkers.has(id)}
+                aria-controls={selected === id && revealedMarkers.has(id) ? "home-map-details" : undefined}
+                onFocus={() => setRevealedMarkers(current => current.has(id) ? current : new Set([...current, id]))}
+                onClick={() => setSelected(current => current === id && revealedMarkers.has(id) ? null : id)}
+              />
             ))}
           </div>
         </div>
       </div>
-      {active && revealedMarkers.has(active.slug) && (
-        <article key={active.slug} className={styles.details} id="home-map-details" aria-labelledby="home-map-selected-title">
-          <a className={styles.cardPhoto} href={sitePath(`/poselki/${active.slug}`)} tabIndex={-1} aria-hidden="true">
-            <img src={sitePath(`/images/settlements/${active.slug}.webp`)} alt="" width={880} height={1200} loading="lazy" decoding="async" />
-          </a>
-          <a className={styles.summary} href={sitePath(`/poselki/${active.slug}`)}>
-            <p className={`${shared.location} ${styles.location}`}><img src={sitePath("/icons/settlement-location.svg")} width={13.125} height={16.8791} alt="" />{active.settlement.location}</p>
-            <h3 className={`${shared.cardTitle} ${styles.title}`} id="home-map-selected-title">{active.settlement.name}</h3>
-            <div className={`${shared.priceRow} ${styles.priceRow}`}><p>От {money.format(active.settlement.price)} ₽</p><span className={shared.arrow} aria-hidden="true" /></div>
-          </a>
-          <div className={styles.routes}>
-            <p>Проложить маршрут в приложении:</p>
-            <div className={styles.routeLinks}>
-              {routes.map(route => <a key={route.icon} href={route.href} target="_blank" rel="noopener noreferrer" aria-label={`Открыть ${active.settlement.name} — ${route.label}`}><img src={sitePath(`/icons/settlements-map/${route.icon}.${route.icon === "google" ? "webp" : "svg"}`)} width={24} height={24} alt="" />{route.label}</a>)}
-            </div>
-          </div>
-        </article>
+      {active && showDetails && (
+        <MapSettlementCard key={active.id} ref={details} settlement={active.settlement} routes={routes} id="home-map-details" titleId="home-map-selected-title" position={active.y < 50 ? "below" : "above"} onClose={() => {
+          viewport.current?.querySelector<HTMLButtonElement>(`[data-marker="${selected}"]`)?.focus({ preventScroll: true });
+          setSelected(null);
+        }} />
       )}
     </div>
   );

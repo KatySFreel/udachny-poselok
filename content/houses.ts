@@ -3,6 +3,7 @@ export type House = {
   name: string;
   price: number;
   imageWidth: number;
+  image?: string;
   tags: readonly { icon: "size" | "bed" | "finish" | "heat"; label: string }[];
 };
 
@@ -37,4 +38,14 @@ export const readyHouses: readonly House[] = [
       { icon: "heat", label: "Тёплый контур" },
     ],
   },
+];
+
+/** The home page keeps its five featured projects. */
+export const constructionProjects: readonly House[] = [
+  ...houseProjects,
+  { slug: "bjerk", name: "Бьерк", price: 7500000, imageWidth: 1672, image: "/images/construction/bjerk.webp", tags: [{ icon: "size", label: "11 × 7,7 м" }] },
+  { slug: "family", name: "Фэмили", price: 7800000, imageWidth: 1672, image: "/images/construction/family.webp", tags: [{ icon: "size", label: "11,2 × 8 м" }] },
+  { slug: "fjord", name: "Фьёрд", price: 7950000, imageWidth: 1672, image: "/images/construction/fjord.webp", tags: [{ icon: "size", label: "12 × 8 м" }] },
+  { slug: "viking", name: "Викинг", price: 8500000, imageWidth: 1672, image: "/images/construction/viking.webp", tags: [{ icon: "size", label: "14 × 7 м" }] },
+  { slug: "simo", name: "Симо", price: 10100000, imageWidth: 1280, image: "/images/construction/simo.webp", tags: [{ icon: "size", label: "12,8 × 13 м" }] },
 ];

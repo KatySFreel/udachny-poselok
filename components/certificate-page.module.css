@@ -1,0 +1,84 @@
+/* Use the home page scale; only the certificate composition is page-specific. */
+.page { --action-unit: var(--section-unit); overflow: clip; }
+.page em { color: var(--red); font-family: var(--accent-font); font-weight: 400; }
+.page :is(h1,h2) { scroll-margin-top: 120px; }
+.hero { padding-top: calc(181 * var(--desktop-unit)); margin-bottom: var(--section-spacing); }
+.heroIntro { display: grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr); align-items: end; gap: calc(72 * var(--section-unit)); margin-bottom: calc(62 * var(--section-unit)); }
+.hero h1 { font: 500 calc(72 * var(--desktop-unit, 1px))/1 var(--heading-font); }
+.hero h1 em { display: block; }
+.heroIntro p,.experienceBody p { color: var(--brown-muted); font-size: calc(24 * var(--section-unit)); line-height: 1.2; }
+.heroPhoto { position: relative; height: calc(590 * var(--section-layout-unit)); overflow: hidden; border-radius: var(--radius); }
+.heroPhoto img { width: 100%; height: 100%; object-fit: cover; object-position: center 53%; }
+.hero > :global(.action) { width: 100%; margin-top: calc(32 * var(--section-unit)); }
+.experience,.steps { margin-bottom: var(--section-spacing); }
+.experience :global(h2) { max-width: calc(1440 * var(--section-layout-unit)); }
+.experience :global(h2) em,.steps :global(h2) em { display: inline; }
+.experienceBody { display: grid; grid-template-columns: calc(445 * var(--section-layout-unit)) minmax(0,1fr); grid-template-rows: 1fr auto; gap: 0 calc(20 * var(--section-layout-unit)); width: calc(1104 * var(--section-layout-unit)); max-width: calc(100% - 194 * var(--section-layout-unit)); margin: calc(32 * var(--section-unit)) auto 0; transform: translateX(calc(97 * var(--section-layout-unit))); min-height: calc(445 * var(--section-layout-unit)); }
+.experiencePhoto { grid-row: 1 / 3; position: relative; overflow: hidden; border-radius: var(--radius); }
+.experiencePhoto img { position: absolute; width: 117.55%; height: 176.33%; max-width: none; left: -2.4%; top: -42.02%; }
+.experienceCopy { grid-column: 2; }
+.stat { grid-column: 2; }
+.stat strong { display: block; margin-bottom: calc(12 * var(--section-unit)); color: var(--red); font: 600 calc(48 * var(--section-unit))/1.1 var(--heading-font); }
+.stat p { max-width: calc(539 * var(--section-unit)); }
+.stepGrid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: calc(20 * var(--section-layout-unit)); list-style: none; padding: 0; margin: calc(64 * var(--section-unit)) 0 0; }
+.step { display: flex; flex-direction: column; justify-content: space-between; min-width: 0; min-height: calc(445 * var(--section-layout-unit)); padding: calc(24 * var(--section-layout-unit)); border-radius: var(--radius); background: var(--pink-light); }
+.step[data-step="3"] { grid-column: 2; }
+.stepTop { display: flex; justify-content: space-between; align-items: center; }
+.stepTop span { color: var(--red); opacity: .8; font: 200 calc(32 * var(--section-unit))/1.25 var(--heading-font); letter-spacing: -.02em; }
+.step h3 { margin: 0; color: var(--brown); opacity: .8; font: 600 calc(32 * var(--section-unit))/1.25 var(--heading-font); letter-spacing: -.02em; }
+.emblemSlot,.emblemMobile,.emblemDesktop,.emblemTablet,.mobileBreak { display: none; }
+.consultation { scroll-margin-top: 120px; }
+
+@media (1024px <= width <= 1280px) {
+  .stepGrid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .step[data-step="3"] { grid-column: 1; }
+  .emblemSlot { display: grid; grid-column: 3; grid-row: 1; place-items: center; }
+  .emblemDesktop { display: block; transform: scaleX(-1); max-width: 100%; height: auto; }
+}
+@media (1024px <= width <= 1280px) {
+  .hero { --desktop-unit: var(--header-desktop-unit); }
+  .heroIntro { grid-template-columns: minmax(0,786fr) minmax(0,503fr); }
+  .hero h1 em { display: inline; }
+  .heroPhoto { height: calc(340 * var(--section-layout-unit)); }
+  .experienceBody { grid-template-columns: calc(335 * var(--section-layout-unit)) minmax(0,1fr); max-width: 100%; transform: none; }
+}
+@media (768px <= width < 1024px) {
+  .experience :global(h2),.steps :global(h2) { font-size: var(--section-stacked-heading-size); }
+  .hero { padding-top: 128px; }
+  .heroIntro { grid-template-columns: minmax(0,1fr); gap: calc(32 * var(--section-unit)); margin-bottom: calc(32 * var(--section-unit)); }
+  .hero h1 { max-width: 800px; font-size: clamp(44px,9.375vw,72px); }
+  .hero h1 em { display: inline; }
+  .heroPhoto { height: 358px; }
+  .heroPhoto img { object-position: center 62%; }
+  .experienceBody { grid-template-columns: 279px minmax(0,1fr); width: 100%; max-width: none; transform: none; min-height: 503px; }
+  .experiencePhoto img { width: 136.27%; height: 113.36%; left: -10.1%; top: -9.18%; }
+  .stepGrid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-top: 48px; }
+  .step[data-step="3"] { grid-column: 2; }
+  .step[data-step="4"] { grid-column: 1; }
+  .emblemSlot { display: grid; grid-column: 1; grid-row: 2; place-items: center; }
+  .emblemTablet { display: block; transform: scaleX(-1); }
+}
+@media (width < 768px) {
+  .hero { padding-top: 104px; margin-bottom: 100px; }
+  .heroIntro { grid-template-columns: minmax(0,1fr); gap: 16px; margin-bottom: 40px; }
+  .hero h1 { font-size: clamp(28px,9.0667vw,46px); }
+  .hero h1 em { display: inline; }
+  .heroIntro p,.experienceBody p { font-size: 14px; }
+  .heroPhoto { height: auto; aspect-ratio: 335/396; max-height: 500px; }
+  .heroPhoto img { position: absolute; inset: 0; object-position: center; }
+  .hero > :global(.action) { justify-content: center; margin-top: 12px; padding-inline: 16px; text-align: center; }
+  .hero > :global(.action) :global(.action__icon) { display: none; }
+  .experience,.steps { margin-bottom: 100px; }
+  .experienceBody { display: flex; flex-direction: column; gap: 24px; width: 100%; max-width: none; min-height: 0; margin-top: 32px; transform: none; text-align: center; }
+  .experienceCopy { order: -1; }
+  .experiencePhoto { height: clamp(240px,80vw,400px); }
+  .experiencePhoto img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .stat strong { margin-bottom: 8px; font-size: 24px; }
+  .steps :global(h2) em { display: block; }
+  .stepGrid { display: flex; flex-direction: column; gap: 12px; margin-top: 48px; }
+  .step { min-height: 0; gap: 48px; padding: 24px; }
+  .stepTop span { font-size: 24px; }
+  .step h3 { font-size: 24px; line-height: 1.1; letter-spacing: 0; }
+  .emblemSlot { display: grid; place-items: center; }
+  .emblemMobile,.mobileBreak { display: block; }
+}

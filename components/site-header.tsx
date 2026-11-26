@@ -1,3 +1,8 @@
+"use client";
+import { useCmsCopy } from "./cms-provider";
+
+
+import { leadForms, leadTrigger } from "../lib/lead-attribution";
 import { sitePath } from "../lib/site-path";
 import { navigation, site } from "../content/site";
 import { ConsultationDialog } from "./contact-dialog";
@@ -8,6 +13,9 @@ import { SiteLogo } from "./site-logo";
 const openConsultation = { commandfor: consultationId, command: "show-modal" };
 
 function Navigation({ label, mobile = false }: { label: string; mobile?: boolean }) {
+  const cms = useCmsCopy();
+  const navigation = cms.data("data.navigation", _cmsSource_navigation);
+
   return (
     <nav aria-label={label}>
       <ul className="nav-list">
@@ -56,11 +64,14 @@ function NavigationGroup({
 }
 
 export function SiteHeader({ coverId }: { coverId: string }) {
+  const cms = useCmsCopy();
+  const site = cms.data("data.site", _cmsSource_site);
+
   return (
     <>
       <CoverHeader coverId={coverId}>
         <SiteLogo />
-        <div className="header-nav"><Navigation label="Основная навигация" /></div>
+        <div className="header-nav"><Navigation label={cms.text("copy.site-header.1", "Основная навигация")} /></div>
         <div className="header-contact">
           <a className="header-phone" href={site.phoneHref} aria-label={site.phone}>
             <span className="header-phone__number">{site.phone}</span>
@@ -72,16 +83,17 @@ export function SiteHeader({ coverId }: { coverId: string }) {
             className="header-consultation"
             type="button"
             {...openConsultation}
+            {...leadTrigger(leadForms.consultation.id,{buttonId:"header-consultation",buttonLabel:consultationTitle,placement:"header"})}
           >
             {consultationTitle}
           </button>
           <details className="mobile-menu">
-            <summary aria-label="Меню">
+            <summary aria-label={cms.text("copy.site-header.2", "Меню")}>
               <img src={sitePath("/icons/mobile-menu/hamburger.svg")} alt="" width={16} height={14} />
             </summary>
             <div className="mobile-menu__panel">
-              <Navigation label="Мобильная навигация" mobile />
-              <button type="button" {...openConsultation}>
+              <Navigation label={cms.text("copy.site-header.3", "Мобильная навигация")} mobile />
+              <button type="button" {...openConsultation} {...leadTrigger(leadForms.consultation.id,{buttonId:"mobile-menu-consultation",buttonLabel:consultationTitle,placement:"mobile-menu"})}>
                 {consultationTitle}
               </button>
             </div>
@@ -92,3 +104,6 @@ export function SiteHeader({ coverId }: { coverId: string }) {
     </>
   );
 }
+
+const _cmsSource_navigation = navigation;
+const _cmsSource_site = site;

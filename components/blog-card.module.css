@@ -1,0 +1,10 @@
+.photo.photo { height: auto; aspect-ratio: 445 / 600; justify-content: flex-end; }
+@media (1024px <= width <= 1280px) {
+  .photo.photo { aspect-ratio: 440 / 600; }
+}
+@media (768px <= width < 1024px) {
+  .photo.photo { aspect-ratio: 440 / 600; }
+}
+@media (width < 768px) {
+  .photo.photo { aspect-ratio: 335 / 457; }
+}

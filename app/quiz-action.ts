@@ -1,5 +1,7 @@
 "use server";
 
+import { readLeadAttribution } from "../lib/lead-attribution";
+import { getCmsCopy } from "../lib/cms-store";
 import { quizQuestions } from "../content/quiz";
 import { validateContact } from "../lib/contact-validation";
 
@@ -8,7 +10,8 @@ export async function submitQuiz(form: FormData, answers: Record<string, string[
   const phone = String(form.get("phone") ?? "").replace(/\D/g, "");
   if (Object.keys(validateContact(form)).length) return "invalid";
 
-  const selections = quizQuestions.map(({ id, title, multiple, options }) => {
+  const questions = (await getCmsCopy()).data("data.quizQuestions", quizQuestions);
+  const selections = questions.map(({ id, title, multiple, options }) => {
     const answer = answers?.[id];
     if (!Array.isArray(answer) || !answer.length || answer.length > (multiple ? options.length : 1)
       || !answer.every((option) => typeof option === "string" && options.includes(option))) return null;
@@ -31,6 +34,7 @@ export async function submitQuiz(form: FormData, answers: Record<string, string[
         consent: true,
         marketingConsent: form.get("marketing") === "on",
         selections,
+        attribution: readLeadAttribution(form),
       }),
       cache: "no-store",
       redirect: "error",

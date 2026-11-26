@@ -1,3 +1,5 @@
+import { sitePath } from "../lib/site-path";
+
 export const site = {
   name: "Удачный посёлок",
   phone: "+7 905 222-37-40",
@@ -8,12 +10,18 @@ export const site = {
     city: "Санкт-Петербург",
     street: "Московский проспект, д. 91, офис 702",
     mapHref: "https://yandex.com/maps/org/udachniy_poselok/213104027028/",
+    mapEmbedHref: "https://yandex.ru/map-widget/v1/?ll=30.318404%2C59.895461&z=16&pt=30.318404%2C59.895461%2Cpm2rdm&lang=ru_RU",
   },
+  messengers: [
+    {id: 'telegram', label: 'Telegram', href: ''},
+    {id: 'max', label: 'MAX', href: ''},
+  ],
   socials: [
     { id: "rutube", label: "RUTUBE", href: "https://rutube.ru/channel/42361286/" },
     { id: "vk", label: "ВКонтакте", href: "https://vk.com/udachnyjposelok" },
   ],
-  dataConsentHref: "https://udachniyposelok.ru/approval",
+  dataConsentHref: sitePath("/approval"),
+  newsletterConsentHref: sitePath("/newsletter-consent"),
 };
 
 export const navigation = [
@@ -37,5 +45,5 @@ export const navigation = [
       { label: "Партнёрская программа", href: "/partneram" },
     ],
   },
-  { label: "Контакты", href: "/#contacts" },
+  { label: "Контакты", href: "/kontakty" },
 ] as const;

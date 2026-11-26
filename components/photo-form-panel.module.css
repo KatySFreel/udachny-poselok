@@ -7,6 +7,8 @@
   --field-inset: calc(32 * var(--section-unit));
   --action-unit: var(--section-unit);
   --inline-form-columns: repeat(2, minmax(0, 1fr));
+  --inline-error-reserve: 22px;
+  --inline-error-position: absolute;
 
   padding-block-end: var(--section-spacing);
 }
@@ -33,6 +35,14 @@
   height: 100%;
   object-fit: cover;
   object-position: 63% center;
+}
+
+.photoCaption { position: absolute; inset-inline: calc(24 * var(--section-unit)); bottom: calc(24 * var(--section-unit)); width: fit-content; max-width: calc(100% - 48 * var(--section-unit)); padding: calc(12 * var(--section-unit)) calc(24 * var(--section-unit)); border-radius: 100px; background: rgb(255 250 238 / 60%); backdrop-filter: blur(4px); color: var(--brown); font-size: calc(20 * var(--section-unit)); line-height: 1.2; }
+.photoCaption > span { display: flex; align-items: center; gap: 10px; }
+.photoCaption img { position: static; width: 16px; height: auto; flex: none; }
+@media (width < 768px) {
+  .photoCaption { inset-inline: 4px; bottom: 8px; max-width: calc(100% - 8px); padding: 8px 16px; font-size: 14px; text-align: center; }
+  .photoCaption img { display: none; }
 }
 
 .panel {
@@ -73,7 +83,7 @@
   line-height: 1.2;
 }
 
-@media (width > 1500px) {
+@media (width > 1280px) {
   .frame {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     min-height: calc(695 * var(--section-unit));
@@ -108,4 +118,26 @@
   .intro p { font-size: 14px; }
   .descriptionBreak { display: none; }
   .mobileDescriptionBreak { display: initial; }
+}
+
+.aboutWide { display: none; }
+.frame:is([data-variant="centered"],[data-variant="office"],[data-variant="personal-link"],[data-variant="construction"]) .photo > img { object-position: center; }
+@media (1024px <= width <= 1280px) {
+  .frame[data-variant="office"] { grid-template-columns: minmax(0,534fr) minmax(0,790fr); }
+}
+@media (768px <= width < 1024px) {
+  .frame[data-variant="presentation"] .panel { padding: 32px 24px; }
+  .frame:is([data-variant="office"],[data-variant="personal-link"],[data-variant="construction"]) .intro h2 { font-size: var(--section-stacked-heading-size); }
+  .frame[data-variant="construction"] .panel { padding: 32px 24px; }
+}
+@media (width < 768px) {
+  .frame:is([data-variant="office"],[data-variant="personal-link"],[data-variant="construction"]) .intro h2 { font-size: 32px; }
+}
+@media (width > 1280px) {
+  .aboutWide { display: block; }
+  .aboutCompact { display: none; }
+}
+
+@media (width < 768px) {
+  .frame:is([data-variant="about"],[data-variant="office"]) .panel :global(.action) { padding-inline-start: 12px; gap: 4px; }
 }

@@ -20,93 +20,6 @@
   list-style: none;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--card-row-gap);
-  padding: var(--card-padding);
-  border-radius: var(--radius);
-  background: var(--pink-light);
-  color: var(--brown);
-  text-align: center;
-  text-decoration: none;
-}
-
-.arrow {
-  --arrow-image: url("../public/icons/arrow.svg");
-
-  align-self: end;
-}
-
-.number img {
-  max-width: 100%;
-  height: auto;
-}
-
-.body {
-  display: grid;
-  gap: var(--card-copy-gap);
-  width: 100%;
-}
-
-.body p {
-  color: var(--brown-muted);
-  font-size: calc(24 * var(--section-unit));
-  line-height: 1.2;
-  text-wrap: pretty;
-}
-
-.card:focus-visible .arrow {
-  background-color: var(--red);
-  color: var(--cream);
-}
-
-@media (width >= 768px) and (hover: hover) and (pointer: fine) {
-  .card:hover .arrow {
-    background-color: var(--red);
-    color: var(--cream);
-  }
-}
-
-.card:focus-visible h3 {
-  opacity: 1;
-  text-decoration-color: currentColor;
-}
-
-@media (width >= 768px) and (hover: hover) and (pointer: fine) {
-  .card:hover h3 {
-    opacity: 1;
-    text-decoration-color: currentColor;
-  }
-}
-
-@media (width > 1280px) {
-  .cards { align-items: stretch; }
-
-  .item { display: grid; }
-
-  .card {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    justify-items: center;
-    gap: calc(24 * var(--section-layout-unit));
-    min-height: calc(442 * var(--section-layout-unit));
-  }
-
-  .arrow { justify-self: end; }
-
-  .number { align-self: center; }
-}
-
-@media (1024px <= width <= 1280px) {
-  .number img { width: calc(var(--number-width) * var(--section-layout-unit)); }
-
-  .item:nth-child(2) .body h3 { max-width: 13ch; }
-  .item:nth-child(2) .body p { max-width: 25ch; }
-  .item:nth-child(2) .body > * { justify-self: center; }
-}
-
 @media (width < 1024px) {
   .heading span { display: block; }
 
@@ -126,7 +39,7 @@
     margin-block-start: 48px;
   }
 
-  .arrow { --arrow-image: url("../public/icons/settlement-arrow-mobile.svg"); }
 
-  .body p { font-size: 14px; }
 }
+
+@media (width > 1280px) { .cards { align-items: stretch; } .item { display: grid; } }

@@ -7,9 +7,12 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run check:responsive && next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:responsive": "node scripts/check-responsive-rules.cjs",
+    "test:plans": "node --test scripts/test-plan-store.cjs",
+    "test:admin": "node --test scripts/test-admin.cjs"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "5.3.0",

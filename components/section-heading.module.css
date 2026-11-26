@@ -1,0 +1,10 @@
+.wrapper { display: grid; gap: var(--heading-gap, calc(32 * var(--section-unit))); text-align: center; }
+.heading { margin: 0; }
+.wrapper em { display: inline; }
+.wrapper[data-accent="red"] em { color: var(--red); }
+.wrapper[data-inverse] h2 { color: var(--cream); }
+.wrapper[data-inverse] em { color: #e6a7a5; }
+.wrapper[data-inverse] > div { color: var(--pink-light); border-color: rgb(255 250 238 / 60%); }
+@media (width < 768px) {
+  .wrapper { gap: 24px; }
+}

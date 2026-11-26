@@ -134,6 +134,8 @@
   .photoImages[data-house="uyutnyy"] img { left: -8.91%; width: 120.63%; }
   .photoImages[data-house="skandi"] img { left: -11.46%; width: 130.29%; }
 
+  .card[data-variant="catalog"] .photoImages img { inset: 0; width: 100%; height: 100%; }
+
   .tags li {
     padding: 6px 12px;
     font-size: 14px;

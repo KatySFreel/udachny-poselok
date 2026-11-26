@@ -74,7 +74,7 @@ export const settlements: readonly Settlement[] = [
     name: "«Зелёный лес»",
     districtId: "kirovskiy",
     location: "Кировский район",
-    price: 498000,
+    price: 1320000,
     highlights: ["Остался один участок"],
   },
   {

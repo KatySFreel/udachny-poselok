@@ -1,0 +1,6 @@
+.viewport { overflow: hidden; cursor: grab; scrollbar-width: none; }
+.viewport::-webkit-scrollbar { display: none; }
+.viewport[data-dragging] { cursor: grabbing; user-select: none; }
+@media (hover: none), (pointer: coarse) {
+  .viewport { overflow: auto; overscroll-behavior-inline: contain; }
+}

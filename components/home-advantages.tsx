@@ -1,3 +1,7 @@
+"use client";
+import { useCmsCopy } from "./cms-provider";
+
+
 import { siteSrcSet, sitePath } from "../lib/site-path";
 import { homeAdvantages } from "../content/home";
 import styles from "./home-advantages.module.css";
@@ -22,6 +26,9 @@ function AdvantageFacts({
 }
 
 export function HomeAdvantages() {
+  const cms = useCmsCopy();
+  const homeAdvantages = cms.data("data.homeAdvantages", _cmsSource_homeAdvantages);
+
   const { title, emphasis, description, firstFacts, secondFacts } = homeAdvantages;
 
   return (
@@ -34,14 +41,14 @@ export function HomeAdvantages() {
         <AdvantageFacts facts={firstFacts} />
         <div className={styles.photo}>
           <picture className={styles.ring}>
-            <source media="(width > 1280px)" srcSet={siteSrcSet("/images/advantages-ring-wide.webp")} />
-            <source media="(width < 768px)" srcSet={siteSrcSet("/images/advantages-ring-mobile.webp")} />
-            <img src={sitePath("/images/advantages-ring-desktop.webp")} alt="" width={748} height={748} loading="lazy" />
+            <source media="(width > 1280px)" srcSet={cms.imageSet("copy.home-advantages.3", siteSrcSet(cms.text("copy.home-advantages.1", "/images/advantages-ring-wide.webp")))} />
+            <source media="(width < 768px)" srcSet={cms.imageSet("copy.home-advantages.3", siteSrcSet(cms.text("copy.home-advantages.2", "/images/advantages-ring-mobile.webp")))} />
+            <img src={sitePath(cms.text("copy.home-advantages.3", "/images/advantages-ring-desktop.webp"))} alt="" width={748} height={748} loading="lazy" />
           </picture>
           <picture className={styles.family}>
-            <source media="(width > 1280px)" srcSet={siteSrcSet("/images/advantages-family-wide.webp")} />
-            <source media="(width < 768px)" srcSet={siteSrcSet("/images/advantages-family-mobile.webp")} />
-            <img src={sitePath("/images/advantages-family-desktop.webp")} alt="" width={720} height={720} loading="lazy" />
+            <source media="(width > 1280px)" srcSet={cms.imageSet("copy.home-advantages.6", siteSrcSet(cms.text("copy.home-advantages.4", "/images/advantages-family-wide.webp")))} />
+            <source media="(width < 768px)" srcSet={cms.imageSet("copy.home-advantages.6", siteSrcSet(cms.text("copy.home-advantages.5", "/images/advantages-family-mobile.webp")))} />
+            <img src={sitePath(cms.text("copy.home-advantages.6", "/images/advantages-family-desktop.webp"))} alt="" width={720} height={720} loading="lazy" />
           </picture>
         </div>
         <AdvantageFacts facts={secondFacts} />
@@ -49,3 +56,5 @@ export function HomeAdvantages() {
     </section>
   );
 }
+
+const _cmsSource_homeAdvantages = homeAdvantages;

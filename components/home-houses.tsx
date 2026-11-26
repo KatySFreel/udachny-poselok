@@ -1,3 +1,7 @@
+"use client";
+import { useCmsCopy } from "./cms-provider";
+
+
 import { sitePath } from "../lib/site-path";
 import { houseProjects, readyHouses } from "../content/houses";
 import { ActionLink } from "./action";
@@ -8,9 +12,13 @@ import styles from "./home-houses.module.css";
 import shared from "./settlements.module.css";
 
 export function HomeHouses() {
+  const cms = useCmsCopy();
+  const houseProjects = cms.data("data.houseProjects", _cmsSource_houseProjects);
+  const readyHouses = cms.data("data.readyHouses", _cmsSource_readyHouses);
+
   return (
     <section className={`shell ${shared.section} ${styles.section}`} aria-labelledby="home-houses-title">
-      <div className={shared.sectionLabel}>Строительство домов</div>
+      <div className={shared.sectionLabel}>{cms.text("copy.home-houses.1", "Строительство домов")}</div>
       <HouseFilter
         projects={(
           <ul className={styles.grid}>
@@ -18,13 +26,13 @@ export function HomeHouses() {
             <li className={styles.catalogSlot}>
               <CatalogCard
                 href="/doma"
-                label="Смотреть все проекты домов"
-                title="Посмотреть все проекты домов"
+                label={cms.text("copy.home-houses.2", "Смотреть все проекты домов")}
+                title={cms.text("copy.home-houses.3", "Посмотреть все проекты домов")}
                 imageDirectory="/images/houses"
                 pattern={{
-                  src: "/images/houses/pattern.svg",
-                  tablet: "/images/houses/pattern-tablet.svg",
-                  desktop: "/images/houses/pattern-desktop.svg",
+                  src: cms.text("copy.home-houses.4", "/images/houses/pattern.svg"),
+                  tablet: cms.text("copy.home-houses.5", "/images/houses/pattern-tablet.svg"),
+                  desktop: cms.text("copy.home-houses.6", "/images/houses/pattern-desktop.svg"),
                   width: 608,
                 }}
                 className={styles.catalog}
@@ -39,7 +47,7 @@ export function HomeHouses() {
               {readyHouses.map(house => <li key={house.slug}><HouseCard house={house} ready /></li>)}
             </ul>
             <div className={styles.readyAction}>
-              <ActionLink href={sitePath("/doma/gotovye")} aria-label="Смотреть все готовые дома">Смотреть все</ActionLink>
+              <ActionLink href={sitePath("/doma#gotovye-doma")} aria-label={cms.text("copy.home-houses.7", "Смотреть все готовые дома")}>{cms.text("copy.home-houses.8", "Смотреть все")}</ActionLink>
             </div>
           </>
         )}
@@ -47,3 +55,6 @@ export function HomeHouses() {
     </section>
   );
 }
+
+const _cmsSource_houseProjects = houseProjects;
+const _cmsSource_readyHouses = readyHouses;

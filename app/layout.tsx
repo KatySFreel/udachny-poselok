@@ -1,7 +1,10 @@
+import { CmsProvider } from '../components/cms-provider';
+import { publishedCmsValues, cmsPreviewPage, getCmsCopy } from '../lib/cms-store';
+import { connection } from 'next/server';
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { canonicalUrl, indexable, metadataBase } from "../lib/site-metadata";
-import { sitePath } from "../lib/site-path";
+import { createPageMetadata, indexable, metadataBase } from "../lib/site-metadata";
+import { LeadTracking } from "../components/lead-tracking";
 import { FormSimulation } from "../components/form-simulation";
 import { SiteFonts } from "../components/site-fonts";
 import "./hero-poster.css";
@@ -10,40 +13,35 @@ import "./globals.css";
 const pageTitle = "Удачный посёлок — дома и участки в Ленинградской области";
 const pageDescription = "Выберите участок в коттеджном посёлке или постройте дом в Ленинградской области. Земельный сертификат и покупка в рассрочку.";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   metadataBase,
   robots: { index: indexable, follow: indexable },
-  ...(indexable && canonicalUrl ? { alternates: { canonical: new URL("/", canonicalUrl) } } : {}),
-  title: pageTitle,
-  description: pageDescription,
-  openGraph: {
-    siteName: "Удачный посёлок",
-    title: pageTitle,
-    description: pageDescription,
-    ...(metadataBase ? {
-      url: new URL(sitePath("/"), metadataBase),
-      images: [{
-        url: new URL(sitePath("/images/home-aerial-1440.webp"), metadataBase),
-        alt: "Коттеджный посёлок в Ленинградской области с высоты",
-      }],
-    } : {}),
-    type: "website",
-    locale: "ru_RU",
-  },
+  ...createPageMetadata({title:pageTitle,description:pageDescription,path:'/',siteName:'Удачный посёлок',image:{src:'/images/home-aerial-1440.webp',alt:'Коттеджный посёлок в Ленинградской области с высоты'}}),
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  if (process.env.PAGES_PREVIEW !== '1') await connection();
+  const cmsValues = await publishedCmsValues();
+  const previewPage = await cmsPreviewPage();
   return (
     <html lang="ru">
       <head>
         <SiteFonts />
         <noscript>
-          <style>{".hero .hero__background img, .hero .hero__content > *, .hero .hero__offers, [data-cover-motion] > :is(img, h1) { animation: none !important; }"}</style>
+          <style>{".hero .hero__background img, .hero .hero__content > *, .hero .hero__offers, [data-cover-motion] > :is(img, h1), [data-cover-motion] [data-cover-part] { animation: none !important; }"}</style>
         </noscript>
       </head>
       <body>
-        <FormSimulation>{children}</FormSimulation>
+        {previewPage && <div role="status" style={{position:"fixed",bottom:16,left:16,right:16,zIndex:9999,padding:"12px 20px",background:"var(--brown)",color:"var(--cream)",font:"14px var(--body-font)",borderRadius:6}}>Предпросмотр черновика: {previewPage.title}. Посетители видят опубликованную версию. <a href="?" style={{textDecoration:"underline"}}>Закрыть предпросмотр</a></div>}
+        <CmsProvider values={cmsValues}><FormSimulation><LeadTracking>{children}</LeadTracking></FormSimulation></CmsProvider>
       </body>
     </html>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const cms = await getCmsCopy();
+  const title = cms.text("seo.home.title", pageTitle);
+  const description = cms.text("seo.home.description", pageDescription);
+  return { ...baseMetadata, title, description, openGraph: { ...baseMetadata.openGraph, title, description }, twitter: { ...baseMetadata.twitter, title, description } };
 }

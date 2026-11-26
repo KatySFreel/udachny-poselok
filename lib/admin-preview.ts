@@ -1,0 +1,12 @@
+import type * as server from '../app/admin/actions';
+const unavailable = { ok: false as const, message: 'Редактирование доступно в серверной версии сайта.' };
+export const adminAccess: typeof server.adminAccess = async () => ({ user: null, configured: false, staticPreview: true });
+export const adminLogin: typeof server.adminLogin = async () => unavailable;
+export const adminLogout: typeof server.adminLogout = async () => {};
+export const adminRequestAccess: typeof server.adminRequestAccess = async () => unavailable;
+export const adminUsers: typeof server.adminUsers = async () => [];
+export const adminChangeAccess: typeof server.adminChangeAccess = async () => unavailable;
+export const adminReadPage: typeof server.adminReadPage = async () => { throw new Error(unavailable.message); };
+export const adminSavePage: typeof server.adminSavePage = async () => unavailable;
+export const adminPageSummaries: typeof server.adminPageSummaries = async () => [];
+export const adminUploadImage: typeof server.adminUploadImage = async () => unavailable;

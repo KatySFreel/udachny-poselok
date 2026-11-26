@@ -1,10 +1,13 @@
 "use client";
+import { useCmsCopy } from "./cms-provider";
 
-import { useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+
+import { useEffect, useLayoutEffect, useId, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { completedSettlements, type CompletedSettlement } from "../content/settlements";
 import { sitePath } from "../lib/site-path";
 import { AnimatedDialog } from "./animated-dialog";
 import { DialogCloseButton } from "./contact-dialog";
+import { CarouselButtons } from "./carousel-controls";
 import { SettlementCard } from "./settlement-card";
 import styles from "./completed-settlement-cards.module.css";
 import cardStyles from "./settlements.module.css";
@@ -14,6 +17,9 @@ const photoDirectory = "/images/settlements/completed/gallery";
 const photos = [1, 2, 3] as const;
 
 function SettlementGallery({ settlement }: { settlement: CompletedSettlement }) {
+  const cms = useCmsCopy();
+
+  const viewportId = useId();
   const [active, setActive] = useState(0);
   const rail = useRef<HTMLDivElement>(null);
   const target = useRef<number | null>(null);
@@ -67,10 +73,11 @@ function SettlementGallery({ settlement }: { settlement: CompletedSettlement }) 
     <div className={styles.gallery} onKeyDown={handleKeys}>
       <div className={styles.media}>
         <div
+          id={viewportId}
           className={`carousel-viewport ${styles.rail}`}
           ref={rail}
           role="group"
-          aria-label="Фотографии посёлка"
+          aria-label={cms.text("copy.completed-settlement-cards.1", "Фотографии посёлка")}
           tabIndex={0}
           onPointerDown={startMouseSwipe}
           onPointerDownCapture={() => setInteracting(true)}
@@ -102,18 +109,20 @@ function SettlementGallery({ settlement }: { settlement: CompletedSettlement }) 
             </picture>
           ))}
         </div>
-        <p className={styles.sold}>Все участки проданы</p>
+        <p className={styles.sold}>{cms.text("copy.completed-settlement-cards.2", "Все участки проданы")}</p>
       </div>
-      <div className={styles.controls} role="group" aria-label="Управление галереей">
-        <button type="button" className="carousel-arrow" aria-label="Предыдущее фото" aria-disabled={active === 0} tabIndex={active === 0 ? -1 : 0} onClick={() => { if (active > 0) advance(-1); }} />
-        <button type="button" className="carousel-arrow" aria-label="Следующее фото" aria-disabled={active === photos.length - 1} tabIndex={active === photos.length - 1 ? -1 : 0} onClick={() => { if (active < photos.length - 1) advance(1); }} />
+      <div className={styles.controls} role="group" aria-label={cms.text("copy.completed-settlement-cards.3", "Управление галереей")}>
+        <CarouselButtons viewportId={viewportId} previousLabel="Предыдущее фото" nextLabel="Следующее фото" previousDisabled={active===0} nextDisabled={active===photos.length-1} onPrevious={()=>advance(-1)} onNext={()=>advance(1)} />
       </div>
-      <p className={cardStyles.resultStatus} aria-live="polite">Фото {active + 1} из {photos.length}</p>
+      <p className={cardStyles.resultStatus} aria-live="polite">{cms.text("copy.completed-settlement-cards.4", "Фото ")}{active + 1} {cms.text("copy.completed-settlement-cards.5", " из ")}{photos.length}</p>
     </div>
   );
 }
 
 export function CompletedSettlementCards() {
+  const cms = useCmsCopy();
+  const completedSettlements = cms.data("data.completedSettlements", _cmsSource_completedSettlements);
+
   const [selected, setSelected] = useState<CompletedSettlement | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
 
@@ -140,12 +149,12 @@ export function CompletedSettlementCards() {
           <>
             <DialogCloseButton />
             <div className={styles.header}>
-              <p className={styles.label}>Посёлок</p>
+              <p className={styles.label}>{cms.text("copy.completed-settlement-cards.6", "Посёлок")}</p>
               <h2 className={styles.title} id="completed-settlement-title">{selected.name}</h2>
               <ul className={styles.details}>
                 <li>
                   <img src={sitePath(`${iconDirectory}/location.svg`)} alt="" width={24} height={24} />
-                  <span>{selected.location}, {selected.year} год</span>
+                  <span>{selected.location}, {selected.year} {cms.text("copy.completed-settlement-cards.7", " год")}</span>
                 </li>
                 <li>
                   <img src={sitePath(`${iconDirectory}/map.svg`)} alt="" width={24} height={24} />
@@ -154,7 +163,7 @@ export function CompletedSettlementCards() {
                 {selected.direction && (
                   <li>
                     <img src={sitePath(`${iconDirectory}/website.svg`)} alt="" width={24} height={24} />
-                    <span>Направление: {selected.direction}</span>
+                    <span>{cms.text("copy.completed-settlement-cards.8", "Направление: ")}{selected.direction}</span>
                   </li>
                 )}
               </ul>
@@ -166,3 +175,5 @@ export function CompletedSettlementCards() {
     </>
   );
 }
+
+const _cmsSource_completedSettlements = completedSettlements;

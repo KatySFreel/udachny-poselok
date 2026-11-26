@@ -58,7 +58,7 @@
 }
 
 /* Preserve the source image's crop in the 1840 × 900 Figma map. */
-.background { position: absolute; bottom: 0; left: -4.348%; display: block; width: 115.22%; max-width: none; height: auto; user-select: none; }
+.background { position: absolute; top: -7.53%; left: 0; display: block; width: 100%; max-width: none; height: 115.06%; user-select: none; }
 
 .marker {
   position: absolute;
@@ -85,10 +85,11 @@
   transition: background-color var(--hover-duration) ease, scale var(--hover-duration) ease;
 }
 
-.pin img { width: calc(28 * var(--section-unit)); height: auto; }
+.pin img { width: calc(21 * var(--section-unit)); height: auto; }
 .markerLabel { padding: calc(12 * var(--section-unit)) calc(24 * var(--section-unit)); border-radius: 100px; background: var(--cream); font-size: calc(20 * var(--section-unit)); line-height: 1.2; white-space: nowrap; }
 .marker[aria-expanded="true"] { z-index: 1; }
 .marker[aria-expanded="true"] .pin { background: var(--brown); scale: 1.25; }
+.marker[aria-expanded="true"] .pin img { width: calc(22.4 * var(--section-unit)); }
 .marker[aria-expanded="true"] .markerLabel { visibility: hidden; }
 .marker:focus-visible { outline: none; }
 .marker:focus-visible .pin { outline: 2px solid var(--brown); outline-offset: 4px; }
@@ -96,7 +97,7 @@
 .details {
   position: absolute;
   z-index: 2;
-  top: calc(var(--board-height) * var(--pin-y) - 60 * var(--section-unit));
+  top: clamp(24px, calc(var(--board-height) * var(--pin-y) - 60 * var(--section-unit) - var(--details-height, 321px)), calc(var(--board-height) - var(--details-height, 321px) - 24px));
   left: var(--card-center);
   display: grid;
   grid-template-columns: calc(280 * var(--section-unit)) minmax(0, 1fr);
@@ -107,21 +108,29 @@
   padding: calc(24 * var(--section-unit));
   border-radius: calc(16 * var(--section-unit));
   background: var(--cream);
-  transform: translate(-50%, -100%);
+  transform: translateX(-50%);
 }
+
+.details[data-position="below"] { top: clamp(24px, calc(var(--board-height) * var(--pin-y) + 60 * var(--section-unit)), calc(var(--board-height) - var(--details-height, 321px) - 24px)); }
 
 .details::after {
   content: "";
   position: absolute;
   top: 100%;
   left: clamp(24px, calc(var(--pin-left) - var(--card-center) + var(--card-width) / 2), calc(100% - 24px));
-  border: calc(17 * var(--section-unit)) solid transparent;
+  border: calc(10.5 * var(--section-unit)) solid transparent;
   border-bottom: 0;
   border-top-color: var(--cream);
+  border-top-width: calc(18 * var(--section-unit));
   transform: translateX(-50%);
 }
 
+.details[data-position="below"]::after { top: auto; bottom: 100%; border-top: 0; border-bottom: calc(18 * var(--section-unit)) solid var(--cream); }
+.details[data-pointer="false"]::after { display: none; }
+
 .cardPhoto { position: relative; grid-row: 1 / 3; overflow: hidden; border-radius: var(--radius); }
+.detailsClose { position: absolute; z-index: 1; top: 4px; right: 4px; display: grid; place-items: center; width: 28px; height: 28px; padding: 0; border: 0; border-radius: var(--radius); background: var(--cream); color: var(--brown); }
+.detailsClose:focus-visible { outline: 1px solid var(--brown); }
 .cardPhoto img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .summary { min-width: 0; color: var(--brown); text-decoration: none; }
 .summary .location { align-items: flex-start; gap: calc(8 * var(--section-unit)); margin-bottom: calc(12 * var(--section-unit)); color: #b79e9a; }
@@ -136,7 +145,7 @@
 .routeLinks { display: flex; flex-wrap: wrap; gap: calc(12 * var(--section-unit)); }
 .routeLinks a { display: inline-flex; align-items: center; justify-content: center; gap: calc(8 * var(--section-unit)); padding: calc(12 * var(--section-unit)) calc(24 * var(--section-unit)); border-radius: 100px; background: var(--pink-light); text-decoration: none; white-space: nowrap; transition: background-color var(--hover-duration) ease; }
 
-@media (width >= 1280px) { .stage { min-width: 0; } }
+@media (width > 1280px) { .stage { min-width: 0; } }
 .routeLinks img { width: calc(24 * var(--section-unit)); height: auto; flex: none; }
 .routeLinks a:hover { background: var(--pink); }
 
@@ -170,8 +179,8 @@
   .marker:hover .pin { background: var(--brown); }
 }
 
-@media (width < 1280px) {
-  .details { top: 24px; left: 50%; transform: translateX(-50%); }
+@media (width <= 1280px) {
+  .details, .details[data-position="below"] { top: 24px; left: 50%; transform: translateX(-50%); }
   .details::after { display: none; }
 }
 
@@ -199,7 +208,7 @@
   .pin { width: 44px; height: 44px; }
   .pin img { width: 26px; }
   .markerLabel { padding: 8px 16px; font-size: 14px; }
-  .details { top: 16px; left: 12px; right: 12px; grid-template-columns: 88px minmax(0, 1fr); column-gap: 12px; row-gap: 16px; width: auto; min-height: 0; padding: 16px; border-radius: 12px; transform: none; }
+  .details, .details[data-position="below"] { top: 16px; left: 12px; right: 12px; grid-template-columns: 88px minmax(0, 1fr); column-gap: 12px; row-gap: 16px; width: auto; min-height: 0; padding: 16px; border-radius: 12px; transform: none; }
   .cardPhoto { grid-row: 1; min-height: 132px; }
   .summary .location { gap: 6px; margin-bottom: 8px; font-size: 12px; }
   .summary .location img { width: 10px; }

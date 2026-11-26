@@ -1,11 +1,15 @@
 "use client";
+import { useCmsCopy } from "./cms-provider";
 
 import { useContext, useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
+import { leadForms } from "../lib/lead-attribution";
+import { useLeadTracking } from "./lead-tracking";
 import { submitQuiz } from "@quiz-transport";
 import { quizQuestions } from "../content/quiz";
 import { site } from "../content/site";
 import { ActionButton } from "./action";
 import { RequestSuccess } from "./contact-dialog";
+import { PersonalDataConsent } from "./personal-data-consent";
 import { PhoneField, TextField } from "./form-field";
 import { FormTest, simulateSubmission, submissionError } from "./form-simulation";
 import { useContactValidation } from "./use-contact-validation";
@@ -15,6 +19,10 @@ import styles from "./home-quiz.module.css";
 const total = quizQuestions.length;
 
 export function Quiz() {
+  const cms = useCmsCopy();
+  const quizQuestions = cms.data("data.quizQuestions", _cmsSource_quizQuestions);
+  const site = cms.data("data.site", _cmsSource_site);
+  const tracking = useLeadTracking(leadForms.quiz, "Получить презентацию");
   const { outcome, enabled } = useContext(FormTest);
   const { validate, clearField, errorProps, fieldError } = useContactValidation();
   const [step, setStep] = useState(0);
@@ -43,17 +51,22 @@ export function Quiz() {
     const form = event.currentTarget;
     const data = new FormData(form);
     setError(undefined);
-    if (!validate(form, data)) return;
+    const source = tracking.prepare(form, data);
+    if (!validate(form, data)) { tracking.track("form_validation_error",source); return; }
+    tracking.track("form_submit",source);
     setPending(true);
 
     try {
       const result = await submitQuiz(data, answers, enabled);
       if (result === "ok" || (result === "simulation" && await simulateSubmission(outcome) === "success")) {
+        tracking.track("form_success",source,result === "simulation" ? "test" : "live");
         success.current?.showModal();
         return;
       }
+      tracking.track("form_error",source);
       setError(result === "answers" ? "answers" : "unavailable");
     } catch {
+      tracking.track("form_error",source);
       setError("unavailable");
     } finally {
       setPending(false);
@@ -61,6 +74,7 @@ export function Quiz() {
   }
 
   function reset() {
+    tracking.reset();
     setAnswers({});
     setError(undefined);
     setStep(0);
@@ -112,7 +126,8 @@ export function Quiz() {
             <div className={styles.finishContent}>
               <h2 id="home-quiz-title" ref={heading} tabIndex={-1}>Получите презентацию посёлков <em>под ваши пожелания</em></h2>
               <p>Оставьте номер телефона, чтобы получить презентацию с расположением посёлков, схемами участков, ценами и условиями покупки</p>
-              <form className={styles.form} data-error-layout="flow" method="post" noValidate onSubmit={send} onInput={edit}>
+              <form className={styles.form} data-error-layout="flow" method="post" data-lead-form-id={leadForms.quiz.id} noValidate onSubmit={send} onInput={edit} onFocus={tracking.start}>
+                <input type="hidden" name="attribution" />
                 <div className={styles.inputs}>
                   <div className={fields.field}>
                     <TextField label="Имя" name="name" placeholder="Введите ваше имя" autoComplete="name" maxLength={120} required {...errorProps("name")} />
@@ -128,10 +143,7 @@ export function Quiz() {
                   </div>
                 </div>
                 <div className={fields.consentField}>
-                  <label className={fields.consent}>
-                    <input type="checkbox" name="consent" required {...errorProps("consent")} />
-                    <span>Я даю согласие на обработку персональных данных и подтверждаю, что ознакомлен(а) с <a href={site.dataConsentHref} target="_blank" rel="noreferrer">Политикой обработки персональных данных</a></span>
-                  </label>
+                  <PersonalDataConsent validation={errorProps("consent")} />
                   {fieldError("consent")}
                 </div>
                 <label className={fields.consent}>
@@ -154,3 +166,6 @@ export function Quiz() {
     </div>
   );
 }
+
+const _cmsSource_quizQuestions = quizQuestions;
+const _cmsSource_site = site;

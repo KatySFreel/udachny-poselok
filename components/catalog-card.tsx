@@ -1,3 +1,5 @@
+import { ActionLabel } from "./action";
+import { ImageStack } from "./image-stack";
 import { sitePath, siteSrcSet } from "../lib/site-path";
 import styles from "./catalog-card.module.css";
 
@@ -30,19 +32,10 @@ export function CatalogCard({
         <img src={sitePath(pattern.src)} alt="" width={pattern.width} height={600} loading="lazy" />
       </picture>
       <div className={styles.catalogIntro}>
-        <div className={styles.catalogPhotos}>
-          {photoNumbers.map(number => (
-            <img key={number} src={sitePath(`${imageDirectory}/catalog-${number}.webp`)} alt="" width={144} height={144} loading="lazy" />
-          ))}
-        </div>
+        <ImageStack className={styles.catalogPhotos} images={photoNumbers.map(number => `${imageDirectory}/catalog-${number}.webp`)} />
         <p>{title}</p>
       </div>
-      <span className="action action--light action--with-arrow">
-        <span>Смотреть все</span>
-        <span className="action__icon">
-          <img src={sitePath("/icons/settlement-catalog-arrow.svg")} alt="" width={24.513} height={24.513} />
-        </span>
-      </span>
+      <ActionLabel variant="light" arrow iconSrc="/icons/settlement-catalog-arrow.svg">Смотреть все</ActionLabel>
     </a>
   );
 }

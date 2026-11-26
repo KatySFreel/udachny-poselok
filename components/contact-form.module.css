@@ -1,22 +1,51 @@
 .form, .fields, .inputs { display: grid; grid-template-columns: minmax(0, 1fr); }
-.form { gap: var(--form-gap, 32px); }
+.form {
+  --field-error-reserve: 22px;
+  --field-error-position: absolute;
+  gap: var(--form-gap, 32px);
+}
+.form[data-layout="inline"] {
+  --field-error-reserve: var(--inline-error-reserve, 0px);
+  --field-error-position: var(--inline-error-position, static);
+}
 .fields, .inputs { gap: var(--field-gap, 12px); }
+.choices { display: grid; gap: calc(12 * var(--section-unit)); min-inline-size: 0; margin: 0; padding: calc(20 * var(--section-unit)) var(--field-inset, 32px); border: 1px solid var(--brown-10); border-radius: var(--radius); background: var(--cream); color: var(--brown-muted); }
+.choices legend { float: left; width: 100%; margin-block-end: calc(12 * var(--section-unit)); padding: 0; font-size: calc(24 * var(--section-unit)); line-height: 1.2; }
+.choices label { display: flex; align-items: center; gap: calc(12 * var(--section-unit)); font-size: calc(20 * var(--section-unit)); line-height: 1.2; cursor: pointer; }
+.choices input { appearance: none; flex: none; width: calc(28 * var(--section-unit)); height: calc(28 * var(--section-unit)); margin: 0; background: url('../public/images/mortgage/radio.svg') center / contain no-repeat; cursor: pointer; }
+.choices input:checked { background-image: url('../public/images/mortgage/radio-checked.svg'); }
+.choices input:focus-visible { outline: 2px solid var(--brown); outline-offset: 3px; border-radius: 50%; }
+@media (width < 768px) {
+  .choices legend, .choices label { font-size: 14px; }
+  .choices { gap: 8px; padding: 16px; }
+  .choices input { width: 20px; height: 20px; }
+}
 .fields { min-inline-size: 0; margin: 0; padding: 0; border: 0; }
 .form[data-layout="dialog"] .inputs { grid-template-columns: minmax(0, 374fr) minmax(0, 420fr); }
 .form[data-layout="inline"] .inputs { grid-template-columns: var(--inline-form-columns, minmax(0, 1fr)); }
 
 .field, .consentField {
   position: relative;
-  padding-block-start: 22px;
+  padding-block-start: var(--field-error-reserve, 0px);
+}
+
+/* Name and email share a row; the phone and consent each occupy a full row. */
+.form[data-layout="inline"][data-fields="name-email-phone"] .field:has(input[name="phone"]) {
+  grid-column: 1 / -1;
+}
+.form[data-layout="inline"][data-fields="name-email-phone"] :is(.field:has(input[name="phone"]), .consentField) {
+  --field-error-reserve: 0px;
+  --field-error-position: static;
 }
 
 .fieldError {
-  position: absolute;
+  position: var(--field-error-position, static);
   inset-inline: 0;
   inset-block-start: 0;
   color: var(--red);
   font-size: clamp(13px, 1vw, 16px);
   line-height: 1.2;
+  margin-block-end: 4px;
 }
 
 .field :global(.form-field) > span {
@@ -105,10 +134,6 @@
   line-height: 1.2;
 }
 
-.successMessage {
-  color: var(--brown);
-  font-size: calc(20 * var(--section-unit));
-}
 
 .form :global(.action), .success :global(.action) { width: 100%; }
 
@@ -224,10 +249,9 @@
   .dialog:not(.success) { width: min(480px, calc(100% - 32px)); }
   .form[data-layout="dialog"] .inputs { grid-template-columns: minmax(0, 1fr); }
   .form[data-layout="inline"] .fields { gap: 12px; }
-  .form[data-layout="inline"] :is(.field, .consentField) { padding-block-start: 0; }
-  .form[data-layout="inline"] .fieldError {
-    position: static;
-    margin-block-end: 4px;
+  .form, .form[data-layout="inline"] {
+    --field-error-reserve: 0px;
+    --field-error-position: static;
   }
   .form[data-layout="inline"] .consent { gap: 16px; padding-inline-start: 4px; }
   .dialog .consent { gap: 12px; padding-inline-start: 0; }
@@ -253,4 +277,5 @@
 :global([data-error-layout="flow"]) .fieldError {
   position: static;
   margin-block-start: 8px;
+  margin-block-end: 0;
 }

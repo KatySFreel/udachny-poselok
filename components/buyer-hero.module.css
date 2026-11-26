@@ -1,0 +1,32 @@
+/* The photo fills the screen space left by the heading and action.
+   Height limits are shared with the home cover. */
+.hero {
+  --buyer-photo-min-height: calc(400 * var(--section-unit));
+  display: grid;
+  grid-template-rows: auto minmax(var(--buyer-photo-min-height), 1fr) auto;
+  height: clamp(var(--cover-min-height), 100svh, var(--cover-max-height));
+  min-height: min-content;
+  padding-bottom: var(--gutter);
+}
+
+.hero > .photo {
+  min-height: 0;
+  height: auto;
+  max-height: none;
+  aspect-ratio: auto;
+}
+
+.hero > .photo img {
+  position: absolute;
+  inset: 0;
+}
+
+@media (1024px <= width <= 1280px) {
+  .hero { --buyer-photo-min-height: calc(340 * var(--section-unit)); }
+}
+@media (768px <= width < 1024px) {
+  .hero { --buyer-photo-min-height: 320px; }
+}
+@media (width < 768px) {
+  .hero { --buyer-photo-min-height: 280px; }
+}

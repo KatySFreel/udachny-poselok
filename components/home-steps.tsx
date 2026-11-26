@@ -1,3 +1,7 @@
+"use client";
+import { useCmsCopy } from "./cms-provider";
+
+
 import { sitePath } from "../lib/site-path";
 import type { CSSProperties } from "react";
 import { stepLineGuides } from "../content/step-line-guides";
@@ -93,17 +97,18 @@ function position(
 }
 
 export function HomeSteps() {
+  const cms = useCmsCopy();
+  const steps = cms.data("local.home-steps.steps", _cmsSource_steps);
+
   return (
     <section className={styles.section} aria-labelledby="home-steps-title">
       <div className={`shell ${styles.intro}`}>
-        <div className={shared.sectionLabel}>Как мы работаем</div>
+        <div className={shared.sectionLabel}>{cms.text("copy.home-steps.1", "Как мы работаем")}</div>
         <h2 className={shared.heading} id="home-steps-title">
-          Путь к загородной жизни — <em>шаг за шагом</em>
+          {cms.text("copy.home-steps.2", "Путь к загородной жизни — ")}<em>{cms.text("copy.home-steps.3", "шаг за шагом")}</em>
         </h2>
         <p className={styles.description} data-reveal>
-          Сопровождаем вас от выбора подходящего участка до оформления покупки и строительства дома.
-          Объясняем каждый этап и помогаем разобраться в деталях.
-        </p>
+          {cms.text("copy.home-steps.4", "Сопровождаем вас от выбора подходящего участка до оформления покупки и строительства дома. Объясняем каждый этап и помогаем разобраться в деталях.")}</p>
       </div>
       <ScrollSteps>
         <div className={styles.canvas}>
@@ -131,7 +136,7 @@ export function HomeSteps() {
               "--art-angle": `${photo.angle}deg`,
               "--art-fade": `${photo.fade}deg`,
             } as CSSProperties}>
-              <img src={sitePath(`/images/steps/${photo.name}.webp`)} alt="" loading="lazy" />
+              <img src={sitePath(cms.text(`step-media.${photo.name}`, `/images/steps/${photo.name}.webp`))} alt="" loading="lazy" />
             </div>
           ))}
           <ol className={styles.steps}>
@@ -153,3 +158,5 @@ export function HomeSteps() {
     </section>
   );
 }
+
+const _cmsSource_steps = steps;

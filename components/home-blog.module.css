@@ -2,12 +2,12 @@
 
 .heading em { display: inline; }
 
-.grid {
+.grid.grid {
   --card-photo-height: auto;
-  margin-block-start: var(--grid-gap);
+  margin-block-start: calc(64px - 4px);
 }
 
-.photo {
+.photo.photo {
   justify-content: flex-end;
   aspect-ratio: 445 / 600;
 }
@@ -25,7 +25,7 @@
 }
 
 @media (1024px <= width <= 1280px) {
-  .grid[data-category="all"] > :nth-child(3):not(:last-child) { display: none; }
+  .grid.grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 
 @media (768px <= width < 1024px) {
@@ -36,8 +36,9 @@
 @media (width < 768px) {
   .heading { font-size: clamp(33px, 11.73vw, 44px); }
   .heading em { display: block; }
-  .grid { row-gap: 32px; }
-  .photo { aspect-ratio: 335 / 457; }
+  .grid.grid { row-gap: 32px; margin-block-start: calc(24px - 4px); }
+  .photo.photo { aspect-ratio: 335 / 300; }
+  .photo img { object-fit: cover; }
   .grid .catalog { aspect-ratio: auto; }
   .grid > :last-child { margin-block-start: 16px; }
 }

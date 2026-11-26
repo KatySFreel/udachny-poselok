@@ -1,8 +1,12 @@
+"use client";
+import { useCmsCopy } from "./cms-provider";
+
+
+import { formatNumber } from "../lib/format-number";
 import { sitePath, siteSrcSet } from "../lib/site-path";
 import type { CompletedSettlement, Settlement } from "../content/settlements";
 import styles from "./settlements.module.css";
 
-const priceFormatter = new Intl.NumberFormat("ru-RU");
 const photoSizes = "(width < 768px) calc(100vw - 40px), (width < 1024px) calc((100vw - 50px) / 2), (max-width: 1280px) calc((95.8333vw - 40px) / 3), (max-width: 1920px) calc((95.8333vw - 60px) / 4), 445px";
 
 function photoSources(src: string, width: number) {
@@ -16,12 +20,16 @@ export function SettlementCard({
   settlement: Settlement | CompletedSettlement;
   onOpen?: () => void;
 }) {
+  const cms = useCmsCopy();
+
   const { slug, name, location } = settlement;
   const listing = "price" in settlement ? settlement : undefined;
   const { widePhoto, photoWidth = 880 } = listing ?? {};
-  const photo = listing
+  const originalPhoto = listing
     ? `/images/settlements/${slug}.webp`
     : `/images/settlements/completed/${slug}.webp`;
+  const photo = cms.text(`settlement-card-media.${slug}`, originalPhoto);
+  const photoSet = (value: string) => cms.imageSet(`settlement-card-media.${slug}`, value);
   const highlights = "year" in settlement ? [`${settlement.year} год`] : settlement.highlights;
 
   const content = (
@@ -29,9 +37,9 @@ export function SettlementCard({
       <div className={styles.photoBox}>
         <picture className={styles.photo}>
           {widePhoto && (
-            <source media="(width > 1280px)" srcSet={siteSrcSet(photoSources(widePhoto, 880))} sizes={photoSizes} />
+            <source media="(width > 1280px)" srcSet={photoSet(siteSrcSet(photoSources(widePhoto, 880)))} sizes={photoSizes} />
           )}
-          <img src={sitePath(photo)} srcSet={siteSrcSet(photoSources(photo, photoWidth))} sizes={photoSizes} alt={name} loading="lazy" decoding="async" />
+          <img src={sitePath(photo)} srcSet={photoSet(siteSrcSet(photoSources(photo, photoWidth)))} sizes={photoSizes} alt={name} loading="lazy" decoding="async" />
         </picture>
         <ul className={styles.tags}>
           {highlights.map((highlight) => typeof highlight === "string" ? (
@@ -51,7 +59,7 @@ export function SettlementCard({
         </p>
         <h3 className={styles.cardTitle} id={`settlement-${slug}`}>{name}</h3>
         <div className={styles.priceRow}>
-          {listing && <p>От {priceFormatter.format(listing.price)} ₽</p>}
+          {listing && <p>{cms.text("copy.settlement-card.1", "От ")}{formatNumber(listing.price)} ₽</p>}
           <span className={styles.arrow} aria-hidden="true" />
         </div>
       </div>

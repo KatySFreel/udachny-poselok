@@ -1,0 +1,522 @@
+.board {
+  position: relative;
+  isolation: isolate;
+  height: clamp(
+    540px,
+    calc(100dvh - var(--site-header-bottom, 110px) - 40px),
+    calc(1000 * var(--section-layout-unit))
+  );
+  scroll-margin-block-start: calc(var(--site-header-bottom, 110px) + 20px);
+  min-height: 540px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #637342;
+}
+.viewport {
+  width: 100%;
+  height: 100%;
+}
+.art {
+  display: block;
+  max-width: none;
+  flex: none;
+}
+.overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 100px;
+  background: rgb(255 250 238 / 35%);
+  backdrop-filter: blur(4px);
+  color: var(--cream);
+  font: 20px/1.2 var(--body-font);
+  white-space: nowrap;
+}
+.overlay img {
+  display: block;
+  flex: none;
+}
+.plot {
+  outline: none;
+  cursor: pointer;
+}
+.plot polygon,
+.plot path {
+  fill: rgb(0 0 0 / 40%);
+  stroke: none;
+  transition: fill 160ms;
+}
+.plot[data-status="available"] polygon,
+.plot[data-status="available"] path {
+  fill: rgb(96 145 0 / 40%);
+}
+.plot[data-status="reserved"] polygon,
+.plot[data-status="reserved"] path {
+  fill: rgb(205 79 75 / 55%);
+}
+.plot[data-certificate="true"] polygon,
+.plot[data-certificate="true"] path {
+  fill: rgb(241 235 87 / 40%);
+}
+.plot[data-status="construction"] polygon {
+  fill: rgb(99 152 189 / 40%);
+}
+.plot[data-label-only] polygon {
+  fill: transparent;
+  stroke: none;
+}
+.plot text {
+  font: 12px var(--body-font);
+  fill: rgb(255 250 238 / 60%);
+  pointer-events: none;
+}
+.plot[data-status="available"] text,
+.plot[data-status="construction"] text {
+  fill: var(--cream);
+}
+.plot[data-dimmed] {
+  opacity: 0.2;
+  pointer-events: none;
+}
+.plot[data-other-phase] {
+  opacity: 0.3;
+}
+.plot:hover polygon,
+.plot:focus-visible polygon,
+.plot[aria-pressed="true"] polygon,
+.plot:hover path,
+.plot:focus-visible path,
+.plot[aria-pressed="true"] path {
+  fill: rgb(255 250 238 / 40%);
+  stroke: var(--cream);
+  stroke-width: 2;
+}
+.vertex {
+  fill: var(--red);
+  stroke: white;
+  stroke-width: 1.5;
+  cursor: move;
+  touch-action: none;
+}
+.draft {
+  stroke: var(--red);
+  stroke-width: 3;
+  fill: rgb(255 250 238 / 30%);
+  pointer-events: none;
+}
+.phaseOutline {
+  stroke: var(--cream);
+  stroke-width: 4;
+  stroke-linejoin: round;
+  fill: rgb(255 250 238 / 30%);
+  pointer-events: none;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: calc(12 * var(--section-unit)) calc(24 * var(--section-unit));
+  border: 0;
+  border-radius: 100px;
+  background: var(--cream);
+  color: var(--brown);
+  font: 400 calc(20 * var(--section-unit))/1.2 var(--body-font);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.pill:focus-visible,
+.expand:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+.pill:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.pill[aria-pressed="true"] {
+  background: var(--brown-25);
+}
+.filterArea {
+  position: absolute;
+  z-index: 2;
+  top: calc(24 * var(--section-unit));
+  left: calc(24 * var(--section-unit));
+  pointer-events: none;
+}
+.filterArea > * {
+  pointer-events: auto;
+}
+.filters {
+  width: calc(469 * var(--section-unit));
+  max-width: calc(100vw - 88px);
+  display: grid;
+  gap: calc(24 * var(--section-unit));
+  margin-top: 12px;
+  padding: calc(28 * var(--section-unit));
+  border-radius: calc(20 * var(--section-unit));
+  background: var(--cream);
+  max-height: calc(100% - 80px);
+}
+.filters fieldset {
+  min-width: 0;
+  border: 0;
+  padding: 0 0 calc(24 * var(--section-unit));
+  margin: 0;
+  border-bottom: 1px solid var(--brown-25);
+}
+.filters,
+.card {
+  box-shadow: 0 8px 32px rgb(45 31 21 / 18%), 0 2px 6px rgb(45 31 21 / 8%);
+}
+.filters fieldset:last-of-type {
+  border: 0;
+  padding: 0;
+}
+.filters legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 12px;
+  color: var(--brown-muted);
+  font-size: calc(24 * var(--section-unit));
+}
+.ranges {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  clear: both;
+}
+.ranges input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--brown-10);
+  background: transparent;
+  color: var(--brown);
+  border-radius: var(--radius);
+  padding: 12px;
+  font: 14px var(--body-font);
+}
+.ranges input::placeholder {
+  color: var(--brown-muted);
+}
+.filters label {
+  clear: both;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--brown-muted);
+  font-size: calc(20 * var(--section-unit));
+  margin-top: 8px;
+}
+.filters input[type="checkbox"] {
+  appearance: auto;
+  accent-color: var(--red);
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+.textButton {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--rose);
+  font: 400 calc(20 * var(--section-unit))/1.2 var(--body-font);
+  cursor: pointer;
+  text-align: center;
+}
+.textButton:hover {
+  text-decoration: underline;
+}
+.count {
+  font-size: 14px;
+  color: var(--brown-muted);
+}
+.controls {
+  --control-height: max(40px, calc(48 * var(--section-unit)));
+  position: absolute;
+  top: calc(24 * var(--section-unit));
+  right: calc(24 * var(--section-unit));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-end;
+}
+.controls .pill {
+  width: max(52px, calc(72 * var(--section-unit)));
+  height: var(--control-height);
+  padding: 0;
+  flex: none;
+}
+.controls svg {
+  display: block;
+  flex: none;
+}
+.expand {
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 100px;
+  color: var(--brown);
+  background: var(--cream);
+  width: var(--control-height);
+  height: var(--control-height);
+  padding: 0;
+  flex: none;
+  cursor: pointer;
+}
+.phases {
+  position: absolute;
+  bottom: calc(24 * var(--section-unit));
+  right: calc(24 * var(--section-unit));
+  display: flex;
+  gap: 12px;
+}
+.card {
+  position: absolute;
+  z-index: 3;
+  top: 15%;
+  left: 38%;
+  width: calc(429 * var(--section-unit));
+  max-width: calc(100% - 32px);
+  padding: calc(24 * var(--section-unit));
+  border-radius: calc(20 * var(--section-unit));
+  background: var(--cream);
+  color: var(--brown);
+}
+.card header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--brown-25);
+}
+.card h3 {
+  font: 600 calc(32 * var(--section-unit))/1.25 var(--heading-font);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.card header span {
+  color: var(--brown-muted);
+  font-size: calc(20 * var(--section-unit));
+  white-space: nowrap;
+}
+.card dl {
+  margin: 0 0 24px;
+}
+.card[data-read-only] dl {
+  margin-bottom: 0;
+}
+.card dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--brown-10);
+  font-size: calc(20 * var(--section-unit));
+}
+.card dl > div:last-child {
+  border-bottom: 0;
+}
+.card dt {
+  color: var(--brown-muted);
+}
+.card dd {
+  margin: 0;
+  text-align: right;
+}
+.request {
+  width: 100%;
+  border: 0;
+  padding: 12px;
+  border-radius: var(--radius);
+  background: var(--red);
+  color: var(--cream);
+  font: 400 calc(24 * var(--section-unit))/1.2 var(--body-font);
+  cursor: pointer;
+}
+.card > .textButton {
+  width: 100%;
+  margin-top: 14px;
+}
+.close {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--brown);
+  cursor: pointer;
+}
+.close img {
+  display: block;
+}
+.close:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+.dialog {
+  width: calc(100% - 32px);
+  height: calc(100dvh - 32px);
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  border: 0;
+  padding: 52px 12px 12px;
+  border-radius: var(--radius);
+  background: var(--cream);
+}
+.dialog::backdrop {
+  background: #291511a6;
+}
+.expanded {
+  height: 100%;
+  min-height: 0;
+}
+.planTabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.planTabs button {
+  border: 0;
+  border-radius: 100px;
+  padding: calc(12 * var(--section-unit)) calc(24 * var(--section-unit));
+  background: var(--pink);
+  color: var(--red);
+  font: calc(20 * var(--section-unit))/1.2 var(--body-font);
+  cursor: pointer;
+}
+.planTabs button[aria-pressed="true"] {
+  background: var(--red);
+  color: var(--cream);
+}
+@media (768px <= width < 1024px) {
+  .card {
+    left: auto;
+    right: 24px;
+    top: 30%;
+  }
+}
+@media (width < 768px) {
+  .planTabs button {
+    font-size: 14px;
+    padding: 6px 16px;
+  }
+  .filterArea {
+    top: 12px;
+    left: 12px;
+  }
+  .pill {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+  .filters {
+    width: 285px;
+    max-width: calc(100vw - 88px);
+    padding: 20px;
+    gap: 20px;
+  }
+  .filters fieldset {
+    padding-bottom: 16px;
+  }
+  .filters legend {
+    font-size: 18px;
+  }
+  .filters label {
+    font-size: 14px;
+  }
+  .filters .textButton {
+    font-size: 14px;
+  }
+  .controls {
+    --control-height: 44px;
+    top: 12px;
+    right: 12px;
+    gap: 8px;
+  }
+  .controls .pill {
+    width: 44px;
+  }
+  .controls svg {
+    width: 20px;
+    height: 20px;
+  }
+  .phases {
+    bottom: 12px;
+    left: 0;
+    right: 0;
+    gap: 6px;
+    padding-inline: 12px;
+    overflow-x: auto;
+    justify-content: safe flex-end;
+    scrollbar-width: none;
+  }
+  .phases .pill {
+    flex: none;
+    min-height: 36px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  .card {
+    top: auto;
+    bottom: 68px;
+    left: 12px;
+    width: calc(100% - 24px);
+    max-width: none;
+    padding: 20px;
+    border-radius: 16px;
+  }
+  .card h3 {
+    font-size: 22px;
+  }
+  .card header span,
+  .card dl > div,
+  .card .textButton {
+    font-size: 14px;
+  }
+  .card .request {
+    font-size: 16px;
+  }
+  .dialog {
+    padding: 48px 8px 8px;
+    width: calc(100% - 16px);
+  }
+  .expanded {
+    height: 100%;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card,
+  .filters {
+    animation: plan-window-enter 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+@keyframes plan-window-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .plot polygon,
+  .plot path {
+    transition: none;
+  }
+}
