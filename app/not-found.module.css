@@ -1,0 +1,45 @@
+.page { --action-unit: var(--section-layout-unit); }
+:global(html):has(.page) { scrollbar-gutter: auto; }
+.screen {
+  --screen-height: 100svh;
+  --content-top: calc(var(--screen-height) / 2 - 125 * var(--section-layout-unit));
+  --bottom-space: clamp(20px, calc((100svh - 600px) * .3), calc(64 * var(--section-layout-unit)));
+  position: relative;
+  isolation: isolate;
+  min-height: var(--screen-height);
+  color: var(--pink-light);
+}
+.background { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.screen::before { content: ""; position: absolute; z-index: -1; inset: 0; background: rgb(23 6 4 / 60%); }
+.composition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 0;
+  height: var(--screen-height);
+  padding: calc(var(--site-header-bottom) + 24 * var(--section-layout-unit)) var(--content-inset) var(--bottom-space);
+}
+.composition::before { content: ""; flex: 0 1 max(0px, calc(var(--content-top) - var(--site-header-bottom) - 24 * var(--section-layout-unit))); }
+.composition::after { content: ""; flex: 1 0 0; }
+.copy { display: flex; flex: none; flex-direction: column; align-items: center; gap: calc(32 * var(--section-layout-unit)); width: min(100%, calc(745 * var(--section-layout-unit))); text-align: center; }
+.copy h1 { line-height: 0; }
+.copy h1[data-motion="entering"] { animation-delay: 130ms; }
+.copy h1 img { width: calc(370.915 * var(--section-layout-unit)); max-width: 100%; height: auto; }
+.copy p { font-size: calc(24 * var(--section-layout-unit)); line-height: 1.2; }
+.homeLink { flex: none; margin-top: clamp(24px, calc((100svh - 600px) * .3), calc(64 * var(--section-layout-unit))); }
+
+@media (1024px <= width <= 1280px) {
+  .screen { --content-top: calc(var(--screen-height) / 2 - 158 * var(--section-layout-unit)); --bottom-space: 0px; }
+  .copy { width: min(100%, calc(728 * var(--section-layout-unit))); }
+}
+@media (768px <= width < 1024px) {
+  .screen { --content-top: calc(var(--screen-height) / 2 - 246px); --bottom-space: clamp(20px, calc((100svh - 720px) / 2), 150px); }
+  .copy { width: min(100%, 728px); }
+}
+@media (width < 768px) {
+  .screen { --content-top: calc(var(--screen-height) / 2 - 172.6px); --bottom-space: clamp(20px, calc((100svh - 498px) / 2), 157px); }
+  .copy { width: min(100%, 420px); gap: 24px; }
+  .copy h1 img { width: 219px; }
+  .copy p { font-size: 14px; }
+  .homeLink { margin-top: clamp(24px, calc((100svh - 600px) * .4), 64px); }
+}

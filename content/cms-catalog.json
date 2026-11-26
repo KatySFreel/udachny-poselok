@@ -6627,6 +6627,371 @@
     ]
   },
   {
+    "id": "settlement-troitskaya-sloboda",
+    "title": "Троицкая Слобода",
+    "path": "/poselki/troitskaya-sloboda",
+    "group": "Посёлки",
+    "fields": [
+      {
+        "key": "settlement.troitskaya-sloboda.name",
+        "value": "Троицкая Слобода",
+        "label": "Название",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.heroTitleLines.0",
+        "value": "Троицкая",
+        "label": "Строка заголовка 1",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.heroTitleLines.1",
+        "value": "Слобода",
+        "label": "Строка заголовка 2",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.location",
+        "value": "Ломоносовский район",
+        "label": "Расположение",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.mobileLocation",
+        "value": "Ломоносовский р-н",
+        "label": "Расположение на мобильном",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.distance",
+        "value": "30 минут от КАД",
+        "label": "Расстояние",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.startingPrice",
+        "value": 598000,
+        "label": "Цена от, ₽",
+        "section": "Содержание посёлка",
+        "kind": "number"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.description",
+        "value": "— место для загородной жизни среди леса, где можно отдохнуть от городского ритма и обустроить семейную дачу с садом и уютным домом, а близость Лопухинки делает повседневные поездки за необходимым удобнее.",
+        "label": "Описание",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.0.title",
+        "value": "Лес по границе",
+        "label": "1 · Заголовок",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.0.description",
+        "value": "Лес проходит вдоль границы посёлка, создавая природное окружение.",
+        "label": "1 · Описание",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.1.title",
+        "value": "30 минут от КАД",
+        "label": "2 · Заголовок",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.1.description",
+        "value": "Удобный маршрут из города по Гостилицкому шоссе.",
+        "label": "2 · Описание",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.2.title",
+        "value": "Лопухинка в 5 минутах",
+        "label": "3 · Заголовок",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.2.description",
+        "value": "Магазины, амбулатория, школа и детский сад поблизости.",
+        "label": "3 · Описание",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.3.title",
+        "value": "Подъезд к посёлку",
+        "label": "4 · Заголовок",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.3.description",
+        "value": "Асфальтированная дорога до въезда.",
+        "label": "4 · Описание",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.4.title",
+        "value": "Дороги в посёлке",
+        "label": "5 · Заголовок",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.4.description",
+        "value": "Внутрипоселковые дороги шириной 6 метров.",
+        "label": "5 · Описание",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.5.title",
+        "value": "Электричество",
+        "label": "6 · Заголовок",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.5.description",
+        "value": "Подключение по прямому договору с Ленэнерго.",
+        "label": "6 · Описание",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.0.alt",
+        "value": "Прогулка по посёлку",
+        "label": "1 · Описание изображения",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.1.alt",
+        "value": "Дорога у посёлка",
+        "label": "2 · Описание изображения",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.2.alt",
+        "value": "Посёлок с высоты",
+        "label": "3 · Описание изображения",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.3.alt",
+        "value": "Летнее поле",
+        "label": "4 · Описание изображения",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.4.alt",
+        "value": "Окрестности посёлка",
+        "label": "5 · Описание изображения",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.5.alt",
+        "value": "Участки с высоты",
+        "label": "6 · Описание изображения",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.6.alt",
+        "value": "Дороги в посёлке",
+        "label": "7 · Описание изображения",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.7.alt",
+        "value": "Остановка рядом с посёлком",
+        "label": "8 · Описание изображения",
+        "section": "Содержание посёлка",
+        "kind": "text"
+      },
+      {
+        "key": "settlement-media.troitskaya-sloboda.hero",
+        "value": "/images/settlements/troitskaya-sloboda/hero.webp",
+        "label": "Фото первого экрана",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement-media.troitskaya-sloboda.video-cover",
+        "value": "/images/settlements/troitskaya-sloboda/video-cover.webp",
+        "label": "Обложка видео",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement-media.troitskaya-sloboda.video-background",
+        "value": "/images/settlements/troitskaya-sloboda/video-background.webp",
+        "label": "Фото у видео",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.0.image",
+        "value": "/images/settlements/troitskaya-sloboda/gallery-1.webp",
+        "label": "Галерея: фото 1",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.1.image",
+        "value": "/images/settlements/troitskaya-sloboda/gallery-2.webp",
+        "label": "Галерея: фото 2",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.2.image",
+        "value": "/images/settlements/troitskaya-sloboda/gallery-3.webp",
+        "label": "Галерея: фото 3",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.3.image",
+        "value": "/images/settlements/troitskaya-sloboda/gallery-4.webp",
+        "label": "Галерея: фото 4",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.4.image",
+        "value": "/images/settlements/troitskaya-sloboda/gallery-5.webp",
+        "label": "Галерея: фото 5",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.5.image",
+        "value": "/images/settlements/troitskaya-sloboda/gallery-6.webp",
+        "label": "Галерея: фото 6",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.6.image",
+        "value": "/images/settlements/troitskaya-sloboda/gallery-7.webp",
+        "label": "Галерея: фото 7",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.gallery.7.image",
+        "value": "/images/settlements/troitskaya-sloboda/gallery-8.webp",
+        "label": "Галерея: фото 8",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.0.image",
+        "value": "/images/settlements/troitskaya-sloboda/forest.webp",
+        "label": "Преимущество 1: изображение",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.1.image",
+        "value": "/images/settlements/troitskaya-sloboda/highway.webp",
+        "label": "Преимущество 2: изображение",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.2.image",
+        "value": "/images/settlements/troitskaya-sloboda/lopukhinka.webp",
+        "label": "Преимущество 3: изображение",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.3.image",
+        "value": "/images/settlements/troitskaya-sloboda/access-road.webp",
+        "label": "Преимущество 4: изображение",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.4.image",
+        "value": "/images/settlements/troitskaya-sloboda/roads.webp",
+        "label": "Преимущество 5: изображение",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.advantages.5.image",
+        "value": "/images/settlements/troitskaya-sloboda/electricity.webp",
+        "label": "Преимущество 6: изображение",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.videoUrl",
+        "value": "",
+        "label": "Видео",
+        "section": "Ссылки",
+        "kind": "link"
+      },
+      {
+        "key": "settlement.troitskaya-sloboda.presentationUrl",
+        "value": "",
+        "label": "Презентация",
+        "section": "Ссылки",
+        "kind": "link"
+      },
+      {
+        "key": "seo.settlement-troitskaya-sloboda.title",
+        "value": "Троицкая Слобода — земельные участки | Удачный посёлок",
+        "label": "Заголовок в поиске",
+        "section": "Поисковые системы",
+        "kind": "text"
+      },
+      {
+        "key": "seo.settlement-troitskaya-sloboda.description",
+        "value": "Участки в посёлке «Троицкая Слобода» от 598 000 ₽. Ломоносовский район, 30 минут от КАД. Генплан, фотографии и запись на просмотр.",
+        "label": "Описание в поиске",
+        "section": "Поисковые системы",
+        "kind": "text"
+      },
+      {
+        "key": "settlement-media.troitskaya-sloboda.visit",
+        "value": "/images/settlements/troitskaya-sloboda/visit.webp",
+        "label": "Фото записи на просмотр",
+        "section": "Фотографии",
+        "kind": "image"
+      },
+      {
+        "key": "settlement-media.troitskaya-sloboda.online-visit",
+        "value": "/images/settlements/troitskaya-sloboda/online-visit.webp",
+        "label": "Фото записи на онлайн-просмотр",
+        "section": "Фотографии",
+        "kind": "image"
+      }
+    ]
+  },
+  {
     "id": "settlement-istorii-severa",
     "title": "Истории Севера",
     "path": "/poselki/istorii-severa",

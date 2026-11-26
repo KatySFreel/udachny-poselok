@@ -1,0 +1,11 @@
+{
+  "width": 2000,
+  "height": 1200,
+  "north": 59.75872944132851,
+  "south": 59.65482108315231,
+  "west": 29.23667907714844,
+  "east": 29.58000183105469,
+  "source": "https://www.openstreetmap.org/copyright",
+  "generatedAt": "2026-11-22",
+  "styleReference": "/images/settlements-map-background.webp"
+}

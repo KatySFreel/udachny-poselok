@@ -9,6 +9,7 @@ import { settlementPaymentOptions } from "../content/settlement-payment";
 import { settlements } from "../content/settlements";
 import { site } from "../content/site";
 import { sitePath } from "../lib/site-path";
+import { getSettlementSurroundings } from "../content/settlement-surroundings";
 import { ActionButton, ActionLink } from "./action";
 import { CatalogCard } from "./catalog-card";
 import { PaymentCard } from "./payment-card";
@@ -24,6 +25,7 @@ import { PhotoFormPanel } from "./photo-form-panel";
 import { InlineRequestForm, RequestDialog } from "./contact-dialog";
 import { leadTrigger, settlementLeadForm } from "../lib/lead-attribution";
 import { HomeSettlementsMapBoard } from "./home-settlements-map-board";
+import { SettlementSurroundingsMap } from "./settlement-surroundings-map";
 import { SettlementSurroundingsPreview } from "./settlement-surroundings-preview";
 import formPanel from "./photo-form-panel.module.css";
 import shared from "./settlements.module.css";
@@ -40,6 +42,7 @@ export function SettlementPage({ data: sourceData }: { data: SettlementPageData 
   const visitId = `${data.slug}-visit`;
   const onlineId = `${data.slug}-online-visit`;
   const openVisit = { commandfor: visitId, command: "show-modal" };
+  const surroundings = getSettlementSurroundings(data.slug);
   const videoUrl = data.videoUrl || site.socials.find(social => social.id === "rutube")!.href;
 
   return (
@@ -80,7 +83,7 @@ export function SettlementPage({ data: sourceData }: { data: SettlementPageData 
 
         <section className={styles.locationSection} aria-labelledby="settlement-location">
           <Heading className={styles.sectionHeading} label={cms.text("copy.settlement-page.12", "Расположение")} id="settlement-location">{cms.text("copy.settlement-page.13", "Расположение и окружение")}</Heading>
-          {data.surroundingsImage ? <SettlementSurroundingsPreview slug={data.slug} name={data.name} image={`${data.assets}/${data.surroundingsImage}.webp`} includePickup={data.slug === 'istorii-severa'} /> : <div className={`shell ${styles.locationMap}`}>
+          {data.surroundingsImage ? <SettlementSurroundingsPreview slug={data.slug} name={data.name} image={`${data.assets}/${data.surroundingsImage}.webp`} includePickup={data.slug === 'istorii-severa'} /> : surroundings ? <SettlementSurroundingsMap name={data.name} data={surroundings} settlement={{slug:data.slug,location:data.location,price:data.startingPrice}} /> : <div className={`shell ${styles.locationMap}`}>
             <HomeSettlementsMapBoard settlementSlug={data.slug} />
           </div>}
         </section>

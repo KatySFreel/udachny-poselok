@@ -1,6 +1,8 @@
 import { settlements } from "./settlements";
 import settlementDetails from "./settlement-page-details.json";
 import type { House } from "./houses";
+import troitskayaGeometry from "./troitskaya-plan-geometry.json";
+import troitskayaPhases from "./troitskaya-plan-phases.json";
 import newSettlementPlans from "./settlement-plans.json";
 
 /** Serializable page content. A future CMS adapter can return this same contract. */
@@ -79,7 +81,111 @@ const updatedPlans = newSettlementPlans as unknown as Record<
   SettlementPlanData
 >;
 
+const knownAvailable: Record<string, readonly [number, number]> = {
+  "2557": [8, 1330000],
+  "2556": [8, 1330000],
+  "2555": [8, 1330000],
+  "2554": [8, 1330000],
+  "2553": [8, 1330000],
+  "2548": [8, 1330000],
+  "2547": [8, 1330000],
+  "2568": [6, 710000],
+  "2539": [7, 1270000],
+  "2550": [7, 1270000],
+  "2572": [7, 1270000],
+  "2583": [9, 1490000],
+  "2594": [7, 1270000],
+  "2602": [7, 1270000],
+  "2542": [8.9, 1830000],
+  "2541": [10, 2050000],
+  "2540": [10.9, 2230000],
+};
+const troitskaya = settlements.find(
+  (settlement) => settlement.slug === "troitskaya-sloboda",
+)!;
+
 export const settlementPages: readonly SettlementPageData[] = [
+  {
+    slug: troitskaya.slug,
+    name: troitskaya.name.replace(/[«»]/g, ""),
+    heroTitleLines: ["Троицкая", "Слобода"],
+    location: troitskaya.location,
+    mobileLocation: "Ломоносовский р-н",
+    distance: "30 минут от КАД",
+    startingPrice: troitskaya.price,
+    description:
+      "— место для загородной жизни среди леса, где можно отдохнуть от городского ритма и обустроить семейную дачу с садом и уютным домом, а близость Лопухинки делает повседневные поездки за необходимым удобнее.",
+    assets: "/images/settlements/troitskaya-sloboda",
+    surroundingsImage: "surroundings",
+    advantages: [
+      {
+        title: "Лес по границе",
+        description:
+          "Лес проходит вдоль границы посёлка, создавая природное окружение.",
+        image: "forest",
+      },
+      {
+        title: "30 минут от КАД",
+        description: "Удобный маршрут из города по Гостилицкому шоссе.",
+        image: "highway",
+      },
+      {
+        title: "Лопухинка в 5 минутах",
+        description: "Магазины, амбулатория, школа и детский сад поблизости.",
+        image: "lopukhinka",
+      },
+      {
+        title: "Подъезд к посёлку",
+        description: "Асфальтированная дорога до въезда.",
+        image: "access-road",
+      },
+      {
+        title: "Дороги в посёлке",
+        description: "Внутрипоселковые дороги шириной 6 метров.",
+        image: "roads",
+      },
+      {
+        title: "Электричество",
+        description: "Подключение по прямому договору с Ленэнерго.",
+        image: "electricity",
+      },
+    ],
+    gallery: [
+      "Прогулка по посёлку",
+      "Дорога у посёлка",
+      "Посёлок с высоты",
+      "Летнее поле",
+      "Окрестности посёлка",
+      "Участки с высоты",
+      "Дороги в посёлке",
+      "Остановка рядом с посёлком",
+    ].map((alt, index) => ({ image: `gallery-${index + 1}`, alt })),
+    plan: {
+      width: 1840,
+      height: 1000,
+      image: "plan-aerial",
+      imageExtension: "webp",
+      appearance: "aerial",
+      phases: troitskayaPhases as {
+        id: string;
+        label: string;
+        outline: [number, number][];
+      }[],
+      plots: troitskayaGeometry.map((item) => {
+        const known = knownAvailable[item.number];
+        return {
+          id: `troitskaya-${item.id.replace("plot-", "")}`,
+          number: item.number,
+          points: item.points as [number, number][],
+          label: item.label,
+          phaseId: item.number.startsWith("У") ? "2" : "1",
+          status: item.available ? "available" : "sold",
+          ...(known ? { area: known[0], price: known[1] } : {}),
+        };
+      }),
+    },
+    related: ["divnyy", "simo", "istorii-severa"],
+  },
   ...settlementDetails.map((page) => ({
     ...page,
     plan: updatedPlans[page.slug] ?? page.plan,
