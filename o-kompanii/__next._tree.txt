@@ -14,4 +14,4 @@
 :HL["/udachny-poselok/icons/arrow.svg","image"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"o-kompanii","h":96,"c":"$Q2"}]]
-0:{"b":"z-_c-__kRxahXI7NtTUOf","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"iTVqiXyHOCz1sX9TpPYZY","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
