@@ -381,6 +381,7 @@ function PlanBoard({
           className={styles.card}
           style={cardStyle}
           aria-labelledby={`${id}-plot`}
+          data-plot-status={selected.status}
           data-filters-open={filtersOpen || undefined}
           data-read-only={
             !["available", "reserved", "unknown"].includes(selected.status) ||
@@ -429,7 +430,7 @@ function PlanBoard({
             )}
             <div>
               <dt>Статус</dt>
-              <dd>{plotStatusLabels[selected.status]}</dd>
+              <dd className={styles.statusValue}>{plotStatusLabels[selected.status]}</dd>
             </div>
           </dl>
           {["available", "reserved", "unknown"].includes(selected.status) && (

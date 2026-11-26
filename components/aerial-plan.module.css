@@ -280,7 +280,7 @@
   z-index: 3;
   top: 15%;
   left: 38%;
-  width: calc(429 * var(--section-unit));
+  width: var(--plot-card-width, calc(429 * var(--section-unit)));
   max-width: calc(100% - 32px);
   padding: calc(24 * var(--section-unit));
   border-radius: calc(20 * var(--section-unit));
@@ -294,6 +294,12 @@
   gap: 12px;
   padding: 0 0 12px;
   border-bottom: 1px solid var(--brown-25);
+}
+.card[data-plot-status="construction"] {
+  --plot-card-width: calc(480 * var(--section-unit));
+}
+.statusValue {
+  white-space: nowrap;
 }
 .card h3 {
   font: 600 calc(32 * var(--section-unit))/1.25 var(--heading-font);
@@ -489,6 +495,9 @@
   }
   .card .request {
     font-size: 16px;
+  }
+  .card[data-plot-status="construction"] .statusValue {
+    font-size: 13px;
   }
   .dialog {
     padding: 48px 8px 8px;
