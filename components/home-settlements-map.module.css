@@ -197,6 +197,7 @@
 }
 
 @media (width < 768px) {
+  .viewport { touch-action: pan-x pan-y; }
   .section {
     --map-gap: 48px;
 

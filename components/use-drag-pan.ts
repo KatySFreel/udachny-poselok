@@ -1,9 +1,11 @@
 "use client";
 
 import { useRef, useState, type HTMLAttributes } from 'react';
+import { useMediaQuery } from './use-media-query';
 
 /** Mouse panning without hijacking the page wheel; ordinary clicks remain clicks. */
 export function useDragPan() {
+  const horizontalOnly = useMediaQuery('(width < 768px)');
   const [dragging, setDragging] = useState(false);
   const start = useRef<{x:number;y:number;left:number;top:number;moved:boolean} | null>(null);
   const suppressClick = useRef(false);
@@ -18,13 +20,17 @@ export function useDragPan() {
       if (!origin || !(event.buttons & 1)) return;
       const dx = event.clientX-origin.x, dy = event.clientY-origin.y;
       if (!origin.moved && Math.abs(dx)+Math.abs(dy) <= 4) return;
+      if (!origin.moved && horizontalOnly && Math.abs(dy) > Math.abs(dx)) {
+        start.current = null;
+        return;
+      }
       if (!origin.moved) {
         origin.moved = true;
         event.currentTarget.setPointerCapture(event.pointerId);
         setDragging(true);
       }
       event.currentTarget.scrollLeft = origin.left-dx;
-      event.currentTarget.scrollTop = origin.top-dy;
+      if (!horizontalOnly) event.currentTarget.scrollTop = origin.top-dy;
       event.preventDefault();
     },
     onPointerUp(event) {
@@ -40,6 +46,7 @@ export function useDragPan() {
     },
     onKeyDown(event) {
       if (event.target !== event.currentTarget || event.altKey || event.ctrlKey || event.metaKey) return;
+      if (horizontalOnly && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) return;
       const delta: Record<string,[number,number]> = {ArrowLeft:[-80,0],ArrowRight:[80,0],ArrowUp:[0,-80],ArrowDown:[0,80]};
       const step = delta[event.key];
       if (step) { event.preventDefault(); event.currentTarget.scrollBy({left:step[0],top:step[1],behavior:'instant'}); }
