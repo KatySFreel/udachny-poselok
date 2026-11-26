@@ -4,6 +4,7 @@ import type { House } from "./houses";
 import troitskayaGeometry from "./troitskaya-plan-geometry.json";
 import troitskayaPhases from "./troitskaya-plan-phases.json";
 import newSettlementPlans from "./settlement-plans.json";
+import plotPrices from "./settlement-plot-prices.json";
 
 /** Serializable page content. A future CMS adapter can return this same contract. */
 export type PlotStatus =
@@ -104,7 +105,7 @@ const troitskaya = settlements.find(
   (settlement) => settlement.slug === "troitskaya-sloboda",
 )!;
 
-export const settlementPages: readonly SettlementPageData[] = [
+const sourceSettlementPages: readonly SettlementPageData[] = [
   {
     slug: troitskaya.slug,
     name: troitskaya.name.replace(/[«»]/g, ""),
@@ -224,6 +225,25 @@ export const settlementPages: readonly SettlementPageData[] = [
       : {}),
   })),
 ];
+
+const priceBook: Record<string, Record<string, { area: number; price: number }>> = plotPrices;
+
+function withPlotPrices(plan: SettlementPlanData, slug: string): SettlementPlanData {
+  const prices = priceBook[slug] ?? {};
+  return {
+    ...plan,
+    plots: plan.plots.map(plot => {
+      const price = prices[plot.id];
+      return price ? { ...plot, area: price.area, price: price.price } : plot;
+    }),
+  };
+}
+
+export const settlementPages: readonly SettlementPageData[] = sourceSettlementPages.map(page => ({
+  ...page,
+  plan: withPlotPrices(page.plan, page.slug),
+  additionalPlans: page.additionalPlans?.map(plan => withPlotPrices(plan, page.slug)),
+}));
 
 export function getSettlementPage(slug: string) {
   return settlementPages.find((page) => page.slug === slug);

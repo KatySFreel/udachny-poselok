@@ -53,6 +53,29 @@ test("All settlement plans retain their source contours, phases and map states",
   assert.equal(tigoda.plots.filter((p) => p.certificateEligible).length, 51);
 });
 
+test("Figma prices cover the sale plots and keep distinct duplicate numbers", () => {
+  const prices = require('../content/settlement-plot-prices.json');
+  assert.equal(Object.values(prices).reduce((sum, rows) => sum + Object.keys(rows).length, 0), 230);
+  for (const page of settlementPages) {
+    const plots = [page.plan, ...(page.additionalPlans ?? [])].flatMap(plan => plan.plots);
+    for (const [id, expected] of Object.entries(prices[page.slug])) {
+      const matches = plots.filter(plot => plot.id === id);
+      assert.equal(matches.length, 1, id);
+      assert.equal(matches[0].area, expected.area, id);
+      assert.equal(matches[0].price, expected.price, id);
+      assert(['available', 'construction'].includes(matches[0].status), id);
+      assert(expected.area > 0 && Number.isSafeInteger(expected.price) && expected.price > 0, id);
+    }
+    const unknownPrices = plots.filter(plot => plot.status === 'available' && !plot.price).map(plot => plot.number);
+    assert.deepEqual(unknownPrices, page.slug === 'simo' ? ['988', '965'] : [], page.slug);
+    assert.equal(page.startingPrice, Math.min(...plots.filter(plot => plot.status === 'available' && plot.price).map(plot => plot.price)), page.slug);
+  }
+  assert.equal(prices['severnyy-bereg']['severnyy-bereg-2136-north'].price, 1564000);
+  assert.equal(prices['severnyy-bereg']['severnyy-bereg-2136-east'].price, 1382000);
+  assert.equal(prices.simo['simo-968'].price, 2800000);
+  assert.equal(prices['troitskaya-sloboda']['troitskaya-u125'].price, 611000);
+});
+
 test("Plan storage: valid source, durable edits, concurrent revisions and invalid writes", async () => {
   const directory = await fs.mkdtemp(
     path.join(os.tmpdir(), "settlement-plans-"),

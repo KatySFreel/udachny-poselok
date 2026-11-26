@@ -25,7 +25,7 @@ export const settlements: readonly Settlement[] = [
     name: "«Троицкая Слобода»",
     districtId: "lomonosovskiy",
     location: "Ломоносовский район",
-    price: 598000,
+    price: 600000,
     highlights: ["Лес по границе", "30 минут от КАД"],
   },
   {
@@ -65,7 +65,7 @@ export const settlements: readonly Settlement[] = [
     name: "«Северный Берег»",
     districtId: "vyborgskiy",
     location: "Выборгский район",
-    price: 780000,
+    price: 1330000,
     highlights: ["Общественная зона", "Река по границе", "30 минут от Выборга"],
     widePhoto: "/images/settlements/severnyy-bereg-wide.webp",
   },
@@ -82,7 +82,7 @@ export const settlements: readonly Settlement[] = [
     name: "Загородный клуб «Симо»",
     districtId: "lomonosovskiy",
     location: "Ломоносовский район",
-    price: 2500000,
+    price: 2475000,
     highlights: ["Асфальтированные дороги", "Общественные зоны 1,3 га", "5 минут от КАД"],
   },
 ];

@@ -401,7 +401,8 @@ function PlanBoard({
             </span>
           </header>
           <dl>
-            {["available", "reserved", "unknown"].includes(selected.status) && (
+            {(["available", "reserved", "unknown"].includes(selected.status) ||
+              (selected.status === "construction" && (selected.area !== undefined || selected.price !== undefined))) && (
               <>
                 <div>
                   <dt>Площадь</dt>

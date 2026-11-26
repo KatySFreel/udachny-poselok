@@ -1,0 +1,1166 @@
+{
+  "troitskaya-sloboda": {
+    "troitskaya-2583": {
+      "area": 9.0,
+      "price": 1490000,
+      "sourceNodeId": "4118:31335"
+    },
+    "troitskaya-2594": {
+      "area": 7.0,
+      "price": 1270000,
+      "sourceNodeId": "4118:31341"
+    },
+    "troitskaya-2602": {
+      "area": 7.0,
+      "price": 1270000,
+      "sourceNodeId": "4118:31383"
+    },
+    "troitskaya-2550": {
+      "area": 7.0,
+      "price": 1270000,
+      "sourceNodeId": "4118:31389"
+    },
+    "troitskaya-2553": {
+      "area": 8.0,
+      "price": 1330000,
+      "sourceNodeId": "4118:31395"
+    },
+    "troitskaya-2542": {
+      "area": 8.9,
+      "price": 1830000,
+      "sourceNodeId": "4118:31407"
+    },
+    "troitskaya-2540": {
+      "area": 10.9,
+      "price": 2230000,
+      "sourceNodeId": "4118:31413"
+    },
+    "troitskaya-2541": {
+      "area": 10.0,
+      "price": 2050000,
+      "sourceNodeId": "4118:31419"
+    },
+    "troitskaya-2572": {
+      "area": 7.0,
+      "price": 1270000,
+      "sourceNodeId": "4118:31425"
+    },
+    "troitskaya-2539": {
+      "area": 7.0,
+      "price": 1270000,
+      "sourceNodeId": "4118:31432"
+    },
+    "troitskaya-2555": {
+      "area": 8.0,
+      "price": 1330000,
+      "sourceNodeId": "4118:31440"
+    },
+    "troitskaya-2554": {
+      "area": 8.0,
+      "price": 1330000,
+      "sourceNodeId": "4118:31446"
+    },
+    "troitskaya-2547": {
+      "area": 8.0,
+      "price": 1330000,
+      "sourceNodeId": "4118:31458"
+    },
+    "troitskaya-2548": {
+      "area": 8.0,
+      "price": 1330000,
+      "sourceNodeId": "4118:31464"
+    },
+    "troitskaya-u1": {
+      "area": 8.0,
+      "price": 1330000,
+      "sourceNodeId": "4118:31563"
+    },
+    "troitskaya-u167": {
+      "area": 8.7,
+      "price": 1007000,
+      "sourceNodeId": "4118:31568"
+    },
+    "troitskaya-u166": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31573"
+    },
+    "troitskaya-u144": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31578"
+    },
+    "troitskaya-u145": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31583"
+    },
+    "troitskaya-u165": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31588"
+    },
+    "troitskaya-u164": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31593"
+    },
+    "troitskaya-u146": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31598"
+    },
+    "troitskaya-u141": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31603"
+    },
+    "troitskaya-u140": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31608"
+    },
+    "troitskaya-u139": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31613"
+    },
+    "troitskaya-u128": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31618"
+    },
+    "troitskaya-u127": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31623"
+    },
+    "troitskaya-u126": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31628"
+    },
+    "troitskaya-u93": {
+      "area": 6.4,
+      "price": 754000,
+      "sourceNodeId": "4118:31633"
+    },
+    "troitskaya-u147": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31638"
+    },
+    "troitskaya-u163": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31643"
+    },
+    "troitskaya-u162": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31648"
+    },
+    "troitskaya-u161": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31653"
+    },
+    "troitskaya-u148": {
+      "area": 5.0,
+      "price": 600000,
+      "sourceNodeId": "4118:31658"
+    },
+    "troitskaya-u149": {
+      "area": 7.0,
+      "price": 820000,
+      "sourceNodeId": "4118:31663"
+    },
+    "troitskaya-u160": {
+      "area": 7.8,
+      "price": 908000,
+      "sourceNodeId": "4118:31668"
+    },
+    "troitskaya-u138": {
+      "area": 7.6,
+      "price": 886000,
+      "sourceNodeId": "4118:31673"
+    },
+    "troitskaya-u129": {
+      "area": 8.0,
+      "price": 930000,
+      "sourceNodeId": "4118:31678"
+    },
+    "troitskaya-u143": {
+      "area": 6.0,
+      "price": 710000,
+      "sourceNodeId": "4118:31683"
+    },
+    "troitskaya-u142": {
+      "area": 7.8,
+      "price": 908000,
+      "sourceNodeId": "4118:31688"
+    },
+    "troitskaya-u125": {
+      "area": 5.1,
+      "price": 611000,
+      "sourceNodeId": "4118:31693"
+    },
+    "troitskaya-u2": {
+      "area": 8.0,
+      "price": 1330000,
+      "sourceNodeId": "4118:31698"
+    },
+    "troitskaya-u3": {
+      "area": 8.0,
+      "price": 1330000,
+      "sourceNodeId": "4118:31703"
+    },
+    "troitskaya-u5": {
+      "area": 8.0,
+      "price": 1330000,
+      "sourceNodeId": "4118:31710"
+    }
+  },
+  "istorii-severa": {
+    "istorii-severa-5882": {
+      "area": 7.0,
+      "price": 730000,
+      "sourceNodeId": "4126:32163"
+    },
+    "istorii-severa-5991": {
+      "area": 6.4,
+      "price": 670000,
+      "sourceNodeId": "4126:32169"
+    },
+    "istorii-severa-5812": {
+      "area": 10.0,
+      "price": 1030000,
+      "sourceNodeId": "4126:32178"
+    },
+    "istorii-severa-5826": {
+      "area": 9.2,
+      "price": 950000,
+      "sourceNodeId": "4126:32187"
+    },
+    "istorii-severa-5899": {
+      "area": 5.8,
+      "price": 610000,
+      "sourceNodeId": "4126:32193"
+    },
+    "istorii-severa-5828": {
+      "area": 5.5,
+      "price": 580000,
+      "sourceNodeId": "4126:32199"
+    },
+    "istorii-severa-5992": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32205"
+    },
+    "istorii-severa-5993": {
+      "area": 9.2,
+      "price": 950000,
+      "sourceNodeId": "4126:32211"
+    },
+    "istorii-severa-5881": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32217"
+    },
+    "istorii-severa-5933": {
+      "area": 8.8,
+      "price": 910000,
+      "sourceNodeId": "4126:32223"
+    },
+    "istorii-severa-5911": {
+      "area": 8.0,
+      "price": 830000,
+      "sourceNodeId": "4126:32229"
+    },
+    "istorii-severa-5904": {
+      "area": 6.9,
+      "price": 720000,
+      "sourceNodeId": "4126:32235"
+    },
+    "istorii-severa-2-6216": {
+      "area": 5.0,
+      "price": 528000,
+      "sourceNodeId": "4126:32544"
+    },
+    "istorii-severa-2-6257": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32580"
+    },
+    "istorii-severa-2-6232": {
+      "area": 6.4,
+      "price": 830000,
+      "sourceNodeId": "4126:32594"
+    },
+    "istorii-severa-2-6274": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32601"
+    },
+    "istorii-severa-2-6273": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32608"
+    },
+    "istorii-severa-2-6270": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32611"
+    },
+    "istorii-severa-2-6269": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32617"
+    },
+    "istorii-severa-2-6267": {
+      "area": 5.0,
+      "price": 528000,
+      "sourceNodeId": "4126:32622"
+    },
+    "istorii-severa-2-6266": {
+      "area": 5.0,
+      "price": 528000,
+      "sourceNodeId": "4126:32626"
+    },
+    "istorii-severa-2-6271": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32637"
+    },
+    "istorii-severa-2-6253": {
+      "area": 12.1,
+      "price": 1240000,
+      "sourceNodeId": "4126:32642"
+    },
+    "istorii-severa-2-6249": {
+      "area": 7.0,
+      "price": 730000,
+      "sourceNodeId": "4126:32647"
+    },
+    "istorii-severa-2-6252": {
+      "area": 7.7,
+      "price": 808000,
+      "sourceNodeId": "4126:32651"
+    },
+    "istorii-severa-2-6248": {
+      "area": 7.0,
+      "price": 730000,
+      "sourceNodeId": "4126:32656"
+    },
+    "istorii-severa-2-6217": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32662"
+    },
+    "istorii-severa-2-6241": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32678"
+    },
+    "istorii-severa-2-6182": {
+      "area": 5.0,
+      "price": 528000,
+      "sourceNodeId": "4126:32700"
+    },
+    "istorii-severa-2-6190": {
+      "area": 6.0,
+      "price": 780000,
+      "sourceNodeId": "4126:32703"
+    },
+    "istorii-severa-2-6187": {
+      "area": 6.0,
+      "price": 780000,
+      "sourceNodeId": "4126:32709"
+    },
+    "istorii-severa-2-6221": {
+      "area": 13.5,
+      "price": 1410000,
+      "sourceNodeId": "4126:32713"
+    },
+    "istorii-severa-2-6199": {
+      "area": 10.0,
+      "price": 1660000,
+      "sourceNodeId": "4126:32719"
+    },
+    "istorii-severa-2-6275": {
+      "area": 5.0,
+      "price": 528000,
+      "sourceNodeId": "4126:32729"
+    },
+    "istorii-severa-2-6272": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32732"
+    },
+    "istorii-severa-2-6259": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32737"
+    },
+    "istorii-severa-2-6258": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32743"
+    },
+    "istorii-severa-2-6256": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32747"
+    },
+    "istorii-severa-2-6255": {
+      "area": 7.0,
+      "price": 730000,
+      "sourceNodeId": "4126:32753"
+    },
+    "istorii-severa-2-6239": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32757"
+    },
+    "istorii-severa-2-6240": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32762"
+    },
+    "istorii-severa-2-6247": {
+      "area": 7.0,
+      "price": 730000,
+      "sourceNodeId": "4126:32774"
+    },
+    "istorii-severa-2-6204": {
+      "area": 5,
+      "price": 528000,
+      "sourceNodeId": "4126:32783"
+    },
+    "istorii-severa-2-6212": {
+      "area": 5.0,
+      "price": 528000,
+      "sourceNodeId": "4126:32792"
+    },
+    "istorii-severa-2-6214": {
+      "area": 5.0,
+      "price": 528000,
+      "sourceNodeId": "4126:32797"
+    },
+    "istorii-severa-2-6218": {
+      "area": 6.0,
+      "price": 630000,
+      "sourceNodeId": "4126:32802"
+    },
+    "istorii-severa-2-6265": {
+      "area": 7.0,
+      "price": 905000,
+      "sourceNodeId": "4126:32808"
+    },
+    "istorii-severa-2-6156": {
+      "area": 11.0,
+      "price": 1820000,
+      "sourceNodeId": "4126:32813"
+    },
+    "istorii-severa-2-6188": {
+      "area": 11.0,
+      "price": 1820000,
+      "sourceNodeId": "4126:32817"
+    },
+    "istorii-severa-2-6210": {
+      "area": 10.6,
+      "price": 1756000,
+      "sourceNodeId": "4126:32823"
+    },
+    "istorii-severa-2-6192": {
+      "area": 7.3,
+      "price": 943000,
+      "sourceNodeId": "4126:32835"
+    },
+    "istorii-severa-2-6185": {
+      "area": 6.0,
+      "price": 780000,
+      "sourceNodeId": "4126:32840"
+    },
+    "istorii-severa-2-6183": {
+      "area": 6.0,
+      "price": 780000,
+      "sourceNodeId": "4126:32845"
+    },
+    "istorii-severa-2-6243": {
+      "area": 6,
+      "price": 780000,
+      "sourceNodeId": "4126:32860"
+    },
+    "istorii-severa-2-6189": {
+      "area": 5.0,
+      "price": 528000,
+      "sourceNodeId": "4126:32867"
+    }
+  },
+  "bereg-tigody": {
+    "bereg-tigody-588": {
+      "area": 8.0,
+      "price": 802000,
+      "sourceNodeId": "4126:33071"
+    },
+    "bereg-tigody-561": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33077"
+    },
+    "bereg-tigody-556": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33083"
+    },
+    "bereg-tigody-554": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33089"
+    },
+    "bereg-tigody-550": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33095"
+    },
+    "bereg-tigody-549": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33101"
+    },
+    "bereg-tigody-551": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33107"
+    },
+    "bereg-tigody-555": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33113"
+    },
+    "bereg-tigody-501": {
+      "area": 10.3,
+      "price": 1016000,
+      "sourceNodeId": "4126:33119"
+    },
+    "bereg-tigody-503": {
+      "area": 20.0,
+      "price": 2000000,
+      "sourceNodeId": "4126:33125"
+    },
+    "bereg-tigody-468": {
+      "area": 12.7,
+      "price": 1524000,
+      "sourceNodeId": "4126:33131"
+    },
+    "bereg-tigody-458": {
+      "area": 15.5,
+      "price": 1780000,
+      "sourceNodeId": "4126:33137"
+    },
+    "bereg-tigody-480": {
+      "area": 10.0,
+      "price": 990000,
+      "sourceNodeId": "4126:33146"
+    },
+    "bereg-tigody-491": {
+      "area": 10.0,
+      "price": 990000,
+      "sourceNodeId": "4126:33152"
+    },
+    "bereg-tigody-502": {
+      "area": 10.0,
+      "price": 990000,
+      "sourceNodeId": "4126:33158"
+    },
+    "bereg-tigody-513": {
+      "area": 10.0,
+      "price": 990000,
+      "sourceNodeId": "4126:33164"
+    },
+    "bereg-tigody-524": {
+      "area": 10.0,
+      "price": 990000,
+      "sourceNodeId": "4126:33170"
+    },
+    "bereg-tigody-535": {
+      "area": 10.0,
+      "price": 990000,
+      "sourceNodeId": "4126:33176"
+    },
+    "bereg-tigody-539": {
+      "area": 10.0,
+      "price": 990000,
+      "sourceNodeId": "4126:33182"
+    },
+    "bereg-tigody-459": {
+      "area": 12.5,
+      "price": 1237000,
+      "sourceNodeId": "4126:33188"
+    },
+    "bereg-tigody-466": {
+      "area": 10.0,
+      "price": 1200000,
+      "sourceNodeId": "4126:33194"
+    },
+    "bereg-tigody-465": {
+      "area": 10.0,
+      "price": 1200000,
+      "sourceNodeId": "4126:33200"
+    },
+    "bereg-tigody-464": {
+      "area": 10.0,
+      "price": 1200000,
+      "sourceNodeId": "4126:33206"
+    },
+    "bereg-tigody-462": {
+      "area": 10.0,
+      "price": 1200000,
+      "sourceNodeId": "4126:33212"
+    },
+    "bereg-tigody-460": {
+      "area": 10.0,
+      "price": 1200000,
+      "sourceNodeId": "4126:33218"
+    },
+    "bereg-tigody-499": {
+      "area": 20.0,
+      "price": 2000000,
+      "sourceNodeId": "4126:33224"
+    },
+    "bereg-tigody-500": {
+      "area": 10.0,
+      "price": 990000,
+      "sourceNodeId": "4126:33230"
+    },
+    "bereg-tigody-494": {
+      "area": 7.0,
+      "price": 693000,
+      "sourceNodeId": "4126:33236"
+    },
+    "bereg-tigody-496": {
+      "area": 9.7,
+      "price": 762000,
+      "sourceNodeId": "4126:33242"
+    },
+    "bereg-tigody-497": {
+      "area": 8.0,
+      "price": 792000,
+      "sourceNodeId": "4126:33248"
+    },
+    "bereg-tigody-498": {
+      "area": 7.0,
+      "price": 693000,
+      "sourceNodeId": "4126:33254"
+    },
+    "bereg-tigody-553": {
+      "area": 7.5,
+      "price": 635000,
+      "sourceNodeId": "4126:33260"
+    },
+    "bereg-tigody-547": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33266"
+    },
+    "bereg-tigody-568": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33272"
+    },
+    "bereg-tigody-510": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33278"
+    },
+    "bereg-tigody-512": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33284"
+    },
+    "bereg-tigody-523": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33290"
+    },
+    "bereg-tigody-526": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33296"
+    },
+    "bereg-tigody-521": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33302"
+    },
+    "bereg-tigody-519": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33308"
+    },
+    "bereg-tigody-517": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33314"
+    },
+    "bereg-tigody-515": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33320"
+    },
+    "bereg-tigody-564": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33330"
+    },
+    "bereg-tigody-565": {
+      "area": 7,
+      "price": 508000,
+      "sourceNodeId": "4126:33332"
+    },
+    "bereg-tigody-567": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33338"
+    },
+    "bereg-tigody-566": {
+      "area": 7.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33344"
+    },
+    "bereg-tigody-560": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33350"
+    },
+    "bereg-tigody-559": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33356"
+    },
+    "bereg-tigody-558": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33362"
+    },
+    "bereg-tigody-557": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33368"
+    },
+    "bereg-tigody-511": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33374"
+    },
+    "bereg-tigody-488": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33380"
+    },
+    "bereg-tigody-587": {
+      "area": 9.4,
+      "price": 940000,
+      "sourceNodeId": "4126:33386"
+    },
+    "bereg-tigody-485": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33392"
+    },
+    "bereg-tigody-487": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33398"
+    },
+    "bereg-tigody-493": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33408"
+    },
+    "bereg-tigody-492": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33414"
+    },
+    "bereg-tigody-489": {
+      "area": 6,
+      "price": 508000,
+      "sourceNodeId": "4126:33416"
+    },
+    "bereg-tigody-490": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33422"
+    },
+    "bereg-tigody-514": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33428"
+    },
+    "bereg-tigody-470": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33434"
+    },
+    "bereg-tigody-516": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33440"
+    },
+    "bereg-tigody-527": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33446"
+    },
+    "bereg-tigody-525": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33452"
+    },
+    "bereg-tigody-520": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33458"
+    },
+    "bereg-tigody-522": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33464"
+    },
+    "bereg-tigody-518": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33470"
+    },
+    "bereg-tigody-483": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33476"
+    },
+    "bereg-tigody-482": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33482"
+    },
+    "bereg-tigody-479": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33488"
+    },
+    "bereg-tigody-476": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33494"
+    },
+    "bereg-tigody-473": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33500"
+    },
+    "bereg-tigody-475": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33506"
+    },
+    "bereg-tigody-481": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33512"
+    },
+    "bereg-tigody-477": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33518"
+    },
+    "bereg-tigody-478": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33524"
+    },
+    "bereg-tigody-484": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33530"
+    }
+  },
+  "divnyy": {
+    "divnyy-1801": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33706"
+    },
+    "divnyy-1802": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33712"
+    },
+    "divnyy-1803": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33718"
+    },
+    "divnyy-1805": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33724"
+    },
+    "divnyy-1798": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33730"
+    },
+    "divnyy-1820": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33736"
+    },
+    "divnyy-1839": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33742"
+    },
+    "divnyy-1838": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33748"
+    },
+    "divnyy-1840": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33759"
+    },
+    "divnyy-1819": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33765"
+    },
+    "divnyy-1818": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33771"
+    },
+    "divnyy-1795": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33783"
+    },
+    "divnyy-1817": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33789"
+    },
+    "divnyy-1785": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33795"
+    },
+    "divnyy-1786": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33801"
+    },
+    "divnyy-1787": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33807"
+    },
+    "divnyy-1788": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33813"
+    },
+    "divnyy-1789": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33819"
+    },
+    "divnyy-1821": {
+      "area": 6.2,
+      "price": 524000,
+      "sourceNodeId": "4126:33825"
+    },
+    "divnyy-1797": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33831"
+    },
+    "divnyy-1796": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33837"
+    },
+    "divnyy-1794": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33843"
+    },
+    "divnyy-1793": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33849"
+    },
+    "divnyy-1804": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33855"
+    },
+    "divnyy-1746": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33975"
+    },
+    "divnyy-1829": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33980"
+    },
+    "divnyy-1747": {
+      "area": 6.0,
+      "price": 508000,
+      "sourceNodeId": "4126:33988"
+    }
+  },
+  "severnyy-bereg": {
+    "severnyy-bereg-2120": {
+      "area": 15.0,
+      "price": 2730000,
+      "sourceNodeId": "4126:34043"
+    },
+    "severnyy-bereg-2131": {
+      "area": 15.0,
+      "price": 2730000,
+      "sourceNodeId": "4126:34049"
+    },
+    "severnyy-bereg-2133": {
+      "area": 15.0,
+      "price": 2730000,
+      "sourceNodeId": "4126:34055"
+    },
+    "severnyy-bereg-2109": {
+      "area": 18.5,
+      "price": 3330000,
+      "sourceNodeId": "4126:34061"
+    },
+    "severnyy-bereg-2112": {
+      "area": 10.0,
+      "price": 1330000,
+      "sourceNodeId": "4126:34070"
+    },
+    "severnyy-bereg-2119": {
+      "area": 10.0,
+      "price": 1330000,
+      "sourceNodeId": "4126:34076"
+    },
+    "severnyy-bereg-2113": {
+      "area": 10.0,
+      "price": 1330000,
+      "sourceNodeId": "4126:34081"
+    },
+    "severnyy-bereg-2110": {
+      "area": 10,
+      "price": 1330000,
+      "sourceNodeId": "4126:34084"
+    },
+    "severnyy-bereg-2123": {
+      "area": 10.0,
+      "price": 1330000,
+      "sourceNodeId": "4126:34091"
+    },
+    "severnyy-bereg-2122": {
+      "area": 10.0,
+      "price": 1330000,
+      "sourceNodeId": "4126:34100"
+    },
+    "severnyy-bereg-2127": {
+      "area": 10.0,
+      "price": 1330000,
+      "sourceNodeId": "4126:34107"
+    },
+    "severnyy-bereg-2136-north": {
+      "area": 11.8,
+      "price": 1564000,
+      "sourceNodeId": "4126:34112"
+    },
+    "severnyy-bereg-2136-east": {
+      "area": 10.4,
+      "price": 1382000,
+      "sourceNodeId": "4126:34118"
+    }
+  },
+  "simo": {
+    "simo-982": {
+      "area": 10.25,
+      "price": 4300000,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-973": {
+      "area": 8,
+      "price": 3025000,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-962": {
+      "area": 8,
+      "price": 3070000,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-984": {
+      "area": 6,
+      "price": 2475000,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-986": {
+      "area": 8,
+      "price": 3525000,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-963": {
+      "area": 8,
+      "price": 3175000,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-987": {
+      "area": 6,
+      "price": 2550000,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-964": {
+      "area": 6,
+      "price": 2635000,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-966": {
+      "area": 9.5,
+      "price": 3587500,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-967": {
+      "area": 8,
+      "price": 2800000,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-969": {
+      "area": 20,
+      "price": 7600000,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-968": {
+      "area": 8,
+      "price": 2800000,
+      "sourceNodeId": "4126:34159"
+    },
+    "simo-979": {
+      "area": 6,
+      "price": 2617500,
+      "sourceNodeId": "4126:34159"
+    }
+  },
+  "zelenyy-les": {
+    "zelenyy-les-u3": {
+      "area": 24,
+      "price": 1320000,
+      "sourceNodeId": "4126:34158"
+    }
+  }
+}
