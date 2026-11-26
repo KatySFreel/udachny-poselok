@@ -1,6 +1,6 @@
 :HL["/udachny-poselok/_next/static/chunks/1ehwa5xw3fxzl.css","style"]
 :HL["/udachny-poselok/_next/static/chunks/0bxlp9y3ag6o8.css","style"]
-:HL["/udachny-poselok/_next/static/chunks/2thl_3gxcrrpt.css","style"]
+:HL["/udachny-poselok/_next/static/chunks/007fz8v_qce6i.css","style"]
 :HL["/udachny-poselok/_next/static/chunks/0xw3k995kjoy5.css","style"]
 :HL["/udachny-poselok/images/home-mobile.webp","image",{"fetchPriority":"high","media":"(width < 768px)"}]
 :HL["/udachny-poselok/images/home-tablet.webp","image",{"fetchPriority":"high","media":"(768px <= width < 1024px)"}]
@@ -11,4 +11,4 @@
 :HL["/udachny-poselok/images/not-found/meadow.webp","image",{"fetchPriority":"high"}]
 :HL["/udachny-poselok/images/not-found/404.svg","image"]
 1:[["children",{"s":"__PAGE__","h":160}]]
-0:{"b":"Bcr_wT-RqCZVFXczjdLOt","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"z-_c-__kRxahXI7NtTUOf","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
