@@ -92,7 +92,13 @@
 }
 
 .ring { inset: 0; }
-.family { inset: var(--photo-inset); }
+.family {
+  inset: var(--photo-inset);
+  width: calc(100% - 2 * var(--photo-inset));
+  height: calc(100% - 2 * var(--photo-inset));
+  object-fit: cover;
+  border-radius: 50%;
+}
 
 .photo img {
   width: 100%;

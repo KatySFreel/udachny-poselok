@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useRef } from "react";
 import { useCmsCopy } from "./cms-provider";
 
 
@@ -26,6 +27,36 @@ function AdvantageFacts({
 }
 
 export function HomeAdvantages() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let visible = false;
+    const updatePlayback = () => {
+      if (visible && !motion.matches && !document.hidden) {
+        if (!video.getAttribute("src")) video.src = sitePath("/videos/advantages-family.mp4");
+        void video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      updatePlayback();
+    });
+    observer.observe(video);
+    motion.addEventListener("change", updatePlayback);
+    document.addEventListener("visibilitychange", updatePlayback);
+    return () => {
+      observer.disconnect();
+      motion.removeEventListener("change", updatePlayback);
+      document.removeEventListener("visibilitychange", updatePlayback);
+      video.pause();
+    };
+  }, []);
+
   const cms = useCmsCopy();
   const homeAdvantages = cms.data("data.homeAdvantages", _cmsSource_homeAdvantages);
 
@@ -45,11 +76,18 @@ export function HomeAdvantages() {
             <source media="(width < 768px)" srcSet={cms.imageSet("copy.home-advantages.3", siteSrcSet(cms.text("copy.home-advantages.2", "/images/advantages-ring-mobile.webp")))} />
             <img src={sitePath(cms.text("copy.home-advantages.3", "/images/advantages-ring-desktop.webp"))} alt="" width={748} height={748} loading="lazy" />
           </picture>
-          <picture className={styles.family}>
-            <source media="(width > 1280px)" srcSet={cms.imageSet("copy.home-advantages.6", siteSrcSet(cms.text("copy.home-advantages.4", "/images/advantages-family-wide.webp")))} />
-            <source media="(width < 768px)" srcSet={cms.imageSet("copy.home-advantages.6", siteSrcSet(cms.text("copy.home-advantages.5", "/images/advantages-family-mobile.webp")))} />
-            <img src={sitePath(cms.text("copy.home-advantages.6", "/images/advantages-family-desktop.webp"))} alt="" width={720} height={720} loading="lazy" />
-          </picture>
+          <video
+            ref={videoRef}
+            className={styles.family}
+            poster={sitePath("/images/advantages-video-poster.webp")}
+            width={1200}
+            height={1200}
+            muted
+            loop
+            playsInline
+            preload="none"
+            aria-hidden="true"
+          />
         </div>
         <AdvantageFacts facts={secondFacts} />
       </div>
