@@ -1,0 +1,21 @@
+@media (prefers-reduced-motion: no-preference) {
+  .card[data-motion="entering"] {
+    animation: card-enter 700ms cubic-bezier(.22, 1, .36, 1) backwards;
+    animation-delay: min(calc(var(--card-reveal-order, 0) * 90ms), 270ms);
+  }
+  .card[data-motion="entering"] .media {
+    animation: card-media-enter 900ms cubic-bezier(.22, 1, .36, 1) backwards;
+    animation-delay: min(calc(var(--card-reveal-order, 0) * 90ms), 270ms);
+  }
+}
+@media (width < 768px) and (prefers-reduced-motion: no-preference) {
+  .card[data-motion="entering"], .card[data-motion="entering"] .media { animation-delay: 0ms; }
+}
+@keyframes card-enter {
+  from { opacity: 0; translate: 0 28px; scale: .985; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+@keyframes card-media-enter {
+  from { opacity: 0; scale: .92; }
+  to { opacity: 1; scale: 1; }
+}

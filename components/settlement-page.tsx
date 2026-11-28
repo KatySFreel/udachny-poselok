@@ -1,18 +1,18 @@
 "use client";
 import { useCmsCopy } from "./cms-provider";
+import type { CSSProperties } from "react";
 
 
 import { formatNumber } from "../lib/format-number";
 import { SitePage } from "./site-page";
 import type { SettlementPageData } from "../content/settlement-pages";
-import { settlementPaymentOptions } from "../content/settlement-payment";
 import { settlements } from "../content/settlements";
 import { site } from "../content/site";
 import { sitePath } from "../lib/site-path";
 import { getSettlementSurroundings } from "../content/settlement-surroundings";
-import { ActionButton, ActionLink } from "./action";
+import { ActionLink } from "./action";
 import { CatalogCard } from "./catalog-card";
-import { PaymentCard } from "./payment-card";
+import { HomePayment } from "./home-payment";
 import { RoundLink } from "./round-link";
 import { SectionHeading as Heading } from "./section-heading";
 import { SettlementCard } from "./settlement-card";
@@ -23,7 +23,7 @@ import { HouseCard } from "./house-card";
 import houseStyles from "./home-houses.module.css";
 import { PhotoFormPanel } from "./photo-form-panel";
 import { InlineRequestForm, RequestDialog } from "./contact-dialog";
-import { leadTrigger, settlementLeadForm } from "../lib/lead-attribution";
+import { settlementLeadForm } from "../lib/lead-attribution";
 import { HomeSettlementsMapBoard } from "./home-settlements-map-board";
 import { SettlementSurroundingsMap } from "./settlement-surroundings-map";
 import { SettlementSurroundingsPreview } from "./settlement-surroundings-preview";
@@ -33,7 +33,6 @@ import styles from "./settlement-page.module.css";
 
 export function SettlementPage({ data: sourceData }: { data: SettlementPageData }) {
   const cms = useCmsCopy();
-  const settlementPaymentOptions = cms.data("data.settlementPaymentOptions", _cmsSource_settlementPaymentOptions);
   const settlements = cms.data("data.settlements", _cmsSource_settlements);
   const site = cms.data("data.site", _cmsSource_site);
   const data = cms.data(`settlement.${sourceData.slug}`, sourceData);
@@ -41,7 +40,6 @@ export function SettlementPage({ data: sourceData }: { data: SettlementPageData 
   const asset = (name: string) => sitePath(name.startsWith("/") ? name : cms.text(`settlement-media.${data.slug}.${name}`, `${data.assets}/${name}.webp`));
   const visitId = `${data.slug}-visit`;
   const onlineId = `${data.slug}-online-visit`;
-  const openVisit = { commandfor: visitId, command: "show-modal" };
   const surroundings = getSettlementSurroundings(data.slug);
   const videoUrl = data.videoUrl || site.socials.find(social => social.id === "rutube")!.href;
 
@@ -71,8 +69,8 @@ export function SettlementPage({ data: sourceData }: { data: SettlementPageData 
           <Heading id="settlement-about">{cms.text("copy.settlement-page.10", "О посёлке")}</Heading>
           <p className={styles.description} data-reveal>{data.description.startsWith('—') && <><span>{data.kind ? `${data.kind} «${data.name}»` : `«${data.name}»`}</span> </>}{data.description}</p>
           <div className={styles.advantages} data-count={data.advantages.length}>
-            {data.advantages.map(item => (
-              <article key={item.image} data-reveal>
+            {data.advantages.map((item, index) => (
+              <article key={item.image} data-reveal style={{'--advantage-order': index} as CSSProperties}>
                 <img src={asset(item.image)} width={220} height={220} alt="" loading="lazy" decoding="async" />
                 <h3 className={shared.cardTitle}>{item.title}</h3><p>{item.description}</p>
               </article>
@@ -122,12 +120,7 @@ export function SettlementPage({ data: sourceData }: { data: SettlementPageData 
           </div>
         </section>
 
-        <section className={`shell ${styles.payment}`} aria-labelledby="settlement-payment">
-          <Heading className={styles.sectionHeading} label={cms.text("copy.settlement-page.32", "Способы покупки")} id="settlement-payment" accent="red">{cms.text("copy.settlement-page.33", "Выберите ")}<em>{cms.text("copy.settlement-page.34", "удобный")}</em> {cms.text("copy.settlement-page.35", " способ оплаты")}</Heading>
-          <div className={styles.paymentCards} data-reveal>
-            {settlementPaymentOptions.map(option => <PaymentCard key={option.number.id} option={option} headingId={`settlement-payment-option-${option.number.id}`} />)}
-          </div>
-        </section>
+        <HomePayment headingId="settlement-payment" />
 
         <section className={`shell ${formPanel.section} ${styles.presentation}`} aria-labelledby="settlement-presentation">
           <PhotoFormPanel reveal variant="presentation" image={{src:`${data.assets}/presentation.webp`,alt:`Презентация посёлка ${data.name}`}} intro={<>
@@ -154,6 +147,5 @@ export function SettlementPage({ data: sourceData }: { data: SettlementPageData 
   );
 }
 
-const _cmsSource_settlementPaymentOptions = settlementPaymentOptions;
 const _cmsSource_settlements = settlements;
 const _cmsSource_site = site;

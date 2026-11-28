@@ -14,9 +14,9 @@ import cardStyles from "./settlements.module.css";
 
 const iconDirectory = "/icons/settlement-gallery";
 const photoDirectory = "/images/settlements/completed/gallery";
-const photos = [1, 2, 3] as const;
 
 function SettlementGallery({ settlement }: { settlement: CompletedSettlement }) {
+  const photos = Array.from({length: settlement.photoCount ?? 3}, (_, index) => index + 1);
   const cms = useCmsCopy();
 
   const viewportId = useId();

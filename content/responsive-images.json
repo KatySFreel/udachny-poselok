@@ -1,0 +1,128 @@
+{
+  "/images/investors/aerial.webp": [
+    {
+      "src": "/images/investors/aerial-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/images/investors/aerial-1280.webp",
+      "width": 1280
+    },
+    {
+      "src": "/images/investors/aerial-1920.webp",
+      "width": 1920
+    },
+    {
+      "src": "/images/investors/aerial.webp",
+      "width": 4032
+    }
+  ],
+  "/images/partners/landscape.webp": [
+    {
+      "src": "/images/partners/landscape-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/images/partners/landscape-1280.webp",
+      "width": 1280
+    },
+    {
+      "src": "/images/partners/landscape-1920.webp",
+      "width": 1920
+    },
+    {
+      "src": "/images/partners/landscape.webp",
+      "width": 2731
+    }
+  ],
+  "/images/blog/cover.webp": [
+    {
+      "src": "/images/blog/cover-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/images/blog/cover-1280.webp",
+      "width": 1280
+    },
+    {
+      "src": "/images/blog/cover-1920.webp",
+      "width": 1920
+    },
+    {
+      "src": "/images/blog/cover.webp",
+      "width": 2400
+    }
+  ],
+  "/images/installment/house.webp": [
+    {
+      "src": "/images/installment/house-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/images/installment/house-1280.webp",
+      "width": 1280
+    },
+    {
+      "src": "/images/installment/house-1920.webp",
+      "width": 1920
+    },
+    {
+      "src": "/images/installment/house.webp",
+      "width": 4096
+    }
+  ],
+  "/images/certificate/family-forest.webp": [
+    {
+      "src": "/images/certificate/family-forest-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/images/certificate/family-forest-1280.webp",
+      "width": 1280
+    },
+    {
+      "src": "/images/certificate/family-forest-1920.webp",
+      "width": 1920
+    },
+    {
+      "src": "/images/certificate/family-forest.webp",
+      "width": 2000
+    }
+  ],
+  "/images/mortgage/house.webp": [
+    {
+      "src": "/images/mortgage/house-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/images/mortgage/house-1280.webp",
+      "width": 1280
+    },
+    {
+      "src": "/images/mortgage/house-1920.webp",
+      "width": 1920
+    },
+    {
+      "src": "/images/mortgage/house.webp",
+      "width": 4096
+    }
+  ],
+  "/images/mortgage/plot.webp": [
+    {
+      "src": "/images/mortgage/plot-640.webp",
+      "width": 640
+    },
+    {
+      "src": "/images/mortgage/plot-1280.webp",
+      "width": 1280
+    },
+    {
+      "src": "/images/mortgage/plot-1920.webp",
+      "width": 1920
+    },
+    {
+      "src": "/images/mortgage/plot.webp",
+      "width": 4096
+    }
+  ]
+}

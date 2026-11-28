@@ -1,0 +1,165 @@
+.page { --action-unit: var(--section-layout-unit); --heading-gap: calc(32 * var(--section-unit)); }
+.section { padding-block-end: var(--section-spacing); }
+.hero { position: relative; height: clamp(var(--cover-min-height), 100svh, var(--cover-max-height)); color: var(--cream); }
+.heroBackground { position: absolute; inset: 0; overflow: hidden; }
+.photoSlides { position: relative; isolation: isolate; width: 100%; height: 100%; overflow: hidden; }
+.photoSlide { position: absolute; inset: 0; display: block; opacity: 0; pointer-events: none; }
+.photoSlide[data-active] { opacity: 1; z-index: 1; }
+.photoSlide img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.heroBackground::after { content: ''; position: absolute; inset: 0; opacity: 0; background: linear-gradient(transparent 40%,rgb(42 22 22 / 75%)); pointer-events: none; }
+.heroBackground[data-shaded]::after { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .photoSlide { transition: opacity 750ms cubic-bezier(.4,0,.2,1); }
+  .heroBackground::after { transition: opacity 750ms ease; }
+  .thumbnails button { transition: width 400ms ease, flex-grow 400ms ease; }
+}
+.heroContent { position: absolute; bottom: calc(56 * var(--section-layout-unit)); inset-inline-start: var(--content-inset); display: grid; gap: calc(44 * var(--section-layout-unit)); }
+.heroTitle { display: grid; gap: 8px; }
+.heroTitle p { font: 600 calc(32 * var(--section-unit)) / 1.25 var(--heading-font); letter-spacing: -.02em; }
+.heroTitle h1 { font: italic 400 calc(140 * var(--section-unit)) / 1.0357 var(--accent-font); }
+.heroTags { display: flex; gap: 19px; padding: 0; list-style: none; }
+.heroTags li { display: flex; align-items: center; gap: 10px; padding: calc(12 * var(--section-layout-unit)) calc(24 * var(--section-layout-unit)); border-radius: 100px; background: rgb(255 250 238 / 35%); backdrop-filter: blur(4px); font-size: calc(20 * var(--section-unit)); line-height: 1.2; }
+.heroTags img { flex: none; }
+.mobileHeroPhoto { display: none; }
+.thumbnails { display: flex; align-items: end; gap: 8px; overflow-x: auto; scrollbar-width: thin; }
+.thumbnails button { flex: none; width: calc(174 * var(--section-layout-unit)); padding: calc(8 * var(--section-layout-unit)); border: 0; border-radius: var(--radius); background: rgb(255 250 238 / 35%); backdrop-filter: blur(4px); }
+.thumbnails button[aria-pressed="true"] { width: calc(266 * var(--section-layout-unit)); }
+.thumbnails img { width: 100%; height: auto; aspect-ratio: 250 / 141; object-fit: cover; border: 1px solid transparent; border-radius: var(--radius); }
+.thumbnails button[aria-pressed="true"] img { border-color: var(--cream); }
+.thumbnails button:focus-visible { outline: 2px solid var(--cream); outline-offset: -3px; }
+.heroThumbnails { position: absolute; bottom: calc(40 * var(--section-layout-unit)); inset-inline-end: var(--content-inset); max-width: 48%; }
+.about { padding-block-start: var(--section-spacing); }
+.description { max-width: calc(788 * var(--section-unit)); margin: calc(32 * var(--section-layout-unit)) auto calc(64 * var(--section-layout-unit)); color: var(--brown-muted); font-size: calc(24 * var(--section-unit)); line-height: 1.2; text-align: center; }
+.overview { display: grid; grid-template-columns: minmax(0,1140fr) minmax(0,680fr); gap: 20px; }
+.features { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; margin: 0; }
+.features > div { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-width: 0; padding: calc(32 * var(--section-layout-unit)) calc(24 * var(--section-layout-unit)); border-radius: var(--radius); background: var(--pink-light); text-align: center; }
+.features dd { order: 0; margin: 0; font: 600 calc(32 * var(--section-unit)) / 1.25 var(--heading-font); letter-spacing: -.02em; color: #895e55; }
+.features dt { color: var(--brown-muted); font-size: calc(24 * var(--section-unit)); line-height: 1.2; }
+.price { display: grid; align-content: center; gap: calc(12 * var(--section-layout-unit)); padding: calc(24 * var(--section-layout-unit)); border-radius: var(--radius); background: var(--rose); color: var(--pink-light); }
+.price > p:first-child { font: 600 calc(32 * var(--section-unit)) / 1.25 var(--heading-font); letter-spacing: -.02em; }
+.price strong { font: 600 calc(48 * var(--section-unit)) / 1.1 var(--heading-font); color: var(--cream); }
+.price > p { font-size: calc(24 * var(--section-unit)); line-height: 1.2; }
+.price :global(.action) { width: 100%; margin-block-start: calc(20 * var(--section-layout-unit)); color: var(--red); }
+.plan { display: grid; grid-template-columns: minmax(0,1140fr) minmax(0,680fr); gap: 20px; margin-block-start: calc(64 * var(--section-layout-unit)); }
+.planImage { min-width: 0; padding: calc(24 * var(--section-layout-unit)); border: 1px solid #e6a7a5; border-radius: var(--radius); }
+.planSlot { position: relative; aspect-ratio: 1067 / 828; overflow: hidden; border-radius: var(--radius); }
+.planImage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.planImage[data-view="drawing"][data-rotate] img { inset: 50% auto auto 50%; width: 77.74%; height: 128.64%; object-fit: contain; transform: translate(-50%,-50%) rotate(90deg); }
+.rooms { padding: calc(32 * var(--section-layout-unit)); border-radius: var(--radius); background: var(--pink-light); }
+.rooms h3 { margin: 0 0 12px; font: 600 calc(32 * var(--section-unit)) / 1.25 var(--heading-font); letter-spacing: -.02em; color: #895e55; }
+.rooms > p, .rooms dl { color: var(--brown-muted); font-size: calc(24 * var(--section-unit)); line-height: 1.2; }
+.rooms dl { display: grid; margin: calc(64 * var(--section-layout-unit)) 0 0; }
+.rooms dl > div { display: flex; justify-content: space-between; gap: 12px; padding-block: calc(24 * var(--section-layout-unit)); border-block-end: 1px solid var(--pink); }
+.rooms dl > div:first-child { padding-block-start: 0; }
+.rooms dl > div:last-child { padding-block-end: 0; border: 0; }
+.rooms dd { margin: 0; color: var(--brown); white-space: nowrap; }
+.completedGrid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; margin-block-start: calc(64 * var(--section-layout-unit)); padding: 0; list-style: none; }
+.completedCard { position: relative; display: block; width: 100%; aspect-ratio: 910 / 500; padding: 0; overflow: hidden; border: 0; border-radius: var(--radius); }
+.completedCard > img { width: 100%; height: 100%; object-fit: cover; }
+.completedCard > span { position: absolute; top: calc(24 * var(--section-layout-unit)); right: calc(24 * var(--section-layout-unit)); padding: calc(12 * var(--section-layout-unit)) calc(24 * var(--section-layout-unit)); border-radius: 100px; background: rgb(255 250 238 / 35%); backdrop-filter: blur(4px); }
+.completedCard:focus-visible { outline: 2px solid var(--brown); outline-offset: 4px; }
+.galleryDialog { --form-unit: var(--section-unit); --dialog-inset: 9px; width: min(calc(1264 * var(--section-unit)),calc(100% - 40px)); max-width: none; max-height: calc(100dvh - 40px); margin: auto; padding: calc(32 * var(--section-layout-unit)); overflow: auto; border: 0; border-radius: var(--radius); background: var(--pink-light); color: var(--brown); }
+.galleryDialog::backdrop { background: rgb(8 8 8 / 80%); }
+:global(html:has(dialog[data-house-gallery][open])) { overflow: hidden; }
+.galleryDialog > form { position: absolute; z-index: 2; top: 4px; right: 4px; width: 36px; height: 36px; border-radius: var(--radius); background: var(--pink-light); }
+.galleryPhoto { position: relative; overflow: hidden; border-radius: var(--radius); }
+.galleryPhoto .photoSlides { max-height: calc(100dvh - 180px); height: auto; aspect-ratio: 1200 / 801; }
+.galleryPhoto .photoSlide img { object-fit: contain; }
+.galleryPhoto .thumbnails { position: absolute; bottom: calc(24 * var(--section-layout-unit)); inset-inline: calc(24 * var(--section-layout-unit)); }
+.galleryDialog > div[role="group"] { justify-content: center; margin-block-start: calc(24 * var(--section-layout-unit)); }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.recommendations { --grid-gap: calc(64 * var(--section-unit)); }
+.recommendations > ul { grid-template-columns: repeat(4,minmax(0,1fr)); }
+@media (1024px <= width <= 1280px) {
+  .completedCard { aspect-ratio: 670 / 500; }
+  .recommendations > ul { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .heroThumbnails { flex-direction: column; align-items: end; max-width: 26%; }
+  .heroThumbnails button { width: calc(174 * var(--section-layout-unit)); }
+  .heroThumbnails button[aria-pressed="true"] { width: calc(224 * var(--section-layout-unit)); }
+  .overview { grid-template-columns: minmax(0,930fr) minmax(0,410fr); }
+}
+@media (width < 1024px) {
+  .completedGrid { grid-template-columns: minmax(0,1fr); }
+  .recommendations > ul { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .heroContent { bottom: 208px; gap: 44px; }
+  .heroTitle h1 { font-size: 100px; line-height: 1; }
+  .heroBackground img { object-position: 75.3% center; }
+  .heroBackground::after { inset: 40% 0 0; opacity: 1; background: linear-gradient(transparent,rgb(42 22 22 / 75%)); }
+  .heroThumbnails { bottom: 20px; inset-inline: var(--content-inset); max-width: none; }
+  .heroThumbnails button { flex: 1; width: 0; }
+  .heroThumbnails button[aria-pressed="true"] { flex: 1.35; width: 0; }
+  .description { max-width: none; }
+  .overview, .plan { grid-template-columns: minmax(0,1fr); }
+  .features > div { padding: 32px 24px; }
+  .rooms { min-height: 579px; padding: 32px; }
+  .completedCard { aspect-ratio: 728 / 400; }
+  .recommendations :global(ul) { --grid-gap: 64px; }
+}
+@media (width < 768px) {
+  .section { padding-block-end: 100px; }
+  .hero { display: flex; flex-direction: column; gap: 32px; height: auto; min-height: clamp(var(--cover-min-height),100svh,var(--cover-max-height)); padding: clamp(160px,30.3svh,246px) var(--content-inset) 20px; }
+  .heroBackground::after { inset: 0; background: rgb(8 8 8 / 60%); }
+  .heroBackground img { object-position: center; }
+  .heroContent { position: relative; inset: auto; gap: 32px; margin-block-start: auto; }
+  .heroTitle { gap: 16px; }
+  .heroTitle p { font-size: 24px; line-height: 1.1; letter-spacing: 0; }
+  .heroTitle h1 { font-size: 64px; }
+  .heroTags { flex-direction: column; align-items: start; gap: 8px; }
+  .heroTags li { gap: 10px; padding: 8px 16px; font-size: 14px; }
+  .heroTags img { width: 20px; height: 20px; }
+  .mobileHeroPhoto { position: relative; display: block; flex: none; width: 100%; overflow: hidden; border-radius: var(--radius); aspect-ratio: 335 / 202; }
+  .mobileHeroPhoto img { width: 100%; height: 100%; object-fit: cover; }
+  .heroThumbnails { position: relative; inset: auto; flex: none; width: 100%; gap: 4px; aspect-ratio: calc((var(--hero-photo-count) + .56) * 250) / calc(1.56 * 141); padding-block-start: 8px; box-sizing: content-box; }
+  .thumbnails button { padding: 4px; border-radius: 4px; }
+  .thumbnails img { border-radius: 4px; }
+  .heroThumbnails button[aria-pressed="true"] { flex: 1.56; }
+  .about { padding-block-start: 100px; }
+  .description { margin: 24px auto 48px; font-size: 14px; }
+  .overview { gap: 12px; }
+  .features { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .features > div { padding: 32px 24px; }
+  .features dd { font-size: 24px; line-height: 1.1; letter-spacing: 0; }
+  .features dt { font-size: 14px; }
+  .price { gap: 12px; padding: 24px; }
+  .price > p:first-child { font-size: 16px; line-height: 1.2; letter-spacing: 0; }
+  .price strong { font-size: 32px; line-height: 1; }
+  .price > p { font-size: 14px; }
+  .price :global(.action) { margin-block-start: 20px; font-size: 14px; }
+  .plan { gap: 12px; margin-block-start: 64px; }
+  .planImage { padding: 12px; }
+  .planSlot { aspect-ratio: 1067 / 828; }
+  .rooms { min-height: 0; padding: 32px; }
+  .rooms h3 { font-size: 24px; line-height: 1.1; letter-spacing: 0; }
+  .rooms > p, .rooms dl { font-size: 14px; }
+  .rooms dl { margin-block-start: 32px; }
+  .rooms dl > div { padding-block: 12px; }
+  .completedGrid { grid-template-columns: minmax(0,1fr); gap: 12px; margin-block-start: 48px; }
+  .completedCard { aspect-ratio: 335 / 200; }
+  .completedCard > span { top: 16px; right: 16px; padding: 8px 16px; }
+  .completedCard > span img { width: 20px; height: 20px; }
+  .recommendations > ul { grid-template-columns: minmax(0,1fr); }
+  .galleryDialog { width: calc(100% - 24px); padding: 36px 12px 12px; }
+  .galleryPhoto .photoSlides { aspect-ratio: 3 / 2; max-height: calc(100dvh - 180px); }
+  .galleryPhoto .thumbnails { position: relative; inset: auto; gap: 4px; margin-block-start: 12px; }
+  .galleryPhoto .thumbnails button { padding: 0; }
+  .galleryPhoto .thumbnails button, .galleryPhoto .thumbnails button[aria-pressed="true"] { width: 72px; }
+  .galleryPhoto .thumbnails img { border-width: 2px; }
+  .galleryPhoto .thumbnails button[aria-pressed="true"] img { border-color: var(--red); }
+  .galleryPhoto .thumbnails button:focus-visible { outline-color: var(--red); }
+}
+
+.planImage[data-view="drawing"]:not([data-rotate]) > .planSlot { aspect-ratio: 1850 / 1210; }
+.planImage[data-view="drawing"]:not([data-rotate]) img { object-fit: contain; }
+.recommendations[data-count="2"] > ul { grid-template-columns: repeat(3,minmax(0,1fr)); }
+@media (768px <= width <= 1280px) { .recommendations[data-count="2"] > ul { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (width < 768px) { .recommendations[data-count="2"] > ul { grid-template-columns: minmax(0,1fr); } }
+
+.planImage[data-variants][data-view] > .planSlot { aspect-ratio: var(--plan-slot-ratio); }
+.planImage[data-variants][data-view="drawing"][data-rotate] img { width: var(--plan-rotated-width); height: var(--plan-rotated-height); transform: translate(-50%,-50%) rotate(-90deg); }
+.planImage > .planVariantFilters { justify-content: start; margin-inline: 0; margin-block: calc(24 * var(--section-layout-unit)) 0; }
+@media (width < 768px) {
+  .planImage > .planVariantFilters { width: calc(100% + 24px); max-width: none; margin-inline: -12px; padding-inline: 12px; scroll-padding-inline: 12px; }
+}
+
+.planImage[data-view="visualization"] { align-self: start; }
+.planImage[data-view="visualization"] > .planSlot { aspect-ratio: var(--plan-visualization-ratio); }

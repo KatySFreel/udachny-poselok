@@ -5,6 +5,9 @@
 .wrapper[data-inverse] h2 { color: var(--cream); }
 .wrapper[data-inverse] em { color: #e6a7a5; }
 .wrapper[data-inverse] > div { color: var(--pink-light); border-color: rgb(255 250 238 / 60%); }
+@media (768px <= width < 1024px) {
+  .wrapper[data-stacked-on-tablet] .heading { font-size: var(--section-stacked-heading-size); }
+}
 @media (width < 768px) {
   .wrapper { gap: 24px; }
 }

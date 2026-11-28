@@ -6,7 +6,7 @@ import { CompletedSettlementCards } from "../../components/completed-settlement-
 import { HomeExcursion } from "../../components/home-excursion";
 import { HomeSettlementsMap } from "../../components/home-settlements-map";
 import { SettlementListing } from "../../components/settlement-listing";
-import { createPageMetadata } from "../../lib/site-metadata";
+import { createPageMetadata, localizePageMetadata } from "../../lib/site-metadata";
 import { sitePath, siteSrcSet } from "../../lib/site-path";
 import settlementStyles from "../../components/settlements.module.css";
 import styles from "./page.module.css";
@@ -54,7 +54,5 @@ export default async function SettlementCatalogPage() {
 
 export async function generateMetadata() {
   const cms = await getCmsCopy();
-  const title = cms.text("seo.poselki.title", "Коттеджные посёлки в Ленинградской области — Удачный посёлок");
-  const description = cms.text("seo.poselki.description", "Посёлки в продаже и реализованные проекты компании «Удачный посёлок». Выберите район и запишитесь на экскурсию.");
-  return { ...baseMetadata, title, description, openGraph: { ...baseMetadata.openGraph, title, description }, twitter: { ...baseMetadata.twitter, title, description } };
+  return localizePageMetadata(baseMetadata, cms, "poselki");
 }

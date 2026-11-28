@@ -29,6 +29,11 @@
 .emblemSlot,.emblemMobile,.emblemDesktop,.emblemTablet,.mobileBreak { display: none; }
 .consultation { scroll-margin-top: 120px; }
 
+@media (width > 1280px) {
+  .emblemSlot { display: grid; grid-column: 3 / 5; grid-row: 1; place-items: center; }
+  .emblemDesktop { display: block; width: calc(208 * var(--section-layout-unit)); height: auto; transform: scaleX(-1); }
+}
+
 @media (1024px <= width <= 1280px) {
   .stepGrid { grid-template-columns: repeat(3,minmax(0,1fr)); }
   .step[data-step="3"] { grid-column: 1; }

@@ -1,0 +1,266 @@
+{
+  "page": "/o-kompanii",
+  "figmaFile": "nsStsZbQXuGUeyC447G4xO",
+  "referenceFrames": [
+    {
+      "node": "4074:67519",
+      "label": "1920",
+      "width": 1920,
+      "height": 8216,
+      "gutter": 40,
+      "contentWidth": 1840,
+      "heroTitle": 236.99,
+      "intro": {
+        "top": 892,
+        "height": 364,
+        "gap": 32
+      },
+      "stats": {
+        "top": 1406,
+        "height": 183,
+        "direction": "row",
+        "gap": 20
+      },
+      "mission": {
+        "top": 1739,
+        "height": 743,
+        "padding": 32
+      },
+      "services": {
+        "top": 2634,
+        "height": 889,
+        "gap": 64
+      },
+      "teamIntro": {
+        "top": 3673,
+        "height": 790
+      },
+      "teamRail": {
+        "top": 4527,
+        "height": 493,
+        "gap": 12
+      }
+    },
+    {
+      "node": "4074:57768",
+      "userLabel": "1024",
+      "actualLabel": "1440",
+      "width": 1440,
+      "height": 8055,
+      "gutter": 40,
+      "contentWidth": 1360,
+      "heroTitle": 175,
+      "intro": {
+        "top": 842,
+        "height": 364,
+        "gap": 32
+      },
+      "stats": {
+        "top": 1356,
+        "height": 183,
+        "direction": "row",
+        "gap": 20
+      },
+      "mission": {
+        "top": 1689,
+        "height": 743,
+        "padding": 32
+      },
+      "services": {
+        "top": 2584,
+        "height": 961,
+        "gap": 64
+      },
+      "teamIntro": {
+        "top": 3695,
+        "height": 790
+      }
+    },
+    {
+      "node": "4074:58295",
+      "label": "768",
+      "width": 768,
+      "height": 9649,
+      "gutter": 20,
+      "contentWidth": 728,
+      "heroTitle": 93,
+      "intro": {
+        "top": 534,
+        "height": 465,
+        "gap": 32
+      },
+      "stats": {
+        "top": 1149,
+        "height": 246,
+        "direction": "row",
+        "gap": 32
+      },
+      "mission": {
+        "top": 1545,
+        "height": 1017,
+        "padding": 32
+      },
+      "services": {
+        "top": 2712,
+        "height": 1090,
+        "gap": 64,
+        "interaction": "accordion"
+      },
+      "team": {
+        "top": 3952,
+        "height": 1599,
+        "gap": 64
+      },
+      "projects": {
+        "top": 5701,
+        "height": 1291,
+        "gap": 64
+      },
+      "excursion": {
+        "top": 7142,
+        "width": 732,
+        "height": 856,
+        "direction": "column",
+        "padding": 12
+      }
+    },
+    {
+      "node": "4074:58972",
+      "label": "375",
+      "width": 375,
+      "height": 7694,
+      "gutter": 20,
+      "contentWidth": 335,
+      "heroTitle": 43,
+      "heroPhotos": {
+        "top": 225,
+        "height": 122,
+        "gap": 4
+      },
+      "intro": {
+        "top": 477,
+        "height": 253,
+        "gap": 12
+      },
+      "stats": {
+        "top": 836,
+        "height": 296,
+        "direction": "column",
+        "gap": 24
+      },
+      "mission": {
+        "top": 1232,
+        "height": 497,
+        "padding": 24
+      },
+      "services": {
+        "top": 1829,
+        "height": 1070,
+        "gap": 48,
+        "interaction": "accordion"
+      },
+      "teamIntro": {
+        "top": 2999,
+        "height": 495,
+        "gap": 24
+      },
+      "teamRail": {
+        "top": 3532,
+        "height": 424,
+        "gap": 20
+      },
+      "projects": {
+        "top": 4056,
+        "height": 1033,
+        "gap": 48
+      },
+      "excursion": {
+        "top": 5195,
+        "height": 720,
+        "direction": "column",
+        "padding": 12
+      }
+    }
+  ],
+  "implementationRules": {
+    "breakpoints": [
+      768,
+      1024,
+      1280,
+      1920
+    ],
+    "compactDesktop": "Use the supplied 1440 composition from 1024 px with existing section scaling; do not scale readable text to 1024/1920.",
+    "wide": "Use shared --section-unit, --section-heading-size and --section-spacing; cap the content at 1840 px.",
+    "tablet": "20 px gutters; services accordion; horizontally scrolling team; project cards stacked; excursion photo above form.",
+    "mobile": "20 px gutters; four hero photos in one row, emblem below; stats in one column; services number and toggle above heading, expanded image beside copy; project cards stacked. Project cards use one column internally: thumbnail row, title, landscape image, full-width button. Mobile project introduction has its own Figma copy.",
+    "rails": "Scroll viewport reaches the section edges. Put grid gutters inside the rail before first and after last item.",
+    "forms": "Reuse shared Russian +7 fields and the shared thank-you dialog; allow resubmission after closing. Reserve validation space only when fields are side by side. When stacked, use normal layout gaps and show errors in flow, on both desktop and mobile. Do not add page-specific reservation flags.",
+    "verificationWidths": [
+      375,
+      480,
+      767,
+      768,
+      820,
+      1023,
+      1024,
+      1280,
+      1440,
+      1512,
+      1920
+    ]
+  },
+  "notes": [
+    "Measured in the Chrome Figma Properties panel. Frame heights are reference measurements, not fixed CSS page heights.",
+    "The supplied link labeled 1024 is actually the 1440 frame. This discrepancy was reported to the user.",
+    "Use existing SiteHeader, SiteFooter, SectionHeading, Action, SettlementCard and form behavior.",
+    "2026-11-20: refreshed against the editable copy; mobile headings use 32 px at 375 px, mission panel uses 24 px outer padding and 32 px / 16 px inner padding. Team images and order updated."
+  ],
+  "teamSliderVerification": {
+    "tablet": {
+      "node": "2688:36082",
+      "railWidth": 1089,
+      "height": 644,
+      "gap": 20,
+      "activePhoto": [
+        352,
+        469
+      ],
+      "neighborPhoto": [
+        164,
+        218
+      ],
+      "cardGap": 24,
+      "controls": [
+        90,
+        46
+      ]
+    },
+    "mobile": {
+      "node": "2689:36356",
+      "railWidth": 742,
+      "height": 424,
+      "gap": 20,
+      "activePhoto": [
+        229,
+        305
+      ],
+      "neighborPhoto": [
+        106,
+        142
+      ],
+      "cardGap": 16,
+      "name": {
+        "font": "Manrope",
+        "weight": 600,
+        "size": 24,
+        "lineHeight": 1.1
+      },
+      "captionGap": 8,
+      "controls": [
+        72,
+        36
+      ]
+    },
+    "behavior": "Only the selected person has a caption. Keep caption width constant during desktop photo expansion; select hover cards on actual pointer movement. Below 1024 use centered scroll snapping, swipe selection, arrow controls and keyboard navigation."
+  }
+}

@@ -6,6 +6,7 @@ import { sitePath } from "../lib/site-path";
 import { navigation, site } from "../content/site";
 import { SiteLogo } from "./site-logo";
 import styles from "./site-footer.module.css";
+import mapStyles from "./home-settlements-map.module.css";
 
 
 function FooterLinks({
@@ -45,8 +46,14 @@ export function SiteFooter() {
   return (
     <footer className={`shell ${styles.footer}`} id="contacts">
       <a className={styles.map} href={site.office.mapHref} target="_blank" rel="noopener noreferrer"
-        aria-label={`${site.office.city}, ${site.office.street} — открыть в Яндекс Картах`}>
-        <img className={styles.mapImage} src={sitePath(cms.text("copy.site-footer.1", "/images/footer/office-map-styled.webp"))} alt="" width={2172} height={724} loading="lazy" decoding="async" />
+        aria-label={`${site.office.city}, ${site.office.street}, рядом метро Московские ворота — открыть в Яндекс Картах`}>
+        <div className={styles.mapArt}>
+          <img className={styles.mapImage} src={sitePath(cms.text("copy.site-footer.1", "/images/footer/office-map-styled.webp"))} alt="" width={2172} height={724} loading="lazy" decoding="async" />
+          <span className={styles.metro}>
+            <span className={`${mapStyles.pin} ${styles.metroPin}`} aria-hidden="true"><svg width={24} height={24} viewBox="0 0 24 24"><path d="m4 18 4-12 4 8 4-8 4 12h-4l-1.1-4.5L12 19l-2.9-5.5L8 18Z" fill="currentColor" /></svg></span>
+            <span className={`${mapStyles.markerLabel} ${styles.metroLabel}`}>{cms.text('copy.site-footer.metro', 'Московские ворота')}</span>
+          </span>
+        </div>
         <img className={styles.marker} src={sitePath("/icons/logo-symbol.svg")} alt="" width={52} height={60} />
         <div className={styles.mapLabel}>
           <p><img src={sitePath("/icons/footer/location.svg")} alt="" width={14.5833} height={18.7546} />{cms.text("copy.site-footer.2", "Адрес офиса")}</p>

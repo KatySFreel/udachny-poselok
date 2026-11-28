@@ -20,18 +20,20 @@ export function HomeAbout() {
             <em>{cms.text("copy.home-about.3", "от выбора участка до собственного дома")}</em>
           </h2>
         </div>
+        <figure className={styles.team} data-reveal>
         <img
-          className={styles.team}
-          data-reveal
-          src={sitePath(cms.text("copy.home-about.4", "/images/about/team.webp"))}
-          srcSet={cms.imageSet("copy.home-about.4", siteSrcSet(cms.text("copy.home-about.5", "/images/about/team-720.webp 720w, /images/about/team.webp 1536w")))}
+          className={styles.landscape}
+          src={sitePath(cms.text("copy.home-about.4", "/images/about/verkhnie-ruditsy.webp"))}
+          srcSet={cms.imageSet("copy.home-about.4", siteSrcSet(cms.text("copy.home-about.5", "/images/about/verkhnie-ruditsy-720.webp 720w, /images/about/verkhnie-ruditsy.webp 1800w")))}
           sizes="(width < 768px) calc(100vw - 64px), (width < 1024px) min(670px, calc(100vw - 98px)), (max-width: 1919px) 48vw, 910px"
-          width={1536}
-          height={1024}
-          alt={cms.text("copy.home-about.6", "Команда «Удачного посёлка» в офисе")}
+          width={1800}
+          height={1013}
+          alt={cms.text("copy.home-about.6", "Посёлок Верхние Рудицы с высоты")}
           loading="lazy"
           decoding="async"
         />
+        <figcaption className={styles.location}><img src={sitePath('/icons/settlement-gallery/location.svg')} width={24} height={24} alt="" />{cms.text('copy.home-about.location', 'Верхние Рудицы')}</figcaption>
+        </figure>
         <img
           className={styles.office}
           src={sitePath(cms.text("copy.home-about.7", "/images/about/office-sign.webp"))}

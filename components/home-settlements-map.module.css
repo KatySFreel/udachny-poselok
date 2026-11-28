@@ -87,6 +87,7 @@
 
 .pin img { width: calc(21 * var(--section-unit)); height: auto; }
 .markerLabel { padding: calc(12 * var(--section-unit)) calc(24 * var(--section-unit)); border-radius: 100px; background: var(--cream); font-size: calc(20 * var(--section-unit)); line-height: 1.2; white-space: nowrap; }
+.westernMarkerLabel { transform: translateX(calc(50% - 24 * var(--section-unit))); }
 .marker[aria-expanded="true"] { z-index: 1; }
 .marker[aria-expanded="true"] .pin { background: var(--brown); scale: 1.25; }
 .marker[aria-expanded="true"] .pin img { width: calc(22.4 * var(--section-unit)); }

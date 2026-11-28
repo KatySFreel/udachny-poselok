@@ -9,14 +9,14 @@ import { HomeExcursion } from '../../components/home-excursion';
 import { CompanyServices, CompanyTeam } from '../../components/company-interactive';
 import { CompanyIntroMotion, CompanyStats } from '../../components/company-motion';
 import { sitePath } from '../../lib/site-path';
-import { createPageMetadata } from '../../lib/site-metadata';
+import { createPageMetadata, localizePageMetadata } from '../../lib/site-metadata';
 import shared from '../../components/settlements.module.css';
 import styles from '../../components/company-page.module.css';
 
 const title = 'О компании «Удачный посёлок» — участки в Ленинградской области';
 const description = 'Создаём загородные посёлки с 2018 года. Помогаем выбрать участок, оформить его в собственность и подготовиться к строительству дома.';
 const baseMetadata: Metadata = createPageMetadata({title,description,path:'/o-kompanii'});
-const photos = [ ['hero-meadow','Участок с табличкой в летнем лугу'], ['hero-road','Зимняя дорога в посёлке'], ['hero-forest','Прогулка по лесной дороге'], ['hero-sunset','Заснеженная дорога вдоль елей'] ] as const;
+const photos = [ ['hero-meadow','Участок с табличкой в летнем лугу'], ['hero-road','Зимняя дорога в посёлке'], ['hero-forest','Прогулка по лесной дороге'], ['hero-sunset','Посёлок с домами в вечернем свете'] ] as const;
 
 export default async function CompanyPage() {
   const cms = await getCmsCopy();
@@ -80,7 +80,5 @@ const _cmsSource_photos = photos;
 
 export async function generateMetadata() {
   const cms = await getCmsCopy();
-  const title = cms.text("seo.o-kompanii.title", "О компании «Удачный посёлок» — участки в Ленинградской области");
-  const description = cms.text("seo.o-kompanii.description", "Создаём загородные посёлки с 2018 года. Помогаем выбрать участок, оформить его в собственность и подготовиться к строительству дома.");
-  return { ...baseMetadata, title, description, openGraph: { ...baseMetadata.openGraph, title, description }, twitter: { ...baseMetadata.twitter, title, description } };
+  return localizePageMetadata(baseMetadata, cms, "o-kompanii");
 }

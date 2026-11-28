@@ -91,6 +91,7 @@ export type CompletedSettlement = Pick<Settlement, "slug" | "name" | "location">
   year: number;
   route: string;
   direction?: string;
+  photoCount?: number;
 };
 
 export const completedSettlements: readonly CompletedSettlement[] = [
@@ -141,5 +142,13 @@ export const completedSettlements: readonly CompletedSettlement[] = [
   {
     slug: "lesnoe-podvore", name: "«Лесное подворье»", location: "Ломоносовский район", year: 2025,
     route: "~25 км по Гостилицкому шоссе",
+  },
+  {
+    slug: "druzhnaya-polyana", name: "«Дружная поляна»", location: "Ломоносовский район", year: 2025,
+    route: "30 минут от КАД по Гостилицкому шоссе", direction: "Юго-запад", photoCount: 2,
+  },
+  {
+    slug: "voronino", name: "«Воронино»", location: "Ломоносовский район", year: 2026,
+    route: "30 минут от КАД по Гостилицкому шоссе", direction: "Юго-запад", photoCount: 2,
   },
 ];

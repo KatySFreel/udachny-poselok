@@ -2,15 +2,15 @@
 
 import { readLeadAttribution } from "../lib/lead-attribution";
 import { getCmsCopy } from "../lib/cms-store";
-import { quizQuestions } from "../content/quiz";
+import { quizQuestions, houseQuizQuestions } from "../content/quiz";
 import { validateContact } from "../lib/contact-validation";
 
-export async function submitQuiz(form: FormData, answers: Record<string, string[]>, simulate = false) {
+export async function submitQuiz(form: FormData, answers: Record<string, string[]>, simulate = false, variant: 'plot' | 'house' = 'plot') {
   const name = String(form.get("name") ?? "").trim();
   const phone = String(form.get("phone") ?? "").replace(/\D/g, "");
   if (Object.keys(validateContact(form)).length) return "invalid";
 
-  const questions = (await getCmsCopy()).data("data.quizQuestions", quizQuestions);
+  const questions = variant === 'house' ? houseQuizQuestions : (await getCmsCopy()).data("data.quizQuestions", quizQuestions);
   const selections = questions.map(({ id, title, multiple, options }) => {
     const answer = answers?.[id];
     if (!Array.isArray(answer) || !answer.length || answer.length > (multiple ? options.length : 1)

@@ -1,0 +1,13 @@
+/* Shared desktop cover: the photo fills the space beside the text and action. */
+@media (width >= 1024px) {
+  .hero {
+    height: clamp(var(--cover-min-height), 100svh, var(--cover-max-height));
+    min-height: min-content;
+    padding-bottom: var(--gutter);
+  }
+  .hero > .intro {
+    gap: clamp(calc(16 * var(--section-unit)), calc((100svh - 640px) * .13), calc(32 * var(--section-unit)));
+    padding-bottom: clamp(calc(24 * var(--section-unit)), calc((100svh - 640px) * .2), calc(64 * var(--section-unit)));
+  }
+  .hero > .photo { min-height: 0; aspect-ratio: auto; }
+}

@@ -11,12 +11,12 @@ import { MapMarker } from "./map-marker";
 import { MapSettlementCard } from "./map-settlement-card";
 import styles from "./home-settlements-map.module.css";
 
-// Positions belong to the illustration in Figma, not to a geographic projection.
+// Positions are approximate on the local illustration; corrected by the supplied map locations.
 const locations = [
-  { id: "troitskaya-sloboda", slug: "troitskaya-sloboda", x: 7.962, y: 9.889 },
-  { id: "istorii-severa", slug: "istorii-severa", x: 16.794, y: 3.556 },
-  // The southern point repeats this name in Figma; keep its identity separate until clarified.
-  { id: "istorii-severa-south", slug: "istorii-severa", x: 23.560, y: 68.778 },
+  { id: "severnyy-bereg", slug: "severnyy-bereg", x: 5.5, y: 9.889 },
+  { id: "istorii-severa", slug: "istorii-severa", x: 11.5, y: 3.556 },
+  { id: "troitskaya-sloboda", slug: "troitskaya-sloboda", x: 23.560, y: 68.778 },
+  { id: "simo", slug: "simo", x: 32.5, y: 60.5 },
   { id: "zelenyy-les", slug: "zelenyy-les", x: 63.043, y: 46.333 },
   { id: "bereg-tigody", slug: "bereg-tigody", x: 57.364, y: 88.222 },
   { id: "divnyy", slug: "divnyy", x: 35.625, y: 90.222 },
@@ -27,6 +27,11 @@ const locations = [
 // x/y are an approximate placement on the illustration; routes use exact coordinates.
 const focusedLocations: Record<string, { x: number; y: number; latitude: number; longitude: number }> = {
   "troitskaya-sloboda": { x: 23.56, y: 65.5, latitude: 59.687813286417885, longitude: 29.406918545286945 },
+  // User-provided Yandex locations: https://yandex.ru/maps/-/CXggM2p6 and https://yandex.ru/maps/-/CXggUNzr.
+  "istorii-severa": { x: 11.5, y: 3.556, latitude: 60.719461, longitude: 28.605597 },
+  "severnyy-bereg": { x: 5.5, y: 9.889, latitude: 60.627897, longitude: 28.281340 },
+  // Location linked from https://simoclub.ru/: https://yandex.ru/maps/org/zagorodny_klub_simo/111346183735/.
+  "simo": { x: 32.5, y: 60.5, latitude: 59.813163, longitude: 29.824097 },
 };
 
 export function HomeSettlementsMapBoard({ settlementSlug }: { settlementSlug?: string }) {
@@ -131,6 +136,7 @@ export function HomeSettlementsMapBoard({ settlementSlug }: { settlementSlug?: s
                 key={id}
                 type="button"
                 label={settlement.name}
+                labelClassName={id === 'severnyy-bereg' || id === 'istorii-severa' ? styles.westernMarkerLabel : undefined}
                 style={{ left: `${x}%`, top: `${y}%` }}
                 data-marker={id}
                 aria-label={`Показать посёлок ${settlement.name}`}

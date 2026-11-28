@@ -5,7 +5,8 @@ import { useContext, useEffect, useRef, useState, type CSSProperties, type FormE
 import { leadForms } from "../lib/lead-attribution";
 import { useLeadTracking } from "./lead-tracking";
 import { submitQuiz } from "@quiz-transport";
-import { quizQuestions } from "../content/quiz";
+import { quizQuestions, houseQuizQuestions } from "../content/quiz";
+import { houseQuiz } from "../content/house-project";
 import { site } from "../content/site";
 import { ActionButton } from "./action";
 import { RequestSuccess } from "./contact-dialog";
@@ -16,20 +17,21 @@ import { useContactValidation } from "./use-contact-validation";
 import fields from "./contact-form.module.css";
 import styles from "./home-quiz.module.css";
 
-const total = quizQuestions.length;
-
-export function Quiz() {
+export function Quiz({variant = 'plot'}: {variant?: 'plot' | 'house'}) {
   const cms = useCmsCopy();
-  const quizQuestions = cms.data("data.quizQuestions", _cmsSource_quizQuestions);
+  const questions = variant === 'house' ? houseQuizQuestions : cms.data("data.quizQuestions", _cmsSource_quizQuestions);
+  const total = questions.length;
+  const definition = variant === 'house' ? houseQuiz : leadForms.quiz;
+  const titleId = variant === 'house' ? 'house-quiz-title' : 'home-quiz-title';
   const site = cms.data("data.site", _cmsSource_site);
-  const tracking = useLeadTracking(leadForms.quiz, "Получить презентацию");
+  const tracking = useLeadTracking(definition, variant === 'house' ? 'Получить каталог' : 'Получить презентацию');
   const { outcome, enabled } = useContext(FormTest);
   const { validate, clearField, errorProps, fieldError } = useContactValidation();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
   const [error, setError] = useState<"answers" | "unavailable">();
   const [pending, setPending] = useState(false);
-  const question = quizQuestions[step];
+  const question = questions[step];
   const heading = useRef<HTMLHeadingElement>(null);
   const success = useRef<HTMLDialogElement>(null);
 
@@ -57,7 +59,7 @@ export function Quiz() {
     setPending(true);
 
     try {
-      const result = await submitQuiz(data, answers, enabled);
+      const result = await submitQuiz(data, answers, enabled, variant);
       if (result === "ok" || (result === "simulation" && await simulateSubmission(outcome) === "success")) {
         tracking.track("form_success",source,result === "simulation" ? "test" : "live");
         success.current?.showModal();
@@ -91,8 +93,8 @@ export function Quiz() {
       {question ? (
         <div className={styles.layout}>
           <div className={styles.intro}>
-            <h2 className={styles.introTitle} id="home-quiz-title">Подберите участок<br /> в Ленобласти <span>под ваш бюджет</span></h2>
-            <p>Ответьте на 5 вопросов и получите презентацию подходящих посёлков с ценами, схемами и вариантами оплаты.</p>
+            <h2 className={styles.introTitle} id={titleId}>{variant === 'house' ? 'Подберите проект дома' : <>Подберите участок<br /> в Ленобласти <span>под ваш бюджет</span></>}</h2>
+            <p>{variant === 'house' ? 'Ответьте на 5 вопросов и получите каталог наиболее подходящих вариантов' : 'Ответьте на 5 вопросов и получите презентацию подходящих посёлков с ценами, схемами и вариантами оплаты.'}</p>
           </div>
           <div className={styles.panel}>
             <div className={styles.progress} style={{ "--quiz-progress": `${(step + 1) / total * 100}%` } as CSSProperties}>
@@ -124,9 +126,9 @@ export function Quiz() {
         <div className={styles.finishLayout}>
           <div className={styles.finish}>
             <div className={styles.finishContent}>
-              <h2 id="home-quiz-title" ref={heading} tabIndex={-1}>Получите презентацию посёлков <em>под ваши пожелания</em></h2>
-              <p>Оставьте номер телефона, чтобы получить презентацию с расположением посёлков, схемами участков, ценами и условиями покупки</p>
-              <form className={styles.form} data-error-layout="flow" method="post" data-lead-form-id={leadForms.quiz.id} noValidate onSubmit={send} onInput={edit} onFocus={tracking.start}>
+              <h2 id={titleId} ref={heading} tabIndex={-1}>{variant === 'house' ? 'Получите каталог проектов' : 'Получите презентацию посёлков'} <em>под ваши пожелания</em></h2>
+              <p>{variant === 'house' ? 'Оставьте имя, email и телефон, чтобы получить подборку проектов домов с планировками и стоимостью строительства' : 'Оставьте номер телефона, чтобы получить презентацию с расположением посёлков, схемами участков, ценами и условиями покупки'}</p>
+              <form className={styles.form} data-error-layout="flow" method="post" data-lead-form-id={definition.id} noValidate onSubmit={send} onInput={edit} onFocus={tracking.start}>
                 <input type="hidden" name="attribution" />
                 <div className={styles.inputs}>
                   <div className={fields.field}>
@@ -155,14 +157,14 @@ export function Quiz() {
                     {error === "unavailable" ? submissionError : "Пройдите квиз ещё раз."}
                   </p>
                 )}
-                <ActionButton arrow type="submit" disabled={pending}>{pending ? "Отправляем…" : "Получить презентацию"}</ActionButton>
+                <ActionButton arrow type="submit" disabled={pending}>{pending ? "Отправляем…" : variant === 'house' ? 'Получить каталог' : "Получить презентацию"}</ActionButton>
               </form>
             </div>
           </div>
         </div>
       )}
       <RequestSuccess ref={success} onClose={reset} />
-      <noscript><p className={styles.fallback}>Чтобы подобрать участок, позвоните по номеру <a href={site.phoneHref}>{site.phone}</a>.</p></noscript>
+      <noscript><p className={styles.fallback}>Чтобы подобрать {variant === 'house' ? 'проект дома' : 'участок'}, позвоните по номеру <a href={site.phoneHref}>{site.phone}</a>.</p></noscript>
     </div>
   );
 }

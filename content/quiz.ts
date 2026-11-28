@@ -59,3 +59,12 @@ export const quizQuestions = [
     ],
   },
 ];
+
+/** House selection follows the same five-step form as the plot quiz. */
+export const houseQuizQuestions = [
+  {id:'purpose',title:'Для чего вам нужен дом?',multiple:false,options:['Для постоянного проживания','Для дачи и отдыха','Пока не знаю']},
+  {id:'area',title:'Какая площадь дома вам подходит?',multiple:false,options:['До 60 м²','От 60 до 100 м²','От 100 до 150 м²','Более 150 м²','Нужна помощь с выбором']},
+  {id:'bedrooms',title:'Сколько спален вам нужно?',multiple:false,options:['Одна','Две','Три','Четыре и больше','Пока не знаю']},
+  {id:'house-budget',title:'На какой бюджет строительства вы ориентируетесь?',multiple:false,options:['До 5 млн ₽','От 5 до 8 млн ₽','От 8 до 12 млн ₽','Более 12 млн ₽','Хочу сначала узнать стоимость']},
+  {id:'house-timing',title:'Когда вы планируете начать строительство?',multiple:false,options:['В ближайшие 3 месяца','В течение полугода','В следующем году','Пока выбираю проект']},
+];

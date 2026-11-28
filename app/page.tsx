@@ -1,3 +1,6 @@
+
+import { getCmsCopy } from "../lib/cms-store";
+import { SitePage } from "../components/site-page";
 import { siteSrcSet, sitePath } from "../lib/site-path";
 import { ActionLink } from "../components/action";
 import { HomeAbout } from "../components/home-about";
@@ -6,7 +9,6 @@ import { HomeBlog } from "../components/home-blog";
 import { HomeExcursion } from "../components/home-excursion";
 import { HomeFaq } from "../components/home-faq";
 import { HomeHouses } from "../components/home-houses";
-import { PageMotion } from "../components/page-motion";
 import { HomePayment } from "../components/home-payment";
 import { HomeQuiz } from "../components/home-quiz";
 import { HomeReviews } from "../components/home-reviews";
@@ -14,30 +16,30 @@ import { HomeSettlements } from "../components/home-settlements";
 import { HomeSettlementsMap } from "../components/home-settlements-map";
 import { HomeSteps } from "../components/home-steps";
 import { OfferCard } from "../components/offer-card";
-import { SiteHeader } from "../components/site-header";
-import { SiteFooter } from "../components/site-footer";
 import { home } from "../content/home";
 
 const desktopCover = siteSrcSet("/images/home-aerial-1440.webp 1440w, /images/home-aerial-1920.webp 1920w, /images/home-aerial-2880.webp 2880w");
 const mobileCover = sitePath("/images/home-mobile.webp");
 const tabletCover = sitePath("/images/home-tablet.webp");
 
-export default function HomePage() {
+export default async function HomePage() {
+  const cms = await getCmsCopy();
+  const home = cms.data("data.home", _cmsSource_home);
+
   return (
-    <div className="home cover-header-page">
+    <SitePage className="home" coverId="home-cover" mainId="home-main" preloads={<>
       <link rel="preload" as="image" media="(width < 768px)" href={mobileCover} fetchPriority="high" />
       <link rel="preload" as="image" media="(768px <= width < 1024px)" href={tabletCover} fetchPriority="high" />
       <link rel="preload" as="image" media="(width >= 1024px)" imageSrcSet={desktopCover} imageSizes="100vw" fetchPriority="high" />
-      <SiteHeader coverId="home-cover" />
-      <main id="home-main">
+      </>}>
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero__screen" id="home-cover">
-            <picture className="hero__background">
-              <source media="(width < 768px)" srcSet={mobileCover} />
-              <source media="(width < 1024px)" srcSet={tabletCover} />
+            <picture className="hero__background" data-cover-parallax>
+              <source media="(width < 768px)" srcSet={cms.imageSet("copy.home.1", mobileCover)} />
+              <source media="(width < 1024px)" srcSet={cms.imageSet("copy.home.1", tabletCover)} />
               <img
-                src={sitePath("/images/home-aerial-1440.webp")}
-                srcSet={desktopCover}
+                src={sitePath(cms.text("copy.home.1", "/images/home-aerial-1440.webp"))}
+                srcSet={cms.imageSet("copy.home.1", desktopCover)}
                 sizes="100vw"
                 alt=""
                 width={1920}
@@ -59,7 +61,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-          <div className="hero__offers" aria-label="Способы покупки">
+          <div className="hero__offers" aria-label={cms.text("copy.home.2", "Способы покупки")}>
             {home.offers.map(({ id, ...offer }) => (
               <OfferCard key={id} {...offer} crop={id === "land-certificate" ? "certificate" : "installment"} />
             ))}
@@ -77,9 +79,8 @@ export default function HomePage() {
         <HomeQuiz />
         <HomeFaq />
         <HomeBlog />
-      </main>
-      <PageMotion mainId="home-main" />
-      <SiteFooter />
-    </div>
+    </SitePage>
   );
 }
+
+const _cmsSource_home = home;

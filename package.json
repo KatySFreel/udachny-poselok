@@ -12,7 +12,9 @@
     "typecheck": "tsc --noEmit",
     "check:responsive": "node scripts/check-responsive-rules.cjs",
     "test:plans": "node --test scripts/test-plan-store.cjs",
-    "test:admin": "node --test scripts/test-admin.cjs"
+    "test:admin": "node --test scripts/test-admin.cjs",
+    "test:seo": "node --test scripts/test-site-metadata.cjs",
+    "images:responsive": "node scripts/generate-responsive-images.cjs"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "5.3.0",

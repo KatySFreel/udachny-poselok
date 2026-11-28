@@ -1,15 +1,17 @@
+import { ResponsiveImage } from "../../../components/responsive-image";
 
 import { getCmsCopy } from "../../../lib/cms-store";
 import { SitePage } from "../../../components/site-page";
 import type { Metadata } from 'next';
-import { Fragment } from 'react';
+import { Fragment, type CSSProperties } from 'react';
+import reveal from '../../../components/card-reveal.module.css';
 import { SectionHeading } from '../../../components/section-heading';
 import { ActionLink } from '../../../components/action';
 import { PhotoFormPanel } from '../../../components/photo-form-panel';
 import { InlineRequestForm } from '../../../components/contact-dialog';
 import { leadForms, leadTrigger } from '../../../lib/lead-attribution';
 import { sitePath } from '../../../lib/site-path';
-import { createPageMetadata } from '../../../lib/site-metadata';
+import { createPageMetadata, localizePageMetadata } from '../../../lib/site-metadata';
 import styles from '../../../components/certificate-page.module.css';
 import formPanel from '../../../components/photo-form-panel.module.css';
 import buyerHero from '../../../components/buyer-hero.module.css';
@@ -34,10 +36,10 @@ export default async function CertificatePage() {
 
       <section className={`shell ${styles.hero} ${buyerHero.hero}`} id="certificate-cover" data-cover-motion aria-labelledby="certificate-title">
         <div className={styles.heroIntro}>
-          <h1 id="certificate-title" data-cover-part="title">{cms.text("copy.zemelnyy-sertifikat.1", "Ваш семейный участок — ")}<em>{cms.text("copy.zemelnyy-sertifikat.2", "с земельным сертификатом")}</em></h1>
+          <h1 id="certificate-title" data-cover-part="title">{cms.text("copy.zemelnyy-sertifikat.1", "Ваш семейный участок — ")}<em>{cms.text("copy.zemelnyy-sertifikat.2", "с Земельным сертификатом")}</em></h1>
           <p data-cover-part="description">{cms.text("copy.zemelnyy-sertifikat.3", "Поможем подобрать участок в Ленинградской области, разобраться в порядке использования сертификата и оформить землю в собственность.")}</p>
         </div>
-        <div className={`${styles.heroPhoto} ${buyerHero.photo}`} data-cover-image data-cover-parallax><img src={sitePath(cms.text("copy.zemelnyy-sertifikat.4", '/images/certificate/family-forest.webp'))} alt={cms.text("copy.zemelnyy-sertifikat.5", "Семья с детьми гуляет в лесу возле загородного дома")} width={2000} height={3000} fetchPriority="high" /></div>
+        <div className={`${styles.heroPhoto} ${buyerHero.photo}`} data-cover-image data-cover-parallax><ResponsiveImage src={cms.text("copy.zemelnyy-sertifikat.4", '/images/certificate/family-forest.webp')} sizes="100vw" alt={cms.text("copy.zemelnyy-sertifikat.5", "Семья с детьми гуляет в лесу возле загородного дома")} width={2000} height={3000} fetchPriority="high" /></div>
         <ActionLink data-cover-part="actions" href="#certificate-consultation" arrow {...leadTrigger(leadForms.certificate.id,{buttonId:"certificate-hero",buttonLabel:cms.text("copy.zemelnyy-sertifikat.6", "Подобрать участок по сертификату"),placement:"hero"})}>{cms.text("copy.zemelnyy-sertifikat.7", "Подобрать участок по сертификату")}</ActionLink>
       </section>
 
@@ -52,7 +54,7 @@ export default async function CertificatePage() {
 
       <section className={`shell ${styles.steps}`} aria-labelledby="certificate-steps-title">
         <SectionHeading label={cms.text("copy.zemelnyy-sertifikat.16", "Этапы покупки")} id="certificate-steps-title" accent="red">{cms.text("copy.zemelnyy-sertifikat.17", "Как проходит ")}<em>{cms.text("copy.zemelnyy-sertifikat.18", "покупка")}</em></SectionHeading>
-        <ol className={styles.stepGrid}>{steps.map((step, i) => <Fragment key={step}><li className={styles.step} data-step={i + 1}>
+        <ol className={styles.stepGrid}>{steps.map((step, i) => <Fragment key={step}><li className={`${styles.step} ${reveal.card}`} data-step={i + 1} data-reveal style={{ '--card-reveal-order': i } as CSSProperties}>
           <div className={styles.stepTop}><span>{String(i + 1).padStart(2, '0')}</span><img src={sitePath(cms.text("copy.zemelnyy-sertifikat.19", '/images/certificate/step-dot.svg'))} width={16} height={16} alt="" loading="lazy" /></div>
           <h3>{step}</h3>
         </li>{i === 1 && <li className={styles.emblemSlot} aria-hidden="true">
@@ -74,7 +76,5 @@ const _cmsSource_steps = steps;
 
 export async function generateMetadata() {
   const cms = await getCmsCopy();
-  const title = cms.text("seo.zemelnyy-sertifikat.title", "Земельный сертификат — Удачный посёлок");
-  const description = cms.text("seo.zemelnyy-sertifikat.description", "Поможем подобрать участок в Ленинградской области, разобраться в порядке использования земельного сертификата и оформить землю в собственность.");
-  return { ...baseMetadata, title, description, openGraph: { ...baseMetadata.openGraph, title, description }, twitter: { ...baseMetadata.twitter, title, description } };
+  return localizePageMetadata(baseMetadata, cms, "zemelnyy-sertifikat");
 }

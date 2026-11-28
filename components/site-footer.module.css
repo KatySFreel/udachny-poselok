@@ -12,8 +12,8 @@
 }
 
 .map {
-  --office-map-height: calc(250 * var(--section-layout-unit));
-  --office-pin-top: 50%;
+  --office-map-height: calc(400 * var(--section-layout-unit));
+  --office-pin-top: 30%;
 
   position: relative;
   display: block;
@@ -25,7 +25,7 @@
   text-decoration: none;
 }
 
-.mapImage {
+.mapArt {
   position: absolute;
   top: var(--office-pin-top);
   left: 50%;
@@ -34,6 +34,14 @@
   max-width: none;
   height: auto;
   transform: translate(-48.75%, -63.5%);
+  aspect-ratio: 2172 / 724;
+}
+.mapImage { display: block; width: 100%; height: auto; }
+.metro { position: absolute; left: 49.1%; top: 94%; width: 0; height: 0; color: var(--brown); }
+.metroPin { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); color: var(--cream); }
+.metroLabel { position: absolute; right: calc(32 * var(--section-layout-unit)); top: 0; transform: translateY(-50%); }
+@media (width >= 768px) {
+  .mapArt { width: max(102.565%, calc(var(--office-map-height) * 3 * 1.94)); }
 }
 
 .marker {
@@ -240,7 +248,7 @@
 
 @media (width < 1024px) {
   .footer { --footer-gap: 64px; }
-  .map { --office-map-height: 367px; display: flex; align-items: center; justify-content: flex-end; }
+  .map { --office-map-height: 367px; --office-pin-top: 28%; display: flex; align-items: center; justify-content: flex-end; }
   .mapLabel { width: 321px; max-width: calc(50% - 34px); margin: 24px 4px 24px 0; }
   .panel { grid-template: "logo" "nav" "contacts" "legal" / minmax(0, 1fr); }
   .navigation { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -267,12 +275,13 @@
 
   .map {
     --office-map-height: clamp(460px, 147.73vw, 554px);
-    --office-pin-top: 49%;
+    --office-pin-top: 17%;
     align-items: flex-end;
     justify-content: center;
   }
 
   .marker { width: 44px; }
+  .metro .metroLabel { right: 28px; max-width: min(138px, calc(50vw - 56px)); padding: 8px 12px; white-space: normal; text-align: center; }
 
   .mapLabel {
     justify-items: center;

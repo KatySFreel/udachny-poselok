@@ -1,3 +1,4 @@
+import { ResponsiveImage } from "../../../components/responsive-image";
 
 import { getCmsCopy } from "../../../lib/cms-store";
 import type { Metadata } from 'next';
@@ -8,7 +9,7 @@ import { PaymentCard, type PaymentOption } from '../../../components/payment-car
 import { PhotoFormPanel } from '../../../components/photo-form-panel';
 import { InlineRequestForm } from '../../../components/contact-dialog';
 import { leadForms, leadTrigger } from '../../../lib/lead-attribution';
-import { createPageMetadata } from '../../../lib/site-metadata';
+import { createPageMetadata, localizePageMetadata } from '../../../lib/site-metadata';
 import { sitePath } from '../../../lib/site-path';
 import buyer from '../../../components/installment-page.module.css';
 import buyerHero from '../../../components/buyer-hero.module.css';
@@ -52,7 +53,7 @@ export default async function MortgagePage() {
       <SectionHeading id="mortgage-options-title" label={cms.text("copy.ipoteka.9", "Варианты покупки")}>{cms.text("copy.ipoteka.10", "На что можно оформить ипотеку")}</SectionHeading>
       <div className={styles.options}>{options.map(option => <article className={styles.option} key={option.image}>
         <div><h3>{option.title}</h3><p>{option.description}</p></div>
-        <img src={sitePath(`/images/mortgage/${option.image}.webp`)} alt={option.image === 'plot' ? cms.text("copy.ipoteka.11", 'Участки в загородном посёлке') : cms.text("copy.ipoteka.12", 'Деревянный дом среди луговых цветов')} width={4096} height={option.image === 'plot' ? 3067 : 2731} loading="lazy" />
+        <ResponsiveImage src={`/images/mortgage/${option.image}.webp`} sizes="(width < 768px) 100vw, (width < 1024px) 40vw, 24vw" alt={option.image === 'plot' ? cms.text("copy.ipoteka.11", 'Участки в загородном посёлке') : cms.text("copy.ipoteka.12", 'Деревянный дом среди луговых цветов')} width={4096} height={option.image === 'plot' ? 3067 : 2731} loading="lazy" />
       </article>)}</div>
     </section>
 
@@ -77,7 +78,5 @@ const _cmsSource_steps = steps;
 
 export async function generateMetadata() {
   const cms = await getCmsCopy();
-  const title = cms.text("seo.ipoteka.title", "Ипотека на участок и строительство дома — Удачный посёлок");
-  const description = cms.text("seo.ipoteka.description", "Поможем подобрать участок в Ленинградской области или аккредитованный проект дома, подготовить документы и подать заявку на ипотеку в банк.");
-  return { ...baseMetadata, title, description, openGraph: { ...baseMetadata.openGraph, title, description }, twitter: { ...baseMetadata.twitter, title, description } };
+  return localizePageMetadata(baseMetadata, cms, "ipoteka");
 }

@@ -497,15 +497,22 @@
       },
       {
         "key": "copy.home-about.4",
-        "value": "/images/about/team.webp",
+        "value": "/images/about/verkhnie-ruditsy.webp",
         "label": "Изображение",
         "section": "О компании",
         "kind": "image"
       },
       {
         "key": "copy.home-about.6",
-        "value": "Команда «Удачного посёлка» в офисе",
-        "label": "Команда «Удачного посёлка» в офисе",
+        "value": "Посёлок Верхние Рудицы с высоты",
+        "label": "Посёлок Верхние Рудицы с высоты",
+        "section": "О компании",
+        "kind": "text"
+      },
+      {
+        "key": "copy.home-about.location",
+        "value": "Верхние Рудицы",
+        "label": "Подпись фотографии",
         "section": "О компании",
         "kind": "text"
       },
@@ -1466,7 +1473,7 @@
       },
       {
         "key": "local.o-kompanii.photos.3.1",
-        "value": "Заснеженная дорога вдоль елей",
+        "value": "Посёлок с домами в вечернем свете",
         "label": "4 · 2 1",
         "section": "Фотографии",
         "kind": "text"
@@ -3258,8 +3265,8 @@
       },
       {
         "key": "copy.zemelnyy-sertifikat.2",
-        "value": "с земельным сертификатом",
-        "label": "с земельным сертификатом",
+        "value": "с Земельным сертификатом",
+        "label": "с Земельным сертификатом",
         "section": "certificate-cover",
         "kind": "text"
       },
@@ -6263,6 +6270,90 @@
         "key": "settlement-card-media.sokolkino",
         "value": "/images/settlements/completed/sokolkino.webp",
         "label": "«Соколкино»: фото карточки",
+        "section": "Фотографии карточек",
+        "kind": "image"
+      },
+      {
+        "key": "data.completedSettlements.12.name",
+        "value": "«Дружная поляна»",
+        "label": "13 · Название",
+        "section": "Завершено посёлков",
+        "kind": "text"
+      },
+      {
+        "key": "data.completedSettlements.12.location",
+        "value": "Ломоносовский район",
+        "label": "13 · Расположение",
+        "section": "Завершено посёлков",
+        "kind": "text"
+      },
+      {
+        "key": "data.completedSettlements.12.year",
+        "value": 2025,
+        "label": "13 · Год",
+        "section": "Завершено посёлков",
+        "kind": "number"
+      },
+      {
+        "key": "data.completedSettlements.12.route",
+        "value": "30 минут от КАД по Гостилицкому шоссе",
+        "label": "13 · Маршрут",
+        "section": "Завершено посёлков",
+        "kind": "text"
+      },
+      {
+        "key": "data.completedSettlements.12.direction",
+        "value": "Юго-запад",
+        "label": "13 · Направление",
+        "section": "Завершено посёлков",
+        "kind": "text"
+      },
+      {
+        "key": "settlement-card-media.druzhnaya-polyana",
+        "value": "/images/settlements/completed/druzhnaya-polyana.webp",
+        "label": "«Дружная поляна»: фото карточки",
+        "section": "Фотографии карточек",
+        "kind": "image"
+      },
+      {
+        "key": "data.completedSettlements.13.name",
+        "value": "«Воронино»",
+        "label": "14 · Название",
+        "section": "Завершено посёлков",
+        "kind": "text"
+      },
+      {
+        "key": "data.completedSettlements.13.location",
+        "value": "Ломоносовский район",
+        "label": "14 · Расположение",
+        "section": "Завершено посёлков",
+        "kind": "text"
+      },
+      {
+        "key": "data.completedSettlements.13.year",
+        "value": 2026,
+        "label": "14 · Год",
+        "section": "Завершено посёлков",
+        "kind": "number"
+      },
+      {
+        "key": "data.completedSettlements.13.route",
+        "value": "30 минут от КАД по Гостилицкому шоссе",
+        "label": "14 · Маршрут",
+        "section": "Завершено посёлков",
+        "kind": "text"
+      },
+      {
+        "key": "data.completedSettlements.13.direction",
+        "value": "Юго-запад",
+        "label": "14 · Направление",
+        "section": "Завершено посёлков",
+        "kind": "text"
+      },
+      {
+        "key": "settlement-card-media.voronino",
+        "value": "/images/settlements/completed/voronino.webp",
+        "label": "«Воронино»: фото карточки",
         "section": "Фотографии карточек",
         "kind": "image"
       },
@@ -9491,15 +9582,15 @@
       },
       {
         "key": "copy.home-settlements-map.1",
-        "value": "Все&nbsp;посёлки ",
-        "label": "Все&nbsp;посёлки ",
+        "value": "Все посёлки ",
+        "label": "Все посёлки ",
         "section": "home-settlements-map-title",
         "kind": "text"
       },
       {
         "key": "copy.home-settlements-map.2",
-        "value": "на&nbsp;одной карте",
-        "label": "на&nbsp;одной карте",
+        "value": "на одной карте",
+        "label": "на одной карте",
         "section": "home-settlements-map-title",
         "kind": "text"
       },
@@ -9538,6 +9629,13 @@
         "label": "Изображение",
         "section": "Подвал",
         "kind": "image"
+      },
+      {
+        "key": "copy.site-footer.metro",
+        "value": "Московские ворота",
+        "label": "Станция метро на карте офиса",
+        "section": "Подвал сайта",
+        "kind": "text"
       },
       {
         "key": "copy.site-footer.2",

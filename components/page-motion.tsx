@@ -68,7 +68,8 @@ function prepareHero(main: HTMLElement) {
 
 function prepareCoverParallax(main: HTMLElement) {
   const layer = main.querySelector<HTMLElement>("[data-cover-parallax]");
-  const image = layer?.querySelector("img");
+  const images = layer?.querySelectorAll("img");
+  const image = images?.[0];
   const cover = layer?.closest<HTMLElement>("[data-cover-motion], .hero__screen");
   if (!layer || !image || !cover) return;
 
@@ -79,8 +80,10 @@ function prepareCoverParallax(main: HTMLElement) {
   const reset = () => {
     cancelAnimationFrame(frame);
     frame = 0;
-    image.style.removeProperty("--cover-parallax-y");
-    image.style.removeProperty("--cover-parallax-scale");
+    images?.forEach((photo) => {
+      photo.style.removeProperty("--cover-parallax-y");
+      photo.style.removeProperty("--cover-parallax-scale");
+    });
   };
   const draw = () => {
     frame = 0;
@@ -90,8 +93,10 @@ function prepareCoverParallax(main: HTMLElement) {
     const offset = Math.max(-cap, Math.min(cap, -bounds.top * 0.08));
     // Reserve enough image beyond both edges even for short catalog banners.
     const scale = 1 + (2 * (cap + 1)) / Math.max(image.clientHeight, 1);
-    image.style.setProperty("--cover-parallax-y", `${offset.toFixed(2)}px`);
-    image.style.setProperty("--cover-parallax-scale", String(scale));
+    images?.forEach((photo) => {
+      photo.style.setProperty("--cover-parallax-y", `${offset.toFixed(2)}px`);
+      photo.style.setProperty("--cover-parallax-scale", String(scale));
+    });
   };
   const update = () => {
     if (!frame && visible && !reduced.matches && !document.hidden) frame = requestAnimationFrame(draw);

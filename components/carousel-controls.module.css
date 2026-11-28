@@ -10,7 +10,7 @@
   border-radius: 100px;
   color: var(--cream);
   background: var(--red);
-  transition: background-color var(--hover-duration);
+  transition: background-color var(--hover-duration), color var(--hover-duration);
 }
 .controls button::before {
   content: "";
@@ -22,10 +22,11 @@
 }
 .controls button:first-child { color: var(--red); background: var(--pink); }
 .controls button:first-child::before { transform: rotate(225deg); }
-.controls button:first-child:focus-visible { background: var(--pink-light); }
+.controls button:not([aria-disabled="true"]):focus-visible { color: var(--cream); background: var(--rose); }
+.controls button:first-child:not([aria-disabled="true"]):focus-visible { background: var(--red); }
 @media (width >= 768px) and (hover: hover) and (pointer: fine) {
-  .controls button:last-child:hover { background: var(--rose); }
-  .controls button:first-child:hover { background: var(--pink-light); }
+  .controls button:last-child:not([aria-disabled="true"]):hover { color: var(--cream); background: var(--rose); }
+  .controls button:first-child:not([aria-disabled="true"]):hover { color: var(--cream); background: var(--red); }
 }
 @media (width < 768px) {
   .controls button { width: 72px; min-width: 0; height: 36px; }

@@ -938,16 +938,16 @@ summary::-webkit-details-marker { display: none; }
 
 @media (width < 768px) {
   .cover-header-page { --site-header-min-height: 60px; }
-  .site-logo { position: relative; width: 92px; height: 36px; }
-  .site-logo > img,
-  .site-logo__wordmark {
+  .site-header .site-logo { position: relative; width: 92px; height: 36px; }
+  .site-header .site-logo > img,
+  .site-header .site-logo__wordmark {
     position: absolute;
     top: 0;
     left: 0;
     scale: 0.792;
     transform-origin: top left;
   }
-  .site-logo__wordmark { top: 7.8px; left: 37.3px; transform: none; }
+  .site-header .site-logo__wordmark { top: 7.8px; left: 37.3px; transform: none; }
 
   .header-contact { gap: 12px; }
   .header-phone { font-size: 14px; }

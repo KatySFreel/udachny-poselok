@@ -46,6 +46,28 @@
 .advantages article { display: flex; flex-direction: column; align-items: center; padding: calc(32 * var(--section-layout-unit)) calc(24 * var(--section-layout-unit)); border-radius: var(--radius); background: var(--pink-light); }
 .advantages article > img { width: calc(220 * var(--section-layout-unit)); height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 50%; margin-bottom: var(--block-gap); }
 .advantages article > p { max-width: 552px; margin-top: calc(12 * var(--section-unit)); color: var(--brown-muted); font-size: var(--body-size); line-height: 1.2; text-wrap: pretty; }
+@media (prefers-reduced-motion: no-preference) {
+  .advantages article[data-motion="entering"] {
+    animation: advantage-enter 700ms cubic-bezier(.22, 1, .36, 1) backwards;
+    animation-delay: min(calc(var(--advantage-order, 0) * 90ms), 270ms);
+  }
+  .advantages article[data-motion="entering"] > img {
+    animation: advantage-photo-enter 900ms cubic-bezier(.22, 1, .36, 1) backwards;
+    animation-delay: min(calc(var(--advantage-order, 0) * 90ms), 270ms);
+  }
+}
+@media (width < 768px) and (prefers-reduced-motion: no-preference) {
+  .advantages article[data-motion="entering"],
+  .advantages article[data-motion="entering"] > img { animation-delay: 0ms; }
+}
+@keyframes advantage-enter {
+  from { opacity: 0; translate: 0 28px; scale: .985; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+@keyframes advantage-photo-enter {
+  from { scale: .92; }
+  to { scale: 1; }
+}
 .noFees { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 20px auto 0; color: var(--rose); font: 600 calc(32 * var(--section-unit)) / 1.25 var(--heading-font); letter-spacing: -.02em; }
 .noFees img { flex: none; width: calc(28.927 * var(--section-layout-unit)); height: auto; }
 
@@ -153,8 +175,6 @@
 .visitCards article > :global(.action)::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }
 .visitCards article > :global(.action):focus-visible::after { outline: 2px solid var(--brown); outline-offset: 4px; }
 .visitMobileLabel { display: none; }
-.payment { margin-bottom: var(--section-spacing); }
-.paymentCards { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: calc(23 * var(--section-layout-unit)); }
 .related { padding-block-end: 0; margin-bottom: var(--section-spacing); }
 .related > .sectionHeading { margin-inline: var(--content-inset); }
 .relatedRail { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; padding-inline: var(--content-inset); }
@@ -194,7 +214,6 @@
   .plotFilters { gap: 20px; box-shadow: 0 8px 24px #29151120; }
   .visitCards { grid-template-columns: minmax(0,1fr); }
   .visitCards article { grid-template-columns: minmax(0,1fr) 300px; }
-  .paymentCards { grid-template-columns: minmax(0,1fr); }
   .relatedRail { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
 @media (width < 768px) {
@@ -255,7 +274,6 @@
   .visitDesktopLabel { display: none; }
   .visitMobileLabel { display: inline; }
   .visitCards article > :global(.action--with-arrow) { padding-left: 16px; }
-  .paymentCards { gap: 12px; }
   .relatedRail { grid-template-columns: minmax(0,1fr); gap: 32px; }
   .relatedRail > a { width: 100%; }
 }

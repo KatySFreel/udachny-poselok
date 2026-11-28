@@ -3,7 +3,7 @@ import { publishedCmsValues, cmsPreviewPage, getCmsCopy } from '../lib/cms-store
 import { connection } from 'next/server';
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { createPageMetadata, indexable, metadataBase } from "../lib/site-metadata";
+import { createPageMetadata, localizePageMetadata, indexable, metadataBase } from "../lib/site-metadata";
 import { LeadTracking } from "../components/lead-tracking";
 import { FormSimulation } from "../components/form-simulation";
 import { SiteFonts } from "../components/site-fonts";
@@ -41,7 +41,5 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
 export async function generateMetadata(): Promise<Metadata> {
   const cms = await getCmsCopy();
-  const title = cms.text("seo.home.title", pageTitle);
-  const description = cms.text("seo.home.description", pageDescription);
-  return { ...baseMetadata, title, description, openGraph: { ...baseMetadata.openGraph, title, description }, twitter: { ...baseMetadata.twitter, title, description } };
+  return localizePageMetadata(baseMetadata, cms, "home");
 }

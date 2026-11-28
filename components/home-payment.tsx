@@ -27,19 +27,19 @@ const paymentOptions = [
   },
 ] as const;
 
-export function HomePayment() {
+export function HomePayment({headingId = 'home-payment-title'}: {headingId?: string}) {
   const cms = useCmsCopy();
   const paymentOptions = cms.data("local.home-payment.paymentOptions", _cmsSource_paymentOptions);
 
   return (
-    <section className={`shell ${styles.section}`} aria-labelledby="home-payment-title">
-      <SectionHeading label={cms.text("copy.home-payment.1", "Способы покупки")} id="home-payment-title" headingClassName={styles.heading}>
+    <section className={`shell ${styles.section}`} aria-labelledby={headingId}>
+      <SectionHeading label={cms.text("copy.home-payment.1", "Способы покупки")} id={headingId} headingClassName={styles.heading}>
         {cms.text("copy.home-payment.2", "Выберите ")}<em>{cms.text("copy.home-payment.3", "удобный")}</em>{" "}<span>{cms.text("copy.home-payment.4", "способ оплаты")}</span>
       </SectionHeading>
       <ul className={styles.cards}>
-        {paymentOptions.map(option => (
+        {paymentOptions.map((option, index) => (
           <li className={styles.item} key={option.href}>
-            <PaymentCard option={option} headingId={`payment-option-${option.number.id}`} />
+            <PaymentCard option={option} headingId={`payment-option-${option.number.id}`} revealOrder={index} />
           </li>
         ))}
       </ul>

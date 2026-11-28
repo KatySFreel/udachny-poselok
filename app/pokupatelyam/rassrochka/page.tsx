@@ -1,6 +1,8 @@
+import { ResponsiveImage } from "../../../components/responsive-image";
 
 import { getCmsCopy } from "../../../lib/cms-store";
 import type { Metadata } from 'next';
+import type { CSSProperties } from 'react';
 import { SitePage } from '../../../components/site-page';
 import { SectionHeading } from '../../../components/section-heading';
 import { ActionLink } from '../../../components/action';
@@ -8,11 +10,12 @@ import { PaymentCard, type PaymentOption } from '../../../components/payment-car
 import { PhotoFormPanel } from '../../../components/photo-form-panel';
 import { InlineRequestForm } from '../../../components/contact-dialog';
 import { leadForms, leadTrigger } from '../../../lib/lead-attribution';
-import { createPageMetadata } from '../../../lib/site-metadata';
+import { createPageMetadata, localizePageMetadata } from '../../../lib/site-metadata';
 import { sitePath } from '../../../lib/site-path';
 import styles from '../../../components/installment-page.module.css';
 import formPanel from '../../../components/photo-form-panel.module.css';
 import buyerHero from '../../../components/buyer-hero.module.css';
+import reveal from '../../../components/card-reveal.module.css';
 
 const baseMetadata: Metadata = createPageMetadata({
   title: 'Рассрочка на земельный участок — Удачный посёлок',
@@ -44,7 +47,7 @@ export default async function InstallmentPage() {
       </div>
       <picture className={`${styles.heroPhoto} ${buyerHero.photo}`} data-cover-image data-cover-parallax>
         <source media="(width < 768px)" srcSet={cms.imageSet("copy.rassrochka.6", sitePath(cms.text("copy.rassrochka.5", '/images/installment/house-mobile.webp')))} />
-        <img src={sitePath(cms.text("copy.rassrochka.6", '/images/installment/house.webp'))} alt={cms.text("copy.rassrochka.7", "Деревянный загородный дом среди луговых трав")} width={4096} height={2731} fetchPriority="high" />
+        <ResponsiveImage src={cms.text("copy.rassrochka.6", '/images/installment/house.webp')} sizes="100vw" alt={cms.text("copy.rassrochka.7", "Деревянный загородный дом среди луговых трав")} width={4096} height={2731} fetchPriority="high" />
       </picture>
       <ActionLink data-cover-part="actions" href="#installment-calculation" arrow {...leadTrigger(leadForms.installment.id, {buttonId:'installment-hero',buttonLabel:cms.text("copy.rassrochka.8", 'Рассчитать рассрочку'),placement:'hero'})}>{cms.text("copy.rassrochka.9", "Рассчитать рассрочку")}</ActionLink>
     </section>
@@ -52,9 +55,9 @@ export default async function InstallmentPage() {
     <section className={`shell ${styles.section}`} aria-labelledby="installment-offers-title">
       <SectionHeading id="installment-offers-title" label={cms.text("copy.rassrochka.10", "Особые предложения")}>{cms.text("copy.rassrochka.11", "Специальные условия в посёлках")}</SectionHeading>
       <div className={styles.offers}>
-        {offers.map(offer => <article className={styles.offer} key={offer.image}>
+        {offers.map((offer, index) => <article className={`${styles.offer} ${reveal.card}`} data-reveal style={{'--card-reveal-order': index} as CSSProperties} key={offer.image}>
           <h3>«{offer.name}»<br/>{cms.text("copy.rassrochka.12", "2-я очередь")}</h3>
-          <img className={styles.offerPhoto} src={sitePath(`/images/installment/${offer.image}.webp`)} alt={`Вид на посёлок «${offer.name}»`} width={220} height={220} loading="lazy" />
+          <img className={`${styles.offerPhoto} ${reveal.media}`} src={sitePath(`/images/installment/${offer.image}.webp`)} alt={`Вид на посёлок «${offer.name}»`} width={220} height={220} loading="lazy" />
           <div className={styles.offerCopy}><h4>{offer.title}</h4><p>{offer.description}</p></div>
         </article>)}
         <div className={styles.emblem} aria-hidden="true"><img src={sitePath(cms.text("copy.rassrochka.13", '/images/installment/emblem.svg'))} width={291.933} height={333.019} alt="" loading="lazy" /></div>
@@ -63,7 +66,7 @@ export default async function InstallmentPage() {
 
     <section className={`shell ${styles.section}`} aria-labelledby="installment-terms-title">
       <SectionHeading id="installment-terms-title" label={cms.text("copy.rassrochka.14", "Типовой формат")}>{cms.text("copy.rassrochka.15", "Стандартные условия")}</SectionHeading>
-      <div className={styles.terms}>{terms.map((option,i) => <PaymentCard key={option.number.id} option={option} headingId={`installment-term-${i}`} variant="installment" />)}</div>
+      <div className={styles.terms}>{terms.map((option,i) => <PaymentCard key={option.number.id} option={option} headingId={`installment-term-${i}`} variant="installment" revealOrder={i} />)}</div>
     </section>
 
     <section className={`shell ${styles.price}`} aria-labelledby="installment-price-title">
@@ -90,7 +93,5 @@ const _cmsSource_terms = terms;
 
 export async function generateMetadata() {
   const cms = await getCmsCopy();
-  const title = cms.text("seo.rassrochka.title", "Рассрочка на земельный участок — Удачный посёлок");
-  const description = cms.text("seo.rassrochka.description", "Земельный участок в рассрочку напрямую от застройщика. Специальные и стандартные условия покупки, фиксация цены и индивидуальный расчёт платежей.");
-  return { ...baseMetadata, title, description, openGraph: { ...baseMetadata.openGraph, title, description }, twitter: { ...baseMetadata.twitter, title, description } };
+  return localizePageMetadata(baseMetadata, cms, "rassrochka");
 }

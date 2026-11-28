@@ -78,17 +78,23 @@ function PlanBoard({
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
-  const width =
-      Math.max(size.width, (size.height * plan.width) / plan.height) * zoom,
+  const fittedWidth = positionCard
+    ? Math.min(size.width, (size.height * plan.width) / plan.height)
+    : Math.max(size.width, (size.height * plan.width) / plan.height);
+  const width = fittedWidth * zoom,
     height = (width * plan.height) / plan.width;
+  const drawingLeft = Math.max(0, (size.width - width) / 2);
+  const drawingTop = Math.max(0, (size.height - height) / 2);
   useEffect(() => {
     const element = viewport.current;
-    if (element && zoom === 1)
+    if (element && zoom === 1) {
       element.scrollLeft = Math.max(
         0,
         (element.scrollWidth - element.clientWidth) / 2,
       );
-  }, [size.width, size.height, zoom]);
+      element.scrollTop = 0;
+    }
+  }, [size.width, size.height, zoom, positionCard]);
   const matching = new Set(
     plan.plots
       .filter((p) => {
@@ -134,14 +140,14 @@ function PlanBoard({
             16,
             Math.min(
               size.width - cardSize.width - 16,
-              (label.x * width) / plan.width - scroll.left - cardSize.width / 2,
+              drawingLeft + (label.x * width) / plan.width - scroll.left - cardSize.width / 2,
             ),
           ),
           top: Math.max(
             80,
             Math.min(
               size.height - cardSize.height - 68,
-              (label.y * height) / plan.height -
+              drawingTop + (label.y * height) / plan.height -
                 scroll.top -
                 cardSize.height -
                 24,
@@ -164,7 +170,7 @@ function PlanBoard({
     });
   }
   return (
-    <div className={styles.board} onKeyDown={event => {
+    <div className={styles.board} style={{'--plan-aspect-ratio': plan.width / plan.height} as CSSProperties} onKeyDown={event => {
       if (event.key === "Escape" && (selected || filtersOpen)) {
         event.preventDefault();
         setSelected(null);
@@ -197,6 +203,8 @@ function PlanBoard({
             {
               width: width || "100%",
               height: height || "100%",
+              marginLeft: drawingLeft,
+              marginTop: drawingTop,
             } as CSSProperties
           }
         />
