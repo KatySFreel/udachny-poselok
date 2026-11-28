@@ -1,0 +1,13 @@
+:HL["/udachny-poselok/_next/static/chunks/0o3a7vw5d49_3.css","style"]
+:HL["/udachny-poselok/_next/static/chunks/1yrwrx4f-v235.css","style"]
+:HL["/udachny-poselok/_next/static/chunks/43ab7d89r0qzs.css","style"]
+:HL["/udachny-poselok/fonts/Evolventa-Regular.woff","font",{"crossOrigin":"anonymous","type":"font/woff"}]
+:HL["/udachny-poselok/fonts/manrope-cyrillic-wght-normal.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
+:HL["/udachny-poselok/fonts/playfair-display-cyrillic-400-italic.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
+:HL["/udachny-poselok/images/not-found/meadow.webp","image",{"fetchPriority":"high"}]
+:HL["/udachny-poselok/images/not-found/404.svg","image"]
+:HL["/udachny-poselok/_next/static/chunks/1ac7zjs71bs3x.css","style"]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":"stranitsy","h":96,"c":"$Q3"}]]
+1:[["children",{"s":"admin","h":96,"c":"$Q2"}]]
+0:{"b":"KRSBeTSI_Ths7L4r3vyov","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

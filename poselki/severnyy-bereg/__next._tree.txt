@@ -1,12 +1,13 @@
-:HL["/udachny-poselok/_next/static/chunks/06_ep7m75i4o5.css","style"]
-:HL["/udachny-poselok/_next/static/chunks/0bxlp9y3ag6o8.css","style"]
-:HL["/udachny-poselok/_next/static/chunks/3h_bno4l-f3c6.css","style"]
+:HL["/udachny-poselok/_next/static/chunks/0o3a7vw5d49_3.css","style"]
+:HL["/udachny-poselok/_next/static/chunks/1yrwrx4f-v235.css","style"]
+:HL["/udachny-poselok/_next/static/chunks/0nlsesw0ux7be.css","style"]
 :HL["/udachny-poselok/fonts/Evolventa-Regular.woff","font",{"crossOrigin":"anonymous","type":"font/woff"}]
 :HL["/udachny-poselok/fonts/manrope-cyrillic-wght-normal.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
 :HL["/udachny-poselok/fonts/playfair-display-cyrillic-400-italic.woff2","font",{"crossOrigin":"anonymous","type":"font/woff2"}]
 :HL["/udachny-poselok/images/not-found/meadow.webp","image",{"fetchPriority":"high"}]
 :HL["/udachny-poselok/images/not-found/404.svg","image"]
+:HL["/udachny-poselok/_next/static/chunks/1ac7zjs71bs3x.css","style"]
 3:[["children",{"s":"__PAGE__","h":160}]]
 2:[["children",{"s":{"n":"slug","t":"d","k":"severnyy-bereg","s":[]},"h":65632,"c":"$Q3"}]]
 1:[["children",{"s":"poselki","h":131168,"c":"$Q2"}]]
-0:{"b":"it4mQtNFlIoYj1-SX5nr2","t":{"t":{"s":"","h":131152,"c":"$Q1"}}}
+0:{"b":"KRSBeTSI_Ths7L4r3vyov","t":{"t":{"s":"","h":131152,"c":"$Q1"}}}
